@@ -1,20 +1,35 @@
 import 'package:flutter/material.dart';
+import 'package:l/l.dart';
+import 'package:stack_trace/stack_trace.dart';
+import 'package:vm_app/src/core/utils/log_util.dart';
+import 'package:vm_app/src/feature/app/app.dart';
+import 'package:vm_app/src/feature/auth/widget/auth_scope.dart';
+import 'package:vm_app/src/feature/initialization/logic/app_initializer.dart';
+import 'package:vm_app/src/feature/initialization/widget/dependencies_scope.dart';
+import 'package:vm_app/src/feature/initialization/widget/initialization_failed_screen.dart';
+import 'package:vm_app/src/feature/initialization/widget/initialization_screen.dart';
+import 'package:vm_app/src/feature/settings/widget/settings_scope.dart';
 
-void main() {
-  runApp(const MainApp());
-}
+void main() async => l.capture<void>(
+  () => Chain.capture(() {
+    runApp(const InitializationScreen());
 
-class MainApp extends StatelessWidget {
-  const MainApp({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return const MaterialApp(
-      home: Scaffold(
-        body: Center(
-          child: Text('Hello World!'),
-        ),
-      ),
+    AppInitializer.run(
+      onSuccess:
+          (dependencies) => runApp(
+            DependenciesScope(
+              dependencies: dependencies,
+              child: AuthenticationScope(
+                child: SettingsScope(controller: dependencies.settingsController, child: const VmApp()),
+              ),
+            ),
+          ),
+      onError: (e, st) {
+        runApp(const InitializationFailedScreen());
+        LogUtils.logInitializationError(e, st);
+      },
     );
-  }
-}
+  }, onError: LogUtils.logTopLevelError),
+  // TODO: Add log message formatting.
+  const LogOptions(handlePrint: false),
+);
