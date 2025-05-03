@@ -1,8 +1,8 @@
 import 'package:flutter/widgets.dart';
 import 'package:octopus/octopus.dart';
+import 'package:vm_app/src/core/di/dependencies.dart';
 import 'package:vm_app/src/core/router/auth_guard.dart';
 import 'package:vm_app/src/core/router/routes.dart';
-import 'package:vm_app/src/feature/initialization/widget/dependencies_scope.dart';
 
 mixin RouterStateMixin<T extends StatefulWidget> on State<T> {
   late final Octopus router;
@@ -12,7 +12,8 @@ mixin RouterStateMixin<T extends StatefulWidget> on State<T> {
   void initState() {
     super.initState();
 
-    final dependencies = DependenciesScope.of(context);
+    final dependencies = Dependencies.of(context);
+
     // Observe all errors.
     errorsObserver = ValueNotifier<List<({Object error, StackTrace stackTrace})>>(
       <({Object error, StackTrace stackTrace})>[],
@@ -44,5 +45,14 @@ mixin RouterStateMixin<T extends StatefulWidget> on State<T> {
                 ...errorsObserver.value,
               ],
     );
+  }
+}
+
+final class RefreshListenable with ChangeNotifier {
+  Future<void> start() async {
+    while (true) {
+      await Future<void>.delayed(const Duration(seconds: 1));
+      notifyListeners();
+    }
   }
 }

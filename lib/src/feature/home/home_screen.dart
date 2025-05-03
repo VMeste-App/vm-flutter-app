@@ -12,7 +12,7 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final controller = AuthenticationScope.controllerOf(context);
+    final controller = AuthScope.controllerOf(context);
 
     return Center(child: FilledButton(onPressed: controller.signOut, child: const Text('Sign out')));
   }
