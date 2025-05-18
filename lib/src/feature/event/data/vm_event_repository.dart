@@ -1,3 +1,4 @@
+import 'package:vm_app/src/core/model/paged_data.dart';
 import 'package:vm_app/src/feature/event/model/event.dart';
 
 abstract interface class IVmEventRepository {

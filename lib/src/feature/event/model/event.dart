@@ -1,26 +1,8 @@
 import 'package:meta/meta.dart';
-
-enum Sex { male, female, mixed }
-
-enum Level { beginner, intermediate, advanced, pro }
-
-typedef ActivityID = String;
-
-@immutable
-final class Activity {
-  final ActivityID id;
-  final String name;
-
-  const Activity({required this.id, required this.name});
-}
-
-@immutable
-final class AgeConstraints {
-  final int min;
-  final int? max;
-
-  const AgeConstraints({this.min = 0, required this.max}) : assert(max == null || min <= max, '');
-}
+import 'package:vm_app/src/core/model/typedefs.dart';
+import 'package:vm_app/src/shared/activity/model/activity.dart';
+import 'package:vm_app/src/shared/level/model/level.dart';
+import 'package:vm_app/src/shared/sex/model/sex.dart';
 
 typedef VmEventID = int;
 
@@ -28,33 +10,50 @@ typedef VmEventID = int;
 final class VmEvent {
   final VmEventID id;
   final ActivityID activityID;
-  final Sex sex;
   final Level level;
+  final int membersQtyUp;
+  final int membersQtyTo;
+  final Sex membersSex;
+  final int membersAgeUp;
+  final int membersAgeTo;
   final DateTime dt;
   final Duration duration;
-  final int spots;
-  final int? price;
+  final int sharedCost;
+  final int perPersonCost;
   final String? description;
 
   const VmEvent({
     this.id = -1,
     required this.activityID,
-    required this.sex,
     required this.level,
+    required this.membersQtyUp,
+    required this.membersQtyTo,
+    required this.membersSex,
+    required this.membersAgeUp,
+    required this.membersAgeTo,
+    required this.sharedCost,
+    required this.perPersonCost,
     required this.dt,
     required this.duration,
-    required this.spots,
-    required this.price,
-    required this.description,
+    this.description,
   });
+
+  Json toJson() {
+    return {
+      'activity_id': activityID,
+      'level_id': level.id,
+      'members_qty_up': membersQtyUp,
+      'members_qty_to': membersQtyTo,
+      'sex': membersSex.id,
+      'members_age_up': membersAgeUp,
+      'members_age_to': membersAgeTo,
+      'shared_cost': sharedCost,
+      'per_person_cost': perPersonCost,
+      'dt': dt.toUtc().toIso8601String(),
+      'duration': duration.inMinutes,
+      'description': description,
+    };
+  }
 }
 
 typedef VmEvents = List<VmEvent>;
-
-final class PagedData<T extends Object> {
-  final List<T> data;
-  final int page;
-  final bool endReached;
-
-  PagedData({required this.data, required this.page, required this.endReached});
-}

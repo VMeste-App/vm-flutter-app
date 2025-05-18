@@ -9,6 +9,7 @@ import 'package:vm_app/src/feature/initialization/logic/app_initializer.dart';
 import 'package:vm_app/src/feature/initialization/widget/initialization_failed_screen.dart';
 import 'package:vm_app/src/feature/initialization/widget/initialization_screen.dart';
 import 'package:vm_app/src/feature/settings/widget/settings_scope.dart';
+import 'package:vm_app/src/shared/activity/widget/activity_scope.dart';
 
 void main() async => l.capture<void>(
   () => Chain.capture(() {
@@ -19,7 +20,12 @@ void main() async => l.capture<void>(
           (dependencies) => runApp(
             DependenciesScope(
               dependencies: dependencies,
-              child: AuthScope(child: SettingsScope(controller: dependencies.settingsController, child: const VmApp())),
+              child: AuthScope(
+                child: SettingsScope(
+                  controller: dependencies.settingsController,
+                  child: const ActivityScope(child: VmApp()),
+                ),
+              ),
             ),
           ),
       onError: (e, st) {
