@@ -1,9 +1,9 @@
 import 'package:flutter/widgets.dart';
+import 'package:vm_app/src/core/di/dependencies.dart';
 import 'package:vm_app/src/feature/auth/controller/auth_controller.dart';
-import 'package:vm_app/src/feature/initialization/widget/dependencies_scope.dart';
 
-class AuthenticationScope extends StatefulWidget {
-  const AuthenticationScope({super.key, required this.child});
+class AuthScope extends StatefulWidget {
+  const AuthScope({super.key, required this.child});
 
   /// The widget below this widget in the tree.
   final Widget child;
@@ -11,22 +11,23 @@ class AuthenticationScope extends StatefulWidget {
   /// Get the current [AuthController]
   static AuthController controllerOf(BuildContext context) => _InheritedAuthenticationScope.of(context, listen: false);
 
-  static void signIn(BuildContext context) => _InheritedAuthenticationScope.of(context, listen: false).signIn();
+  static void signIn(BuildContext context, String login, String password) =>
+      _InheritedAuthenticationScope.of(context, listen: false).signIn(login, password);
 
   static void signOut(BuildContext context) => _InheritedAuthenticationScope.of(context, listen: false).signOut();
 
   @override
-  State<AuthenticationScope> createState() => _AuthenticationScopeState();
+  State<AuthScope> createState() => _AuthScopeState();
 }
 
 /// State for widget AuthenticationScope.
-class _AuthenticationScopeState extends State<AuthenticationScope> {
+class _AuthScopeState extends State<AuthScope> {
   late final AuthController controller;
 
   @override
   void initState() {
     super.initState();
-    controller = DependenciesScope.of(context).authController;
+    controller = Dependencies.of(context).authController;
     controller.addListener(_listener);
   }
 

@@ -13,12 +13,16 @@ class VmApp extends StatefulWidget {
 }
 
 class _VmAppState extends State<VmApp> with RouterStateMixin {
+  // Чтобы исключить пересоздание дерева виджетов(при включении Widget Inspector, например).
+  final GlobalKey<_VmAppState> _appKey = GlobalKey<_VmAppState>();
+
   @override
   Widget build(BuildContext context) {
     final theme = SettingsScope.themeOf(context).theme;
     final locale = SettingsScope.localeOf(context).locale;
 
     return MaterialApp.router(
+      key: _appKey,
       debugShowCheckedModeBanner: false,
       routerConfig: router.config,
       localizationsDelegates: const [
@@ -29,7 +33,7 @@ class _VmAppState extends State<VmApp> with RouterStateMixin {
       locale: locale,
       themeMode: theme.mode,
       theme: theme.lightTheme,
-      darkTheme: theme.darkTheme,
+      // darkTheme: theme.darkTheme,
       builder:
           (context, child) => FTheme(
             data: FThemes.slate.light,

@@ -2,18 +2,33 @@ import 'package:control/control.dart';
 import 'package:meta/meta.dart';
 import 'package:vm_app/src/feature/auth/data/auth_repository.dart';
 import 'package:vm_app/src/feature/auth/model/authentication_status.dart';
+import 'package:vm_app/src/feature/auth/model/sign_up_request.dart';
 
-final class AuthController extends StateController<AuthState> with SequentialControllerHandler {
+final class AuthController extends StateController<AuthState> with ConcurrentControllerHandler {
   AuthController({required IAuthRepository authRepository, AuthenticationStatus? initialStatus})
     : _authRepository = authRepository,
       super(initialState: AuthState.idle(status: initialStatus ?? AuthenticationStatus.unauthenticated));
 
   final IAuthRepository _authRepository;
 
-  void signIn() => handle(
+  void signUp(String login, String password) => handle(
     () async {
       setState(AuthState.processing(status: state.status));
-      await _authRepository.signIn();
+      final request = SignUpRequest(username: login, password: password);
+      await _authRepository.signUp(request);
+      setState(const AuthState.idle(status: AuthenticationStatus.authenticated));
+    },
+    error: (e, _) async {
+      setState(AuthState.idle(status: state.status, error: e));
+    },
+  );
+
+  void signIn(String login, String password) => handle(
+    () async {
+      setState(AuthState.processing(status: state.status));
+      await Future.microtask(() {});
+      // final request = SignInRequest(username: login, password: password);
+      // await _authRepository.signIn(request);
       setState(const AuthState.idle(status: AuthenticationStatus.authenticated));
     },
     error: (e, _) async {
@@ -23,8 +38,9 @@ final class AuthController extends StateController<AuthState> with SequentialCon
 
   void signOut() => handle(
     () async {
-      setState(const AuthState.processing(status: AuthenticationStatus.unauthenticated));
+      setState(AuthState.processing(status: state.status));
       await _authRepository.signOut();
+      setState(const AuthState.idle(status: AuthenticationStatus.unauthenticated));
     },
     error: (e, _) async {
       setState(AuthState.idle(status: state.status, error: e));
@@ -95,12 +111,6 @@ abstract base class _AuthStateBase {
   /// Pattern matching for [AuthState].
   R? mapOrNull<R>({_AuthStateMatch<R, AuthStateIdle>? idle, _AuthStateMatch<R, AuthStateProcessing>? processing}) =>
       map<R?>(idle: idle ?? (_) => null, processing: processing ?? (_) => null);
-
-  @override
-  int get hashCode => Object.hash(status, error);
-
-  @override
-  bool operator ==(Object other) => identical(this, other);
 
   @override
   String toString() {

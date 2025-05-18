@@ -130,7 +130,7 @@ class _LogoutButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final controller = AuthenticationScope.controllerOf(context);
+    final controller = AuthScope.controllerOf(context);
 
     return IconButton(onPressed: controller.signOut, icon: const Icon(Icons.logout));
   }
