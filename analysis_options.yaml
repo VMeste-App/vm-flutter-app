@@ -320,5 +320,27 @@ linter:
     # - diagnostic_describe_all_properties
 
 dart_code_metrics:
-  extends:
-    - recommended
+  rules:
+    - avoid-dynamic
+    - avoid-self-compare
+    - avoid-throw-in-catch-block
+    - binary-expression-operand-order
+    - newline-before-return
+    - no-empty-block
+    - no-equal-then-else
+    # - no-magic-number
+    - prefer-conditional-expressions
+    - prefer-enums-by-name
+    - prefer-first
+    - prefer-immediate-return
+    - prefer-iterable-of
+    - prefer-last
+
+    # Flutter
+    - always-remove-listener
+    - avoid-expanded-as-spacer
+    - avoid-returning-widgets
+    - avoid-shrink-wrap-in-lists
+    - avoid-wrapping-in-padding
+    - check-for-equals-in-render-object-setters
+    - prefer-text-rich

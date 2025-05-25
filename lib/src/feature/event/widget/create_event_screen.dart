@@ -100,8 +100,8 @@ class _CreateEventScreenState extends State<CreateEventScreen> {
               child: ValueListenableBuilder(
                 key: _activityKey,
                 valueListenable: _activityError,
-                builder:
-                    (context, value, _) => ActivityField(onChanged: (value) => _activity = value, errorText: value),
+                builder: (context, value, _) =>
+                    ActivityField(onChanged: (value) => _activity = value, errorText: value),
               ),
             ),
 
@@ -167,27 +167,26 @@ class _CreateEventScreenState extends State<CreateEventScreen> {
                     padding: const EdgeInsets.symmetric(horizontal: 16.0),
                     child: ValueListenableBuilder(
                       valueListenable: _isAdult,
-                      builder:
-                          (context, value, _) => _RowListTile(
-                            children: [
-                              VmTextField(
-                                enabled: !value,
-                                controller: _ageFrom,
-                                inputFormatters: [FilteringTextInputFormatter.digitsOnly],
-                                keyboardType: TextInputType.number,
-                                decoration: const InputDecoration(hintText: 'Возраст от', counterText: ''),
-                                maxLength: 2,
-                              ),
-                              VmTextField(
-                                enabled: !value,
-                                controller: _ageTo,
-                                inputFormatters: [FilteringTextInputFormatter.digitsOnly],
-                                keyboardType: TextInputType.number,
-                                decoration: const InputDecoration(hintText: 'до', counterText: ''),
-                                maxLength: 2,
-                              ),
-                            ],
+                      builder: (context, value, _) => _RowListTile(
+                        children: [
+                          VmTextField(
+                            enabled: !value,
+                            controller: _ageFrom,
+                            inputFormatters: [FilteringTextInputFormatter.digitsOnly],
+                            keyboardType: TextInputType.number,
+                            decoration: const InputDecoration(hintText: 'Возраст от', counterText: ''),
+                            maxLength: 2,
                           ),
+                          VmTextField(
+                            enabled: !value,
+                            controller: _ageTo,
+                            inputFormatters: [FilteringTextInputFormatter.digitsOnly],
+                            keyboardType: TextInputType.number,
+                            decoration: const InputDecoration(hintText: 'до', counterText: ''),
+                            maxLength: 2,
+                          ),
+                        ],
+                      ),
                     ),
                   ),
                 ],
@@ -199,7 +198,13 @@ class _CreateEventScreenState extends State<CreateEventScreen> {
             // --- Datetime ---
             const VmLabel(
               title: Text('Дата и время'),
-              child: Row(spacing: 20, children: [Flexible(child: DateTimeField()), Flexible(child: DurationField())]),
+              child: Row(
+                spacing: 20,
+                children: [
+                  Flexible(child: DateTimeField()),
+                  Flexible(child: DurationField()),
+                ],
+              ),
             ),
 
             spacer,
@@ -281,7 +286,7 @@ class _CreateEventScreenState extends State<CreateEventScreen> {
 }
 
 class _RowListTile extends StatelessWidget {
-  const _RowListTile({super.key, required this.children});
+  const _RowListTile({required this.children});
 
   final List<Widget> children;
 
