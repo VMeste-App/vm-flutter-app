@@ -46,6 +46,7 @@ analyzer:
 
 formatter:
   page_width: 120
+  trailing_commas: preserve
 
 # Additional rule set that aims to:
 # 1. Improve error handling
@@ -317,3 +318,7 @@ linter:
     # Provide all the properties of the widget
     # https://dart.dev/tools/linter-rules/diagnostic_describe_all_properties
     # - diagnostic_describe_all_properties
+
+dart_code_metrics:
+  extends:
+    - recommended
