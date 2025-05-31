@@ -30,9 +30,6 @@ dependencies:
   # Storage
   shared_preferences: ^2.5.2
 
-  # Router
-  octopus: ^0.0.9
-
   # Logger
   l: ^5.0.0
   stack_trace: ^1.12.1

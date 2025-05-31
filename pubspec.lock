@@ -189,14 +189,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.16.0"
-  octopus:
-    dependency: "direct main"
-    description:
-      name: octopus
-      sha256: "507a23b11dc07f25f460b3c65a358e7a595e5c953ddd403f545cdecb5f2cfe28"
-      url: "https://pub.dev"
-    source: hosted
-    version: "0.0.9"
   path:
     dependency: transitive
     description:

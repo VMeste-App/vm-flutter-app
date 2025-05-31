@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:octopus/octopus.dart';
-import 'package:vm_app/src/core/router/routes.dart';
+import 'package:vm_app/src/core/navigator/navigator.dart';
+import 'package:vm_app/src/core/navigator/pages.dart';
 import 'package:vm_app/src/core/widget/safe_scaffold.dart';
 
 /// {@template events_tab}
@@ -17,7 +17,15 @@ class EventsTab extends StatelessWidget {
     return SafeScaffold(
       appBar: AppBar(
         title: const Text('События'),
-        actions: [IconButton(onPressed: () => context.octopus.push(Routes.create), icon: const Icon(Icons.add))],
+        actions: [
+          IconButton(
+            onPressed: () => VmNavigator.push(
+              context,
+              const CreateEventPage(),
+            ),
+            icon: const Icon(Icons.add),
+          ),
+        ],
       ),
       body: Container(),
       // content: FTabs(
