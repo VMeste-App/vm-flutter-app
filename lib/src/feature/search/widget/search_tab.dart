@@ -1,5 +1,5 @@
-import 'package:flutter/widgets.dart';
-import 'package:forui/forui.dart';
+import 'package:flutter/material.dart';
+import 'package:vm_app/src/core/widget/safe_scaffold.dart';
 
 /// {@template search_tab}
 /// SearchTab widget.
@@ -12,17 +12,16 @@ class SearchTab extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return FScaffold(
-      contentPad: false,
-      header: FHeader.nested(
-        title: const Text('Поиск'),
-        suffixActions: [FButton.icon(child: FIcon(FAssets.icons.slidersHorizontal), onPress: () {})],
+    return SafeScaffold(
+      appBar: AppBar(
+        title: const Text('События'),
+        // actions: [IconButton(onPressed: () => context.octopus.push(Routes.create), icon: const Icon(Icons.add))],
       ),
-      content: ListView.separated(
+      body: ListView.separated(
         padding: const EdgeInsets.symmetric(horizontal: 12.0),
         itemCount: 100,
         separatorBuilder: (context, index) => const SizedBox(height: 12.0),
-        itemBuilder: (context, index) => FCard(title: const Text('title')),
+        itemBuilder: (context, index) => const Card(),
       ),
     );
   }

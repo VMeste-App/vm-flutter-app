@@ -1,7 +1,7 @@
-import 'package:flutter/widgets.dart';
-import 'package:forui/forui.dart';
+import 'package:flutter/material.dart';
 import 'package:octopus/octopus.dart';
 import 'package:vm_app/src/core/router/routes.dart';
+import 'package:vm_app/src/core/widget/safe_scaffold.dart';
 
 /// {@template events_tab}
 /// EventsTab widget.
@@ -14,21 +14,20 @@ class EventsTab extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return FScaffold(
-      header: FHeader.nested(
+    return SafeScaffold(
+      appBar: AppBar(
         title: const Text('События'),
-        suffixActions: [
-          FButton.icon(child: FIcon(FAssets.icons.plus), onPress: () => context.octopus.push(Routes.create)),
-        ],
+        actions: [IconButton(onPressed: () => context.octopus.push(Routes.create), icon: const Icon(Icons.add))],
       ),
-      content: FTabs(
-        initialIndex: 1,
-        onPress: (index) {},
-        tabs: const [
-          FTabEntry(label: Text('Текущие'), content: SizedBox()),
-          FTabEntry(label: Text('Прошедшие'), content: SizedBox()),
-        ],
-      ),
+      body: Container(),
+      // content: FTabs(
+      //   initialIndex: 1,
+      //   onPress: (index) {},
+      //   tabs: const [
+      //     FTabEntry(label: Text('Текущие'), content: SizedBox()),
+      //     FTabEntry(label: Text('Прошедшие'), content: SizedBox()),
+      //   ],
+      // ),
     );
   }
 }

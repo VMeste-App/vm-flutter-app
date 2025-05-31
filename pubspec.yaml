@@ -37,8 +37,6 @@ dependencies:
   l: ^5.0.0
   stack_trace: ^1.12.1
 
-  forui: ^0.10.0+1
-
 dev_dependencies:
   flutter_test:
     sdk: flutter
@@ -47,5 +45,5 @@ dev_dependencies:
 flutter:
   uses-material-design: true
 
-# Enable generation of localized Strings from arb files
-generate: true
+  # Enable generation of localized Strings from arb files
+  generate: true

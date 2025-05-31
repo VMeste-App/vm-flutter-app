@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:forui/forui.dart';
 import 'package:vm_app/src/core/widget/lazy_indexed_stack.dart';
+import 'package:vm_app/src/core/widget/safe_scaffold.dart';
 import 'package:vm_app/src/feature/event/widget/events_tab.dart';
 import 'package:vm_app/src/feature/profile/widget/profile_tab.dart';
 import 'package:vm_app/src/feature/search/widget/search_tab.dart';
@@ -42,16 +42,15 @@ class _HomeScreenState extends State<HomeScreen> {
     return ValueListenableBuilder<int>(
       valueListenable: _tabController,
       builder: (context, value, _) {
-        return FScaffold(
-          contentPad: false,
-          content: LazyIndexedStack(index: value, children: const [SearchTab(), EventsTab(), ProfileTab()]),
-          footer: FBottomNavigationBar(
-            index: value,
-            onChange: (value) => _tabController.value = value,
-            children: [
-              FBottomNavigationBarItem(icon: FIcon(FAssets.icons.search), label: const Text('Поиск')),
-              FBottomNavigationBarItem(icon: FIcon(FAssets.icons.activity), label: const Text('События')),
-              FBottomNavigationBarItem(icon: FIcon(FAssets.icons.user), label: const Text('Профиль')),
+        return SafeScaffold(
+          body: LazyIndexedStack(index: value, children: const [SearchTab(), EventsTab(), ProfileTab()]),
+          bottomNavigationBar: NavigationBar(
+            selectedIndex: value,
+            onDestinationSelected: (index) => _tabController.value = index,
+            destinations: const [
+              NavigationDestination(icon: Icon(Icons.search), label: 'Поиск'),
+              NavigationDestination(icon: Icon(Icons.emoji_events_outlined), label: 'События'),
+              NavigationDestination(icon: Icon(Icons.person_2_outlined), label: 'Профиль'),
             ],
           ),
         );

@@ -1,5 +1,5 @@
 import 'package:flutter/widgets.dart';
-import 'package:forui/forui.dart';
+import 'package:vm_app/src/core/widget/safe_scaffold.dart';
 
 /// {@template profile_tab}
 /// ProfileTab widget.
@@ -12,6 +12,6 @@ class ProfileTab extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const FScaffold(content: SizedBox());
+    return const SafeScaffold(body: SizedBox());
   }
 }

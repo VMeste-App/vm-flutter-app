@@ -13,6 +13,7 @@ final class AppTheme {
         primaryColor: Colors.black,
         colorScheme: const ColorScheme.light(primary: Colors.black),
         inputDecorationTheme: _inputDecorationTheme,
+        scaffoldBackgroundColor: Colors.white,
         filledButtonTheme: FilledButtonThemeData(
           style: ButtonStyle(
             minimumSize: WidgetStateProperty.all(const Size.fromHeight(40.0)),

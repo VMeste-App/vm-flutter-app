@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:forui/forui.dart';
 import 'package:octopus/octopus.dart';
 import 'package:vm_app/src/core/l10n/app_localization.dart';
 import 'package:vm_app/src/core/router/router_state_mixin.dart';
@@ -25,20 +24,13 @@ class _VmAppState extends State<VmApp> with RouterStateMixin {
       key: _appKey,
       debugShowCheckedModeBanner: false,
       routerConfig: router.config,
-      localizationsDelegates: const [
-        ...AppLocalization.localizationsDelegates,
-        ...FLocalizations.localizationsDelegates,
-      ],
+      localizationsDelegates: AppLocalization.localizationsDelegates,
       supportedLocales: AppLocalization.supportedLocales,
       locale: locale,
       themeMode: theme.mode,
       theme: theme.lightTheme,
       // darkTheme: theme.darkTheme,
-      builder:
-          (context, child) => FTheme(
-            data: FThemes.slate.light,
-            child: MediaQuery.withNoTextScaling(child: OctopusTools(child: child!)),
-          ),
+      builder: (context, child) => MediaQuery.withNoTextScaling(child: OctopusTools(child: child!)),
     );
   }
 }
