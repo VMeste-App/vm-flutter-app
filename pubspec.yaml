@@ -25,7 +25,7 @@ dependencies:
   # Localization
   flutter_localizations:
     sdk: flutter
-  intl: any # Use the pinned version from flutter_localizations
+  intl: 0.20.2 # Use the pinned version from flutter_localizations
 
   # Storage
   shared_preferences: ^2.5.2
