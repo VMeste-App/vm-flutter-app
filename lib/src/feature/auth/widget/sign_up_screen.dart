@@ -117,13 +117,13 @@ class _SignUpScreenState extends State<SignUpScreen> {
       _emailError.value = null;
     }
 
-    // if (!VmRegExp.password.hasMatch(password)) {
-    //   isValid = false;
-    //   _passwordError.value =
-    //       'Пароль должен содержать строчные, заглавные буквы, цифру и спецсимвол, и быть не короче 8 символов';
-    // } else {
-    //   _passwordError.value = null;
-    // }
+    if (!VmRegExp.password.hasMatch(password)) {
+      isValid = false;
+      _passwordError.value =
+          'Пароль должен содержать строчные, заглавные буквы, цифру и спецсимвол, и быть не короче 8 символов';
+    } else {
+      _passwordError.value = null;
+    }
 
     return isValid;
   }

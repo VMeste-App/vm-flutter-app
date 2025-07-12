@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:vm_app/src/core/constants/regexp.dart';
 import 'package:vm_app/src/core/navigator/navigator.dart';
 import 'package:vm_app/src/core/navigator/pages.dart';
 import 'package:vm_app/src/core/ui-kit/button.dart';
@@ -112,20 +111,19 @@ class _SignInScreenState extends State<SignInScreen> {
     final email = _emailController.text;
     final password = _passwordController.text;
 
-    if (!VmRegExp.email.hasMatch(email)) {
+    if (email.isEmpty) {
       isValid = false;
-      _emailError.value = 'Некорректный email';
+      _emailError.value = 'Email не может быть пустым';
     } else {
       _emailError.value = null;
     }
 
-    // if (!VmRegExp.password.hasMatch(password)) {
-    //   isValid = false;
-    //   _passwordError.value =
-    //       'Пароль должен содержать строчные, заглавные буквы, цифру и спецсимвол, и быть не короче 8 символов';
-    // } else {
-    //   _passwordError.value = null;
-    // }
+    if (password.isEmpty) {
+      isValid = false;
+      _passwordError.value = 'Пароль не может быть пустым';
+    } else {
+      _passwordError.value = null;
+    }
 
     return isValid;
   }

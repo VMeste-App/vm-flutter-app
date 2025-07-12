@@ -22,7 +22,13 @@ final class AuthRemoteDataProvider implements IAuthRemoteDataProvider {
   @override
   Future<AuthResponse> signUp(SignUpRequest signUpRequest) async {
     final uri = Uri.parse('${Config.apiUrl}/register');
-    final response = await _client.post(uri, body: signUpRequest.toJson());
+    final response = await _client.post(
+      uri,
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: signUpRequest.toJson(),
+    );
 
     return AuthResponse.fromJson(jsonDecode(response.body) as Json);
   }
