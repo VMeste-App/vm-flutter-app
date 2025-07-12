@@ -22,19 +22,11 @@ final class SettingsController extends StateController<SettingsState> with Seque
       setState(SettingsState.processing(settings: state.settings));
       await _themeRepository.setThemeMode(mode);
       final settings = state.settings;
-      setState(SettingsState.idle(settings: settings.copyWith(theme: settings.theme.copyWith(mode: mode))));
-    },
-    error: (e, _) async {
-      setState(SettingsState.idle(settings: state.settings, error: e));
-    },
-  );
-
-  void setThemeSeedColor(Color color) => handle(
-    () async {
-      setState(SettingsState.processing(settings: state.settings));
-      await _themeRepository.setSeedColor(color);
-      final settings = state.settings;
-      setState(SettingsState.idle(settings: settings.copyWith(theme: settings.theme.copyWith(seedColor: color))));
+      setState(
+        SettingsState.idle(
+          settings: settings.copyWith(theme: settings.theme.copyWith(mode: mode)),
+        ),
+      );
     },
     error: (e, _) async {
       setState(SettingsState.idle(settings: state.settings, error: e));
@@ -126,10 +118,9 @@ abstract base class _SettingsStateBase {
 
   @override
   String toString() {
-    final buffer =
-        StringBuffer()
-          ..write('SettingsState(')
-          ..write('settings: $settings');
+    final buffer = StringBuffer()
+      ..write('SettingsState(')
+      ..write('settings: $settings');
     if (error != null) buffer.write(', error: $error');
     buffer.write(')');
 

@@ -115,7 +115,6 @@ class VmNavigatorState extends State<VmNavigator> {
     if (next.isEmpty || listEquals(next, _state)) return;
     _state = UnmodifiableListView<Page<Object?>>(next);
 
-    // ignore: no-empty-block
     setState(() {});
   }
 
@@ -128,7 +127,6 @@ class VmNavigatorState extends State<VmNavigator> {
     if (next.isEmpty || listEquals(next, _state)) return;
     _state = UnmodifiableListView<Page<Object?>>(next);
 
-    // ignore: no-empty-block
     setState(() {});
   }
 

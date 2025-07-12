@@ -48,9 +48,6 @@ class _SettingsScopeState extends State<SettingsScope> implements SettingsScopeC
 
   @override
   void setThemeMode(ThemeMode themeMode) => widget.controller.setThemeMode(themeMode);
-
-  @override
-  void setThemeSeedColor(Color color) => widget.controller.setThemeSeedColor(color);
 }
 
 class _InheritedSettingsScope extends InheritedModel<_SettingsScopeAspect> {
@@ -87,9 +84,6 @@ abstract interface class ThemeScopeController {
 
   /// Set the theme mode to [themeMode].
   void setThemeMode(ThemeMode themeMode);
-
-  /// Set the theme accent color to [color].
-  void setThemeSeedColor(Color color);
 }
 
 abstract interface class LocaleScopeController {

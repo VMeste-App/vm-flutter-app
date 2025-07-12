@@ -72,8 +72,8 @@ final class AuthLocalDataProvider implements IAuthLocalDataProvider {
       return null;
     }
 
-    final accessToken = Token.decode(accessTokenString);
-    final refreshToken = Token.decode(refreshTokenString);
+    final accessToken = JwtToken.decode(accessTokenString);
+    final refreshToken = JwtToken.decode(refreshTokenString);
 
     return TokenPair(accessToken: accessToken, refreshToken: refreshToken);
   }

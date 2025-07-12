@@ -1,22 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:vm_app/src/core/constants/regexp.dart';
-import 'package:vm_app/src/core/navigator/navigator.dart';
-import 'package:vm_app/src/core/navigator/pages.dart';
 import 'package:vm_app/src/core/ui-kit/button.dart';
 import 'package:vm_app/src/core/widget/safe_scaffold.dart';
 import 'package:vm_app/src/feature/auth/widget/auth_scope.dart';
 import 'package:vm_app/src/feature/auth/widget/components/email_field.dart';
 import 'package:vm_app/src/feature/auth/widget/components/password_field.dart';
 
-class SignInScreen extends StatefulWidget {
-  const SignInScreen({super.key});
+class SignUpScreen extends StatefulWidget {
+  const SignUpScreen({super.key});
 
   @override
-  State<SignInScreen> createState() => _SignInScreenState();
+  State<SignUpScreen> createState() => _SignUpScreenState();
 }
 
-class _SignInScreenState extends State<SignInScreen> {
+class _SignUpScreenState extends State<SignUpScreen> {
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
 
@@ -36,7 +34,7 @@ class _SignInScreenState extends State<SignInScreen> {
   @override
   Widget build(BuildContext context) {
     return SafeScaffold(
-      appBar: AppBar(title: const Text('Sign In')),
+      appBar: AppBar(title: const Text('Sign Up')),
       body: AutofillGroup(
         child: Column(
           children: [
@@ -53,7 +51,7 @@ class _SignInScreenState extends State<SignInScreen> {
             ValueListenableBuilder(
               valueListenable: _passwordError,
               builder: (context, value, child) {
-                return PasswordField.create(
+                return PasswordField(
                   controller: _passwordController,
                   errorText: value,
                 );
@@ -66,17 +64,17 @@ class _SignInScreenState extends State<SignInScreen> {
                 children: [
                   VmButton(
                     loading: AuthScope.controllerOf(context).isProcessing,
-                    onPressed: () => _signIn(context),
-                    child: const Text('Sign in'),
+                    onPressed: () => _signUp(context),
+                    child: const Text('Sign up'),
                   ),
                   const SizedBox(height: 4.0),
                   Row(
                     mainAxisSize: MainAxisSize.min,
                     children: [
-                      const Text('Нет аккаунта?'),
+                      const Text('Уже есть аккаунт?'),
                       TextButton(
-                        onPressed: () => VmNavigator.push(context, const SignUpPage()),
-                        child: const Text('Регистрация'),
+                        onPressed: () {},
+                        child: const Text('Вход'),
                       ),
                     ],
                   ),
@@ -90,7 +88,7 @@ class _SignInScreenState extends State<SignInScreen> {
     );
   }
 
-  void _signIn(BuildContext context) {
+  void _signUp(BuildContext context) {
     final email = _emailController.text;
     final password = _passwordController.text;
 
@@ -103,7 +101,7 @@ class _SignInScreenState extends State<SignInScreen> {
     }
 
     TextInput.finishAutofillContext();
-    AuthScope.signIn(context, email, password);
+    AuthScope.signUp(context, email, password);
   }
 
   bool _validate(String email, String password) {

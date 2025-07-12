@@ -2,19 +2,22 @@ import 'package:control/control.dart';
 import 'package:meta/meta.dart';
 import 'package:vm_app/src/feature/auth/data/auth_repository.dart';
 import 'package:vm_app/src/feature/auth/model/authentication_status.dart';
+import 'package:vm_app/src/feature/auth/model/sign_in_request.dart';
 import 'package:vm_app/src/feature/auth/model/sign_up_request.dart';
 
 final class AuthController extends StateController<AuthState> with ConcurrentControllerHandler {
-  AuthController({required IAuthRepository authRepository, AuthenticationStatus? initialStatus})
-    : _authRepository = authRepository,
-      super(initialState: AuthState.idle(status: initialStatus ?? AuthenticationStatus.unauthenticated));
+  AuthController({
+    required IAuthRepository authRepository,
+    AuthenticationStatus? initialStatus,
+  }) : _authRepository = authRepository,
+       super(initialState: AuthState.idle(status: initialStatus ?? AuthenticationStatus.unauthenticated));
 
   final IAuthRepository _authRepository;
 
-  void signUp(String login, String password) => handle(
+  void signUp(String email, String password) => handle(
     () async {
       setState(AuthState.processing(status: state.status));
-      final request = SignUpRequest(username: login, password: password);
+      final request = SignUpRequest(email: email, password: password);
       await _authRepository.signUp(request);
       setState(const AuthState.idle(status: AuthenticationStatus.authenticated));
     },
@@ -23,12 +26,11 @@ final class AuthController extends StateController<AuthState> with ConcurrentCon
     },
   );
 
-  void signIn(String login, String password) => handle(
+  void signIn(String email, String password) => handle(
     () async {
       setState(AuthState.processing(status: state.status));
-      await Future.microtask(() {});
-      // final request = SignInRequest(username: login, password: password);
-      // await _authRepository.signIn(request);
+      final request = SignInRequest(email: email, password: password);
+      await _authRepository.signIn(request);
       setState(const AuthState.idle(status: AuthenticationStatus.authenticated));
     },
     error: (e, _) async {
@@ -114,10 +116,9 @@ abstract base class _AuthStateBase {
 
   @override
   String toString() {
-    final buffer =
-        StringBuffer()
-          ..write('AuthState(')
-          ..write('status: $status');
+    final buffer = StringBuffer()
+      ..write('AuthState(')
+      ..write('status: $status');
     if (error != null) buffer.write(', error: $error');
     buffer.write(')');
 

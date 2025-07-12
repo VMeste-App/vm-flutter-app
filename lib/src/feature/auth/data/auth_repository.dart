@@ -29,20 +29,20 @@ final class AuthRepository implements IAuthRepository {
 
   @override
   Future<User> signUp(SignUpRequest request) async {
-    final (user, tokenPair) = await _remoteDataProvider.signUp(request);
-    await _localDataProvider.saveTokenPair(tokenPair);
-    await _localDataProvider.saveUser(user);
+    final response = await _remoteDataProvider.signUp(request);
+    await _localDataProvider.saveTokenPair(response.tokenPair);
+    await _localDataProvider.saveUser(response.user);
 
-    return user;
+    return response.user;
   }
 
   @override
   Future<User> signIn(SignInRequest request) async {
-    final (user, tokenPair) = await _remoteDataProvider.signIn(request);
-    await _localDataProvider.saveTokenPair(tokenPair);
-    await _localDataProvider.saveUser(user);
+    final response = await _remoteDataProvider.signIn(request);
+    await _localDataProvider.saveTokenPair(response.tokenPair);
+    await _localDataProvider.saveUser(response.user);
 
-    return user;
+    return response.user;
   }
 
   @override

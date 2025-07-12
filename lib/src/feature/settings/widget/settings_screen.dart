@@ -3,7 +3,6 @@ import 'package:vm_app/src/core/l10n/app_localization.dart';
 import 'package:vm_app/src/core/utils/extensions/context_extension.dart';
 import 'package:vm_app/src/core/utils/extensions/locale_extension.dart';
 import 'package:vm_app/src/feature/auth/widget/auth_scope.dart';
-import 'package:vm_app/src/feature/settings/model/color_seed.dart';
 import 'package:vm_app/src/feature/settings/widget/settings_scope.dart';
 
 class SettingsScreen extends StatelessWidget {
@@ -16,7 +15,11 @@ class SettingsScreen extends StatelessWidget {
       body: const Center(
         child: Column(
           mainAxisSize: MainAxisSize.min,
-          children: [_ThemeModeButton(), _ColorSeedButton(), _LanguageButton(), _LogoutButton()],
+          children: [
+            _ThemeModeButton(),
+            _LanguageButton(),
+            _LogoutButton(),
+          ],
         ),
       ),
     );
@@ -53,43 +56,6 @@ class _ThemeModeButton extends StatelessWidget {
 
   void _changeThemeMode(BuildContext context, {required ThemeMode mode}) {
     SettingsScope.themeOf(context).setThemeMode(mode);
-  }
-}
-
-class _ColorSeedButton extends StatelessWidget {
-  const _ColorSeedButton();
-
-  @override
-  Widget build(BuildContext context) {
-    final selectedSeedColor = SettingsScope.themeOf(context).theme.seedColor;
-
-    return PopupMenuButton(
-      icon: Icon(Icons.palette_outlined, color: Theme.of(context).colorScheme.onSurfaceVariant),
-      tooltip: 'Select a seed color',
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-      itemBuilder: (context) {
-        return List.generate(ColorSeed.values.length, (index) {
-          final currentColor = ColorSeed.values[index];
-
-          return PopupMenuItem(
-            value: index,
-            enabled: selectedSeedColor.toARGB32() != currentColor.color.toARGB32(),
-            child: ListTile(
-              leading: Icon(
-                currentColor.color == selectedSeedColor ? Icons.color_lens : Icons.color_lens_outlined,
-                color: currentColor.color,
-              ),
-              title: Text(currentColor.label),
-            ),
-          );
-        });
-      },
-      onSelected: (index) => _changeSeedColor(context, color: ColorSeed.values[index].color),
-    );
-  }
-
-  void _changeSeedColor(BuildContext context, {required Color color}) {
-    SettingsScope.themeOf(context).setThemeSeedColor(color);
   }
 }
 

@@ -212,12 +212,22 @@ class _CreateEventScreenState extends State<CreateEventScreen> {
             // --- Price ---
             VmLabel(
               title: const Text('Цена'),
-              child: _RowListTile(
+              padding: EdgeInsets.zero,
+              titlePadding: const EdgeInsets.only(left: 16.0, bottom: 8.0),
+              child: Column(
                 children: [
-                  PriceField(controller: _sharedCost, hintText: 'Общие расходы'),
-                  PriceField(controller: _individualCost, hintText: 'Индивидуальные'),
+                  VmSwitchListTile.controlled(_meAsMember, title: const Text('Разделить на всех')),
+                  PriceField(controller: _sharedCost, hintText: 'Стоимость'),
                 ],
               ),
+
+              // _RowListTile(
+
+              //   children: [
+              //     PriceField(controller: _sharedCost, hintText: 'Общие расходы'),
+              //     PriceField(controller: _individualCost, hintText: 'Индивидуальные'),
+              //   ],
+              // ),
             ),
 
             spacer,

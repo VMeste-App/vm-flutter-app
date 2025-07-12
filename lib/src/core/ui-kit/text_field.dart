@@ -30,6 +30,7 @@ class VmTextField extends StatelessWidget {
     this.enabled,
     this.onTap,
     this.enableInteractiveSelection,
+    this.autofillHints,
   });
 
   final TextEditingController? controller;
@@ -88,6 +89,10 @@ class VmTextField extends StatelessWidget {
   final VoidCallback? onTap;
   final bool? enableInteractiveSelection;
 
+  /// {@macro flutter.widgets.editableText.autofillHints}
+  /// {@macro flutter.services.AutofillConfiguration.autofillHints}
+  final Iterable<String>? autofillHints;
+
   @override
   Widget build(BuildContext context) {
     return TextField(
@@ -114,6 +119,7 @@ class VmTextField extends StatelessWidget {
       textAlign: textAlign ?? TextAlign.start,
       onTap: onTap,
       enableInteractiveSelection: enableInteractiveSelection,
+      autofillHints: autofillHints,
     );
   }
 }

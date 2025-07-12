@@ -21,14 +21,12 @@ class SafeScaffold extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Scaffold(
-        backgroundColor: context.theme.scaffoldBackgroundColor,
-        appBar: appBar,
-        body: body,
-        persistentFooterButtons: persistentFooterButtons,
-        bottomNavigationBar: bottomNavigationBar,
-      ),
+    return Scaffold(
+      backgroundColor: context.theme.scaffoldBackgroundColor,
+      appBar: appBar,
+      body: SafeArea(child: body),
+      persistentFooterButtons: persistentFooterButtons,
+      bottomNavigationBar: bottomNavigationBar,
     );
   }
 }

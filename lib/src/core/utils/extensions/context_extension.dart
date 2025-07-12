@@ -23,12 +23,7 @@ extension BuildContextX on BuildContext {
   /// or the widget goes away), this build context is rebuilt so that it can
   /// obtain new values from that widget.
   T inhOf<T extends InheritedWidget>({bool listen = true}) =>
-      inhMaybeOf<T>(listen: listen) ??
-      (throw ArgumentError(
-        'Out of scope, not found inherited widget '
-            'a $T of the exact type',
-        'out_of_scope',
-      ));
+      inhMaybeOf<T>(listen: listen) ?? _notFoundInheritedWidget<T>();
 
   /// Maybe inherit specific aspect from [InheritedModel].
   T? maybeInheritFrom<A extends Object, T extends InheritedModel<A>>({A? aspect}) =>
@@ -36,10 +31,17 @@ extension BuildContextX on BuildContext {
 
   /// Inherit specific aspect from [InheritedModel].
   T inheritFrom<A extends Object, T extends InheritedModel<A>>({A? aspect}) =>
-      maybeInheritFrom(aspect: aspect) ??
-      (throw ArgumentError(
-        'Out of scope, not found inherited model '
-            'a $T of the exact type',
-        'out_of_scope',
-      ));
+      maybeInheritFrom(aspect: aspect) ?? _notFoundInheritedModel<T>();
+
+  static Never _notFoundInheritedWidget<T>() => throw ArgumentError(
+    'Out of scope, not found inherited widget '
+        'a $T of the exact type',
+    'out_of_scope',
+  );
+
+  static Never _notFoundInheritedModel<T>() => throw ArgumentError(
+    'Out of scope, not found inherited model '
+        'a $T of the exact type',
+    'out_of_scope',
+  );
 }

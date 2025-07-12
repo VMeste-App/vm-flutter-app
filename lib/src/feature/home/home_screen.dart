@@ -43,7 +43,14 @@ class _HomeScreenState extends State<HomeScreen> {
       valueListenable: _tabController,
       builder: (context, value, _) {
         return SafeScaffold(
-          body: LazyIndexedStack(index: value, children: const [SearchTab(), EventsTab(), ProfileTab()]),
+          body: LazyIndexedStack(
+            index: value,
+            children: const [
+              SearchTab(),
+              EventsTab(),
+              ProfileTab(),
+            ],
+          ),
           bottomNavigationBar: NavigationBar(
             selectedIndex: value,
             onDestinationSelected: (index) => _tabController.value = index,

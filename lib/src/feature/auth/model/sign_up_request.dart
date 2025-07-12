@@ -2,12 +2,18 @@ import 'package:meta/meta.dart';
 
 @immutable
 final class SignUpRequest {
-  final String username;
+  final String email;
   final String password;
 
-  const SignUpRequest({required this.username, required this.password});
+  const SignUpRequest({
+    required this.email,
+    required this.password,
+  });
 
   Map<String, Object?> toJson() {
-    return {'username': username, 'password': password};
+    return {
+      'email': email,
+      'password': password,
+    };
   }
 }

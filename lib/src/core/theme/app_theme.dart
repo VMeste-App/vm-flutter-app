@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 
 @immutable
 final class AppTheme {
-  AppTheme({ThemeMode? mode, Color? seedColor})
+  AppTheme({ThemeMode? mode})
     : mode = mode ?? ThemeMode.system,
-      seedColor = seedColor ?? _defaultSeedColor,
+      // seedColor = seedColor ?? _defaultSeedColor,
       darkTheme = ThemeData.dark().copyWith(
         colorScheme: const ColorScheme.dark(),
         inputDecorationTheme: _inputDecorationTheme,
@@ -51,8 +51,8 @@ final class AppTheme {
   /// The type of theme to use.
   final ThemeMode mode;
 
-  /// The seed color to generate the [ColorScheme] from.
-  final Color seedColor;
+  // /// The seed color to generate the [ColorScheme] from.
+  // final Color seedColor;
 
   /// The dark [ThemeData] for this [AppTheme].
   final ThemeData darkTheme;
@@ -60,21 +60,20 @@ final class AppTheme {
   /// The light [ThemeData] for this [AppTheme].
   final ThemeData lightTheme;
 
-  static const Color _defaultSeedColor = Colors.red;
+  // static const Color _defaultSeedColor = Colors.red;
 
-  AppTheme copyWith({ThemeMode? mode, Color? seedColor}) =>
-      AppTheme(mode: mode ?? this.mode, seedColor: seedColor ?? this.seedColor);
+  AppTheme copyWith({ThemeMode? mode, Color? seedColor}) => AppTheme(mode: mode ?? this.mode);
 
-  @override
-  String toString() => 'AppTheme(themeMode: $mode, seedColor: $seedColor)';
+  // @override
+  // String toString() => 'AppTheme(themeMode: $mode, seedColor: $seedColor)';
 
-  @override
-  bool operator ==(Object other) =>
-      identical(this, other) ||
-      other is AppTheme && runtimeType == other.runtimeType && mode == other.mode && seedColor == other.seedColor;
+  // @override
+  // bool operator ==(Object other) =>
+  //     identical(this, other) ||
+  //     other is AppTheme && runtimeType == other.runtimeType && mode == other.mode && seedColor == other.seedColor;
 
-  @override
-  int get hashCode => Object.hash(mode, seedColor);
+  // @override
+  // int get hashCode => Object.hash(mode, seedColor);
 }
 
 final _border = OutlineInputBorder(borderRadius: BorderRadius.circular(8.0));
@@ -84,6 +83,8 @@ final _inputDecorationTheme = InputDecorationTheme(
   border: _border,
   enabledBorder: _border.copyWith(borderSide: BorderSide(color: Colors.grey.withValues(alpha: 0.5))),
   focusedBorder: _border,
+  errorBorder: _border.copyWith(borderSide: const BorderSide(color: Colors.red)),
+  errorStyle: const TextStyle(color: Colors.red),
   contentPadding: const EdgeInsets.all(14.0),
   hintStyle: WidgetStateTextStyle.resolveWith((states) {
     if (states.contains(WidgetState.disabled)) {

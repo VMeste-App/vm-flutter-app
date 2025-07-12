@@ -3,8 +3,11 @@ import 'package:vm_app/src/feature/auth/model/token.dart';
 
 @immutable
 final class TokenPair {
-  final Token accessToken;
-  final Token refreshToken;
+  final JwtToken accessToken;
+  final JwtToken refreshToken;
 
-  const TokenPair({required this.accessToken, required this.refreshToken});
+  const TokenPair({
+    required this.accessToken,
+    required this.refreshToken,
+  });
 }

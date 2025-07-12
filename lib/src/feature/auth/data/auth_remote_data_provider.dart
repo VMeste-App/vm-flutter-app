@@ -2,18 +2,16 @@ import 'dart:async';
 import 'dart:convert';
 
 import 'package:http/http.dart' as http;
-import 'package:http/http.dart';
+import 'package:vm_app/src/core/config/config.dart';
 import 'package:vm_app/src/core/model/typedefs.dart';
+import 'package:vm_app/src/feature/auth/data/model/auth_response.dart';
 import 'package:vm_app/src/feature/auth/model/sign_in_request.dart';
 import 'package:vm_app/src/feature/auth/model/sign_up_request.dart';
-import 'package:vm_app/src/feature/auth/model/token.dart';
-import 'package:vm_app/src/feature/auth/model/token_pair.dart';
-import 'package:vm_app/src/feature/auth/model/user.dart';
 
 abstract interface class IAuthRemoteDataProvider {
-  Future<(User, TokenPair)> signUp(SignUpRequest signUpRequest);
+  Future<AuthResponse> signUp(SignUpRequest signUpRequest);
 
-  Future<(User, TokenPair)> signIn(SignInRequest signInRequest);
+  Future<AuthResponse> signIn(SignInRequest signInRequest);
 }
 
 final class AuthRemoteDataProvider implements IAuthRemoteDataProvider {
@@ -21,48 +19,25 @@ final class AuthRemoteDataProvider implements IAuthRemoteDataProvider {
 
   AuthRemoteDataProvider({required http.Client client}) : _client = client;
 
-  static const _baseUrl = '/srv/auth/api';
-
   @override
-  Future<(User, TokenPair)> signUp(SignUpRequest signUpRequest) async {
-    final uri = Uri.parse('$_baseUrl/sign-up');
-    final response = await _client.post(uri, body: jsonEncode(signUpRequest.toJson()));
+  Future<AuthResponse> signUp(SignUpRequest signUpRequest) async {
+    final uri = Uri.parse('${Config.apiUrl}/register');
+    final response = await _client.post(uri, body: signUpRequest.toJson());
 
-    final tokenPair = _extractTokenPair(response);
-    final user = User.fromJson(jsonDecode(response.body) as Json);
-
-    return (user, tokenPair);
+    return AuthResponse.fromJson(jsonDecode(response.body) as Json);
   }
 
   @override
-  Future<(User, TokenPair)> signIn(SignInRequest signInRequest) async {
-    final uri = Uri.parse('$_baseUrl/sign-in');
+  Future<AuthResponse> signIn(SignInRequest signInRequest) async {
+    final uri = Uri.parse('${Config.apiUrl}/login');
+    final response = await _client.post(
+      uri,
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: jsonEncode(signInRequest.toJson()),
+    );
 
-    final response = await _client.post(uri, body: jsonEncode(signInRequest.toJson()));
-
-    final tokenPair = _extractTokenPair(response);
-    final user = User.fromJson(jsonDecode(response.body) as Json);
-
-    return (user, tokenPair);
-  }
-
-  TokenPair _extractTokenPair(Response response) {
-    final headers = response.headers;
-
-    final accessJwt = headers['authorization'];
-    final refreshJwt = headers['authorization']; // TODO: Implement refresh token.
-
-    if (accessJwt == null) {
-      throw FormatException('Access JWT is empty', response.headers);
-    }
-
-    if (refreshJwt == null) {
-      throw FormatException('Refresh JWT is empty', response.headers);
-    }
-
-    final accessToken = Token.decode(accessJwt);
-    final refreshToken = Token.decode(refreshJwt);
-
-    return TokenPair(accessToken: accessToken, refreshToken: refreshToken);
+    return AuthResponse.fromJson(jsonDecode(response.body) as Json);
   }
 }

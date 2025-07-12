@@ -8,7 +8,10 @@
         {
             "name": "vm-flutter-client",
             "request": "launch",
-            "type": "dart"
+            "type": "dart",
+            "args": [
+                "--dart-define-from-file=dart_define.json"
+            ]
         },
         {
             "name": "vm-flutter-client (profile mode)",

@@ -326,7 +326,7 @@ dart_code_metrics:
     - avoid-throw-in-catch-block
     - binary-expression-operand-order
     - newline-before-return
-    - no-empty-block
+    # - no-empty-block
     - no-equal-then-else
     # - no-magic-number
     - prefer-conditional-expressions

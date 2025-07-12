@@ -5,8 +5,6 @@ import 'package:vm_app/src/feature/settings/data/theme_data_provider.dart';
 abstract interface class IThemeRepository {
   Future<void> setThemeMode(ThemeMode mode);
 
-  Future<void> setSeedColor(Color color);
-
   Future<AppTheme?> getTheme();
 }
 
@@ -17,9 +15,6 @@ final class ThemeRepository implements IThemeRepository {
 
   @override
   Future<AppTheme?> getTheme() => _dataProvider.getTheme();
-
-  @override
-  Future<void> setSeedColor(Color color) => _dataProvider.setSeedColor(color);
 
   @override
   Future<void> setThemeMode(ThemeMode mode) => _dataProvider.setThemeMode(mode);

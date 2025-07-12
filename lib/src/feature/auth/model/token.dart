@@ -3,14 +3,18 @@ import 'dart:convert';
 import 'package:meta/meta.dart';
 
 @immutable
-final class Token {
+final class JwtToken {
   final String token;
   final DateTime issuedAt;
   final DateTime expireAt;
 
-  const Token({required this.token, required this.issuedAt, required this.expireAt});
+  const JwtToken({
+    required this.token,
+    required this.issuedAt,
+    required this.expireAt,
+  });
 
-  factory Token.decode(String jwt) {
+  factory JwtToken.decode(String jwt) {
     final parts = jwt.split('.');
     if (parts.length != 3) {
       throw const FormatException('Invalid token format, expected 3 parts separated by "."');
@@ -34,7 +38,7 @@ final class Token {
       final issuedAt = DateTime.fromMillisecondsSinceEpoch(issuedAtUnixTimestamp).toUtc();
       final expireAt = DateTime.fromMillisecondsSinceEpoch(expireAtUnixTimestamp).toUtc();
 
-      return Token(token: jwt, issuedAt: issuedAt, expireAt: expireAt);
+      return JwtToken(token: jwt, issuedAt: issuedAt, expireAt: expireAt);
     } catch (e, st) {
       Error.throwWithStackTrace(FormatException('Invalid token payload data: $e'), st);
     }

@@ -1,5 +1,7 @@
 import 'package:control/control.dart';
-import 'package:flutter/widgets.dart';
+import 'package:flutter/material.dart';
+import 'package:vm_app/src/core/navigator/navigator.dart';
+import 'package:vm_app/src/core/navigator/pages.dart';
 import 'package:vm_app/src/feature/auth/controller/auth_controller.dart';
 import 'package:vm_app/src/feature/auth/widget/auth_scope.dart';
 import 'package:vm_app/src/feature/auth/widget/sign_in_screen.dart';
@@ -26,7 +28,10 @@ class AuthGuard extends StatelessWidget {
           return child;
         }
 
-        return const SignInScreen();
+        return VmNavigator(
+          // onPopPage: (route, result) => route.didPop(result),
+          pages: const [VmPage(child: SignInScreen())],
+        );
       },
     );
   }

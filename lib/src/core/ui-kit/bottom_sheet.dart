@@ -1,11 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:vm_app/src/core/utils/extensions/context_extension.dart';
 
-/// {@template bottom_sheet}
-/// VmBottomSheet widget.
-/// {@endtemplate}
 class VmBottomSheet extends StatelessWidget {
-  /// {@macro bottom_sheet}
   const VmBottomSheet({super.key, this.title, required this.body, this.action});
 
   final Widget? title;
@@ -40,7 +36,9 @@ class VmBottomSheet extends StatelessWidget {
                         ),
                       ),
 
-                    const Flexible(child: Align(alignment: Alignment.centerRight, child: CloseButton())),
+                    const Flexible(
+                      child: Align(alignment: Alignment.centerRight, child: CloseButton()),
+                    ),
                   ],
                 ),
               ),

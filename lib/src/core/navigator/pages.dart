@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:vm_app/src/feature/auth/widget/sign_up_screen.dart';
 import 'package:vm_app/src/feature/event/widget/create_event_screen.dart';
 import 'package:vm_app/src/feature/home/home_screen.dart';
 import 'package:vm_app/src/shared/activity/widget/activities_screen.dart';
@@ -10,6 +11,15 @@ final class VmPage<T> extends MaterialPage<T> {
     super.fullscreenDialog,
     required super.child,
   });
+}
+
+final class SignUpPage extends VmPage<void> {
+  const SignUpPage()
+    : super(
+        key: const ValueKey('sign-up'),
+        name: 'sign-up',
+        child: const SignUpScreen(),
+      );
 }
 
 final class HomePage extends VmPage<void> {
