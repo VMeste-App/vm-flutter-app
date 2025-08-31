@@ -8,6 +8,7 @@ import 'package:vm_app/src/core/config/config.dart';
 import 'package:vm_app/src/core/di/dependencies.dart';
 import 'package:vm_app/src/feature/auth/controller/authentication_controller.dart';
 import 'package:vm_app/src/feature/auth/data/auth_repository.dart';
+import 'package:vm_app/src/feature/auth/model/user.dart';
 import 'package:vm_app/src/feature/event/controller/vm_event_controller.dart';
 import 'package:vm_app/src/feature/event/data/vm_event_repository.dart';
 import 'package:vm_app/src/feature/settings/controller/settings_controller.dart';
@@ -29,15 +30,18 @@ abstract base class DependencyInitializer {
 
     /// --- Authentication ---
     final IAuthRepository authRepository = AuthRepository(client: client, storage: sharedPreferences);
-    final authController = AuthController(authRepository: authRepository);
+    final authController = AuthController(
+      authRepository: authRepository,
+      user: const User(id: 123, email: 'email'),
+    );
 
     /// --- Settings ---
     final themeRepository = ThemeRepository(dataProvider: ThemeDataProvider(sharedPreferences: sharedPreferences));
     final localeRepository = LocaleRepository(dataProvider: LocaleDataProvider(sharedPreferences: sharedPreferences));
 
-    final theme = await themeRepository.getTheme();
+    final themeMode = await themeRepository.getThemeMode();
     final locale = await localeRepository.getLocale();
-    final settings = AppSettings(theme: theme, locale: locale);
+    final settings = AppSettings(themeMode: themeMode, locale: locale);
 
     final settingsController = SettingsController(
       themeRepository: themeRepository,

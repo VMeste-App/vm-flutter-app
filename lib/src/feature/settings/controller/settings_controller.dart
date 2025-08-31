@@ -22,11 +22,7 @@ final class SettingsController extends StateController<SettingsState> with Seque
       setState(SettingsState.processing(settings: state.settings));
       await _themeRepository.setThemeMode(mode);
       final settings = state.settings;
-      setState(
-        SettingsState.idle(
-          settings: settings.copyWith(theme: settings.theme.copyWith(mode: mode)),
-        ),
-      );
+      setState(SettingsState.idle(settings: settings.copyWith(themeMode: mode)));
     },
     error: (e, _) async {
       setState(SettingsState.idle(settings: state.settings, error: e));

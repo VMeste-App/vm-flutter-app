@@ -3,6 +3,7 @@ import 'package:vm_app/src/core/di/dependencies.dart';
 import 'package:vm_app/src/core/l10n/app_localization.dart';
 import 'package:vm_app/src/core/navigator/navigator.dart';
 import 'package:vm_app/src/core/navigator/pages.dart';
+import 'package:vm_app/src/core/theme/app_theme.dart';
 import 'package:vm_app/src/feature/auth/widget/auth_guard.dart';
 import 'package:vm_app/src/feature/settings/widget/settings_scope.dart';
 import 'package:vm_app/src/shared/activity/widget/activity_scope.dart';
@@ -20,8 +21,8 @@ class _VmAppState extends State<VmApp> {
 
   @override
   Widget build(BuildContext context) {
-    final theme = SettingsScope.themeOf(context).theme;
-    final locale = SettingsScope.localeOf(context).locale;
+    final themeMode = SettingsScope.themeModeOf(context);
+    final locale = SettingsScope.localeOf(context);
 
     return MaterialApp(
       key: _appKey,
@@ -29,16 +30,19 @@ class _VmAppState extends State<VmApp> {
       localizationsDelegates: AppLocalization.localizationsDelegates,
       supportedLocales: AppLocalization.supportedLocales,
       locale: locale,
-      themeMode: theme.mode,
-      theme: theme.lightTheme,
-      darkTheme: theme.darkTheme,
+      themeMode: themeMode,
+      theme: AppTheme().lightTheme,
+      darkTheme: AppTheme().darkTheme,
       builder: (context, child) => MediaQuery.withNoTextScaling(
         child: AuthGuard(
           child: SettingsScope(
             controller: Dependencies.of(context).settingsController,
             child: ActivityScope(
-              child: VmNavigator(
-                pages: const [HomePage()],
+              child: HeroControllerScope(
+                controller: HeroController(),
+                child: VmNavigator(
+                  pages: const [HomePage()],
+                ),
               ),
             ),
           ),

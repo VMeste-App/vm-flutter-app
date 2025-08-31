@@ -12,26 +12,19 @@ class SafeScaffold extends StatelessWidget {
     required this.body,
     this.persistentFooterButtons,
     this.bottomNavigationBar,
-    this.padding = EdgeInsets.zero,
   });
 
   final PreferredSizeWidget? appBar;
   final Widget body;
   final List<Widget>? persistentFooterButtons;
   final Widget? bottomNavigationBar;
-  final EdgeInsets padding;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: context.theme.scaffoldBackgroundColor,
       appBar: appBar,
-      body: SafeArea(
-        child: Padding(
-          padding: padding,
-          child: body,
-        ),
-      ),
+      body: SafeArea(child: body),
       persistentFooterButtons: persistentFooterButtons,
       bottomNavigationBar: bottomNavigationBar,
     );
