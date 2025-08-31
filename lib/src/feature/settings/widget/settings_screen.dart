@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:vm_app/src/core/l10n/app_localization.dart';
 import 'package:vm_app/src/core/utils/extensions/context_extension.dart';
 import 'package:vm_app/src/core/utils/extensions/locale_extension.dart';
-import 'package:vm_app/src/feature/auth/widget/auth_scope.dart';
+import 'package:vm_app/src/feature/auth/widget/authentication_scope.dart';
 import 'package:vm_app/src/feature/settings/widget/settings_scope.dart';
 
 class SettingsScreen extends StatelessWidget {
@@ -96,7 +96,7 @@ class _LogoutButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final controller = AuthScope.controllerOf(context);
+    final controller = AuthenticationScope.controllerOf(context);
 
     return IconButton(onPressed: controller.signOut, icon: const Icon(Icons.logout));
   }

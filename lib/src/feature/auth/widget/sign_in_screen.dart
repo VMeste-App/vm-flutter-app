@@ -4,7 +4,7 @@ import 'package:vm_app/src/core/navigator/navigator.dart';
 import 'package:vm_app/src/core/navigator/pages.dart';
 import 'package:vm_app/src/core/ui-kit/button.dart';
 import 'package:vm_app/src/core/widget/safe_scaffold.dart';
-import 'package:vm_app/src/feature/auth/widget/auth_scope.dart';
+import 'package:vm_app/src/feature/auth/widget/authentication_scope.dart';
 import 'package:vm_app/src/feature/auth/widget/components/email_field.dart';
 import 'package:vm_app/src/feature/auth/widget/components/password_field.dart';
 
@@ -55,6 +55,7 @@ class _SignInScreenState extends State<SignInScreen> {
                 return PasswordField.create(
                   controller: _passwordController,
                   errorText: value,
+                  onSubmitted: () => _signIn(context),
                 );
               },
             ),
@@ -64,7 +65,7 @@ class _SignInScreenState extends State<SignInScreen> {
               child: Column(
                 children: [
                   VmButton(
-                    loading: AuthScope.controllerOf(context).isProcessing,
+                    loading: AuthenticationScope.controllerOf(context).isProcessing,
                     onPressed: () => _signIn(context),
                     child: const Text('Sign in'),
                   ),
@@ -102,7 +103,7 @@ class _SignInScreenState extends State<SignInScreen> {
     }
 
     TextInput.finishAutofillContext();
-    AuthScope.signIn(context, email, password);
+    AuthenticationScope.signIn(context, email, password);
   }
 
   bool _validate(String email, String password) {

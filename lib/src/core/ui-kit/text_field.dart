@@ -31,6 +31,7 @@ class VmTextField extends StatelessWidget {
     this.onTap,
     this.enableInteractiveSelection,
     this.autofillHints,
+    this.enableSuggestions = true,
   });
 
   final TextEditingController? controller;
@@ -93,6 +94,8 @@ class VmTextField extends StatelessWidget {
   /// {@macro flutter.services.AutofillConfiguration.autofillHints}
   final Iterable<String>? autofillHints;
 
+  final bool enableSuggestions;
+
   @override
   Widget build(BuildContext context) {
     return TextField(
@@ -120,6 +123,8 @@ class VmTextField extends StatelessWidget {
       onTap: onTap,
       enableInteractiveSelection: enableInteractiveSelection,
       autofillHints: autofillHints,
+      onTapUpOutside: (_) => FocusManager.instance.primaryFocus?.unfocus(),
+      enableSuggestions: enableSuggestions,
     );
   }
 }

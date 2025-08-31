@@ -28,6 +28,7 @@ class _DateTimeFieldState extends State<DateTimeField> {
       controller: _controller,
       readOnly: true,
       enableInteractiveSelection: false,
+      maxLines: 1,
       decoration: InputDecoration(
         hintText: 'Дата и время',
         focusedBorder: Theme.of(context).inputDecorationTheme.enabledBorder,

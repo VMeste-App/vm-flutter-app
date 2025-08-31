@@ -42,4 +42,4 @@ app.*.map.json
 # FVM Version Cache
 .fvm/
 
-dart_define.json
+prod.env

@@ -41,12 +41,11 @@ class _PasswordFieldState extends State<PasswordField> {
         autofillHints: widget._autofillHints,
         keyboardType: TextInputType.visiblePassword,
         maxLines: 1,
+        enableSuggestions: false,
         decoration: InputDecoration(
           hintText: 'Password',
           suffixIcon: IconButton(
-            icon: Icon(
-              _obscureText ? Icons.visibility : Icons.visibility_off,
-            ),
+            icon: Icon(_obscureText ? Icons.visibility : Icons.visibility_off),
             onPressed: () => setState(() => _obscureText = !_obscureText),
           ),
           errorText: widget.errorText,

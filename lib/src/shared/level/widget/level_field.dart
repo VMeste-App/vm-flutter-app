@@ -30,24 +30,22 @@ class _LevelFieldState extends State<LevelField> {
   Widget build(BuildContext context) {
     return ValueListenableBuilder(
       valueListenable: _levelController,
-      builder:
-          (context, selected, _) => Column(
-            mainAxisSize: MainAxisSize.min,
-            children:
-                Level.values
-                    .map(
-                      (level) => CheckboxListTile(
-                        title: Text(level.name),
-                        value: selected == level.id,
-                        onChanged: (value) {
-                          if (value ?? false) {
-                            _levelController.value = level.id;
-                          }
-                        },
-                      ),
-                    )
-                    .toList(),
-          ),
+      builder: (context, selected, _) => Column(
+        mainAxisSize: MainAxisSize.min,
+        children: Level.values
+            .map(
+              (level) => CheckboxListTile(
+                title: Text(level.name),
+                value: selected == level.id,
+                onChanged: (value) {
+                  if (value ?? false) {
+                    _levelController.value = level.id;
+                  }
+                },
+              ),
+            )
+            .toList(),
+      ),
     );
   }
 }

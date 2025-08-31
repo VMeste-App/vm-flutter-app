@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:vm_app/src/feature/auth/widget/sign_in_screen.dart';
 import 'package:vm_app/src/feature/auth/widget/sign_up_screen.dart';
 import 'package:vm_app/src/feature/event/widget/create_event_screen.dart';
 import 'package:vm_app/src/feature/home/home_screen.dart';
@@ -19,6 +20,15 @@ final class SignUpPage extends VmPage<void> {
         key: const ValueKey('sign-up'),
         name: 'sign-up',
         child: const SignUpScreen(),
+      );
+}
+
+final class SignInPage extends VmPage<void> {
+  const SignInPage()
+    : super(
+        key: const ValueKey('sign-in'),
+        name: 'sign-in',
+        child: const SignInScreen(),
       );
 }
 

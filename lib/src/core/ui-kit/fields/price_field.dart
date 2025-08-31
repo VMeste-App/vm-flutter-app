@@ -21,6 +21,7 @@ class PriceField extends StatelessWidget {
       inputFormatters: [FilteringTextInputFormatter.digitsOnly],
       keyboardType: TextInputType.number,
       decoration: InputDecoration(suffixText: '₽', hintText: hintText),
+      maxLines: 1,
     );
   }
 }

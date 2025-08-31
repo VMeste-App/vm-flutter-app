@@ -1,34 +1,33 @@
 import 'package:meta/meta.dart';
 import 'package:vm_app/src/core/model/typedefs.dart';
-import 'package:vm_app/src/feature/auth/model/token.dart';
-import 'package:vm_app/src/feature/auth/model/token_pair.dart';
+import 'package:vm_app/src/feature/auth/model/token_pair.dart' hide Token;
 import 'package:vm_app/src/feature/auth/model/user.dart';
 
 @immutable
-final class AuthResponse {
+final class AuthResponseDto {
   final User user;
   final TokenPair tokenPair;
 
-  const AuthResponse({
+  const AuthResponseDto({
     required this.user,
     required this.tokenPair,
   });
 
-  factory AuthResponse.fromJson(Json json) {
+  factory AuthResponseDto.fromJson(Json json) {
     if (json case {
       // 'user': {
       //   'user_id': final String id,
       //   'email': final String email,
       // },
       'user_id': final UserID id,
-      'access_token': final String accessToken,
-      'refresh_token': final String refreshToken,
+      'access_token': final Token accessToken,
+      'refresh_token': final Token refreshToken,
     }) {
-      return AuthResponse(
+      return AuthResponseDto(
         user: User(id: id, email: 'email'),
         tokenPair: TokenPair(
-          accessToken: JwtToken.decode(accessToken),
-          refreshToken: JwtToken.decode(refreshToken),
+          accessToken: accessToken,
+          refreshToken: refreshToken,
         ),
       );
     }

@@ -1,10 +1,11 @@
 import 'package:meta/meta.dart';
-import 'package:vm_app/src/feature/auth/model/token.dart';
+
+typedef Token = String;
 
 @immutable
 final class TokenPair {
-  final JwtToken accessToken;
-  final JwtToken refreshToken;
+  final Token accessToken;
+  final Token refreshToken;
 
   const TokenPair({
     required this.accessToken,

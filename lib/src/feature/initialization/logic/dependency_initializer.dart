@@ -1,11 +1,12 @@
 import 'dart:async';
+import 'dart:io';
 
-import 'package:http/http.dart' as http;
+import 'package:dio/dio.dart';
+import 'package:dio/io.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:vm_app/src/core/config/config.dart';
 import 'package:vm_app/src/core/di/dependencies.dart';
-import 'package:vm_app/src/feature/auth/controller/auth_controller.dart';
-import 'package:vm_app/src/feature/auth/data/auth_local_data_provider.dart';
-import 'package:vm_app/src/feature/auth/data/auth_remote_data_provider.dart';
+import 'package:vm_app/src/feature/auth/controller/authentication_controller.dart';
 import 'package:vm_app/src/feature/auth/data/auth_repository.dart';
 import 'package:vm_app/src/feature/event/controller/vm_event_controller.dart';
 import 'package:vm_app/src/feature/event/data/vm_event_repository.dart';
@@ -18,14 +19,16 @@ import 'package:vm_app/src/feature/settings/model/app_settings.dart';
 
 abstract base class DependencyInitializer {
   static Future<Dependencies> run() async {
-    final client = http.Client();
+    // ignore: avoid_redundant_argument_values
+    final client = Dio(BaseOptions(baseUrl: AppConfig.apiUrl))
+      ..httpClientAdapter = IOHttpClientAdapter(
+        createHttpClient: () => HttpClient()..findProxy = (_) => 'PROXY ${AppConfig.proxy}',
+      );
+
     final sharedPreferences = await SharedPreferences.getInstance();
 
     /// --- Authentication ---
-    final IAuthRepository authRepository = AuthRepository(
-      localDataProvider: AuthLocalDataProvider(storage: sharedPreferences),
-      remoteDataProvider: AuthRemoteDataProvider(client: client),
-    );
+    final IAuthRepository authRepository = AuthRepository(client: client, storage: sharedPreferences);
     final authController = AuthController(authRepository: authRepository);
 
     /// --- Settings ---

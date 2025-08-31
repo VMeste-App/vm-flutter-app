@@ -1,31 +1,47 @@
 import 'package:flutter/widgets.dart';
 import 'package:vm_app/src/core/di/dependencies.dart';
 import 'package:vm_app/src/core/utils/extensions/context_extension.dart';
-import 'package:vm_app/src/feature/auth/controller/auth_controller.dart';
+import 'package:vm_app/src/feature/auth/controller/authentication_controller.dart';
+import 'package:vm_app/src/feature/auth/model/user.dart';
 
-class AuthScope extends StatefulWidget {
-  const AuthScope({super.key, required this.child});
+class AuthenticationScope extends StatefulWidget {
+  const AuthenticationScope({super.key, required this.child});
 
   /// The widget below this widget in the tree.
   final Widget child;
 
-  /// Get the current [AuthController]
-  static AuthController controllerOf(BuildContext context) => _InheritedAuthenticationScope.of(context);
+  /// Current user.
+  static User? userOf(BuildContext context, {bool listen = true}) =>
+      _InheritedAuthenticationScope.userOf(context, listen: listen);
 
+  /// User ID.
+  static UserID? userIdOf(BuildContext context, {bool listen = true}) => userOf(context, listen: listen)?.id;
+
+  /// Is current user?
+  static bool isMe(BuildContext context, UserID id, {bool listen = true}) => userIdOf(context, listen: listen) == id;
+
+  /// Is authenticated?
+  static bool isAuthenticated(BuildContext context, {bool listen = true}) =>
+      _InheritedAuthenticationScope.isAuthenticated(context, listen: listen);
+
+  /// Sign in.
   static void signIn(BuildContext context, String email, String password) =>
-      _InheritedAuthenticationScope.of(context, listen: false).signIn(email, password);
+      controllerOf(context).signIn(email, password);
 
+  /// Sign up.
   static void signUp(BuildContext context, String email, String password) =>
       _InheritedAuthenticationScope.of(context, listen: false).signUp(email, password);
 
   static void signOut(BuildContext context) => _InheritedAuthenticationScope.of(context, listen: false).signOut();
 
+  /// Get the current [AuthController]
+  static AuthController controllerOf(BuildContext context) => _InheritedAuthenticationScope.of(context);
+
   @override
-  State<AuthScope> createState() => _AuthScopeState();
+  State<AuthenticationScope> createState() => _AuthenticationScopeState();
 }
 
-/// State for widget AuthenticationScope.
-class _AuthScopeState extends State<AuthScope> {
+class _AuthenticationScopeState extends State<AuthenticationScope> {
   late final AuthController _controller;
 
   @override
@@ -54,7 +70,6 @@ class _AuthScopeState extends State<AuthScope> {
   );
 }
 
-/// Inherited widget for quick access in the element tree.
 class _InheritedAuthenticationScope extends InheritedWidget {
   const _InheritedAuthenticationScope({
     required this.controller,
@@ -63,7 +78,13 @@ class _InheritedAuthenticationScope extends InheritedWidget {
   });
 
   final AuthController controller;
-  final AuthState state;
+  final AuthenticationState state;
+
+  /// Текущий пользователь.
+  static User? userOf(BuildContext context, {bool listen = true}) => of(context, listen: listen).state.user;
+
+  /// Пользователь авторизован?
+  static bool isAuthenticated(BuildContext context, {bool listen = true}) => userOf(context, listen: listen) != null;
 
   static AuthController of(BuildContext context, {bool listen = true}) =>
       context.inhOf<_InheritedAuthenticationScope>(listen: listen).controller;

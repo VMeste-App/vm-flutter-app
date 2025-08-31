@@ -4,14 +4,14 @@ import 'package:vm_app/src/core/ui-kit/fields/date_time_field.dart';
 import 'package:vm_app/src/core/ui-kit/fields/duration_field.dart';
 import 'package:vm_app/src/core/ui-kit/fields/price_field.dart';
 import 'package:vm_app/src/core/ui-kit/label.dart';
+import 'package:vm_app/src/core/ui-kit/picker_group.dart';
 import 'package:vm_app/src/core/ui-kit/switch_list_tile.dart';
 import 'package:vm_app/src/core/ui-kit/text_field.dart';
 import 'package:vm_app/src/core/widget/safe_scaffold.dart';
 import 'package:vm_app/src/shared/activity/model/activity.dart';
 import 'package:vm_app/src/shared/activity/widget/activity_field.dart';
 import 'package:vm_app/src/shared/level/model/level.dart';
-import 'package:vm_app/src/shared/level/widget/level_field.dart';
-import 'package:vm_app/src/shared/sex/widget/sex_field.dart';
+import 'package:vm_app/src/shared/sex/model/sex.dart';
 
 class CreateEventScreen extends StatefulWidget {
   const CreateEventScreen({super.key});
@@ -26,7 +26,8 @@ class _CreateEventScreenState extends State<CreateEventScreen> {
   final TextEditingController _activityController = TextEditingController();
 
   // --- Level ---
-  LevelID? _level;
+  final _levelController = ValueNotifier<LevelID?>(null);
+  // LevelID? _level;
 
   // --- Members ---
   final TextEditingController _membersFrom = TextEditingController();
@@ -34,7 +35,7 @@ class _CreateEventScreenState extends State<CreateEventScreen> {
   final ValueNotifier<bool> _meAsMember = ValueNotifier<bool>(false);
 
   // --- Sex ---
-  // final FSelectGroupController<Sex> _sexController = FMultiSelectGroupController<Sex>();
+  final _sexController = ValueNotifier<SexID?>(null);
 
   // --- Age ---
   final ValueNotifier<bool> _isAdult = ValueNotifier<bool>(false);
@@ -66,6 +67,7 @@ class _CreateEventScreenState extends State<CreateEventScreen> {
   @override
   void dispose() {
     _activityController.dispose();
+    _levelController.dispose();
     _membersFrom.dispose();
     _membersTo.dispose();
     _meAsMember.dispose();
@@ -109,10 +111,14 @@ class _CreateEventScreenState extends State<CreateEventScreen> {
 
             // --- Level ---
             VmLabel(
+              key: _levelKey,
               padding: EdgeInsets.zero,
               titlePadding: const EdgeInsets.only(left: 16.0, bottom: 8.0),
               title: const Text('Уровень'),
-              child: LevelField(key: _levelKey, onChanged: (value) => _level = value),
+              child: VmPickerGroup(
+                controller: _levelController,
+                items: Level.values.map((e) => PickerItem(id: e.id, title: e.name)).toList(),
+              ),
             ),
 
             spacer,
@@ -145,13 +151,16 @@ class _CreateEventScreenState extends State<CreateEventScreen> {
             spacer,
 
             /// --- Sex ---
-            const VmLabel(
+            VmLabel(
+              key: _sexKey,
               padding: EdgeInsets.zero,
-              titlePadding: EdgeInsets.only(left: 16.0),
-              title: Text('Пол'),
-              child: SexField(),
+              titlePadding: const EdgeInsets.only(left: 16.0),
+              title: const Text('Пол'),
+              child: VmPickerGroup(
+                controller: _sexController,
+                items: Sex.values.map((e) => PickerItem(id: e.id, title: e.name)).toList(),
+              ),
             ),
-
             spacer,
 
             // --- Age ---
@@ -259,19 +268,19 @@ class _CreateEventScreenState extends State<CreateEventScreen> {
       _activityError.value = null;
     }
 
-    if (_level == null) {
+    if (_levelController.value == null) {
       _levelError.value = 'Выберите уровень';
       ctx ??= _levelKey.currentContext;
     } else {
       _activityError.value = null;
     }
 
-    // if (_sexController.value.isEmpty) {
-    //   _sexError.value = 'Укажите пол участников';
-    //   ctx ??= _sexKey.currentContext;
-    // } else {
-    //   _activityError.value = null;
-    // }
+    if (_sexController.value == null) {
+      _sexError.value = 'Укажите пол участников';
+      ctx ??= _sexKey.currentContext;
+    } else {
+      _activityError.value = null;
+    }
 
     if (ctx != null) {
       Scrollable.ensureVisible(

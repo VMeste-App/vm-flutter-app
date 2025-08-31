@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:vm_app/src/core/ui-kit/picker_group.dart';
 import 'package:vm_app/src/core/widget/safe_scaffold.dart';
 import 'package:vm_app/src/shared/activity/model/activity.dart';
 import 'package:vm_app/src/shared/activity/widget/activity_scope.dart';
@@ -29,29 +30,16 @@ class _ActivitiesScreenState extends State<ActivitiesScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final activities = ActivityScope.activitiesOf(context);
+    final activities = ActivityScope.activitiesOf(context).map((e) => PickerItem(id: e.id, title: e.name)).toList();
 
     return ValueListenableBuilder<ActivityID?>(
       valueListenable: _activityController,
       builder: (context, selected, _) {
         return SafeScaffold(
           appBar: AppBar(title: const Text('Активность')),
-          body: ListView.builder(
-            padding: const EdgeInsets.symmetric(vertical: 16.0),
-            itemCount: activities.length,
-            itemBuilder: (context, index) {
-              final activity = activities[index];
-
-              return CheckboxListTile(
-                title: Text(activity.name),
-                value: selected == activity.id,
-                onChanged: (value) {
-                  if (value ?? false) {
-                    _activityController.value = activity.id;
-                  }
-                },
-              );
-            },
+          body: VmPickerGroup(
+            controller: _activityController,
+            items: activities,
           ),
           persistentFooterButtons: [
             FilledButton(

@@ -3,7 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:vm_app/src/core/constants/regexp.dart';
 import 'package:vm_app/src/core/ui-kit/button.dart';
 import 'package:vm_app/src/core/widget/safe_scaffold.dart';
-import 'package:vm_app/src/feature/auth/widget/auth_scope.dart';
+import 'package:vm_app/src/feature/auth/widget/authentication_scope.dart';
 import 'package:vm_app/src/feature/auth/widget/components/email_field.dart';
 import 'package:vm_app/src/feature/auth/widget/components/password_field.dart';
 
@@ -63,7 +63,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
               child: Column(
                 children: [
                   VmButton(
-                    loading: AuthScope.controllerOf(context).isProcessing,
+                    loading: AuthenticationScope.controllerOf(context).isProcessing,
                     onPressed: () => _signUp(context),
                     child: const Text('Sign up'),
                   ),
@@ -101,7 +101,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
     }
 
     TextInput.finishAutofillContext();
-    AuthScope.signUp(context, email, password);
+    AuthenticationScope.signUp(context, email, password);
   }
 
   bool _validate(String email, String password) {
@@ -117,7 +117,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
       _emailError.value = null;
     }
 
-    if (!VmRegExp.password.hasMatch(password)) {
+    if (password.length < 8) {
       isValid = false;
       _passwordError.value =
           'Пароль должен содержать строчные, заглавные буквы, цифру и спецсимвол, и быть не короче 8 символов';

@@ -27,6 +27,7 @@ class _DurationFieldState extends State<DurationField> {
       controller: _controller,
       readOnly: true,
       enableInteractiveSelection: false,
+      maxLines: 1,
       decoration: InputDecoration(
         hintText: 'Длительность',
         focusedBorder: Theme.of(context).inputDecorationTheme.enabledBorder,

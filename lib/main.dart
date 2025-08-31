@@ -4,7 +4,7 @@ import 'package:stack_trace/stack_trace.dart';
 import 'package:vm_app/src/core/di/dependencies_scope.dart';
 import 'package:vm_app/src/core/utils/log_util.dart';
 import 'package:vm_app/src/feature/app/app.dart';
-import 'package:vm_app/src/feature/auth/widget/auth_scope.dart';
+import 'package:vm_app/src/feature/auth/widget/authentication_scope.dart';
 import 'package:vm_app/src/feature/initialization/logic/app_initializer.dart';
 import 'package:vm_app/src/feature/initialization/widget/initialization_failed_screen.dart';
 import 'package:vm_app/src/feature/initialization/widget/initialization_screen.dart';
@@ -18,7 +18,7 @@ void main() async => l.capture<void>(
       onSuccess: (dependencies) => runApp(
         DependenciesScope(
           dependencies: dependencies,
-          child: AuthScope(
+          child: AuthenticationScope(
             child: SettingsScope(
               controller: dependencies.settingsController,
               child: const VmApp(),

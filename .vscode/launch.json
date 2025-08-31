@@ -10,7 +10,7 @@
             "request": "launch",
             "type": "dart",
             "args": [
-                "--dart-define-from-file=dart_define.json"
+                "--dart-define-from-file=environment/test.env"
             ]
         },
         {

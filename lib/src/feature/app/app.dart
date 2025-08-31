@@ -31,7 +31,7 @@ class _VmAppState extends State<VmApp> {
       locale: locale,
       themeMode: theme.mode,
       theme: theme.lightTheme,
-      // darkTheme: theme.darkTheme,
+      darkTheme: theme.darkTheme,
       builder: (context, child) => MediaQuery.withNoTextScaling(
         child: AuthGuard(
           child: SettingsScope(

@@ -1,17 +1,24 @@
-import 'package:flutter/widgets.dart';
+import 'package:flutter/material.dart';
+import 'package:vm_app/src/core/ui-kit/button.dart';
 import 'package:vm_app/src/core/widget/safe_scaffold.dart';
+import 'package:vm_app/src/feature/auth/widget/authentication_scope.dart';
 
-/// {@template profile_tab}
-/// ProfileTab widget.
-/// {@endtemplate}
 class ProfileTab extends StatelessWidget {
-  /// {@macro profile_tab}
-  const ProfileTab({
-    super.key, // ignore: unused_element
-  });
+  const ProfileTab({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return const SafeScaffold(body: SizedBox());
+    return SafeScaffold(
+      appBar: AppBar(title: const Text('Профиль')),
+      padding: const EdgeInsets.symmetric(horizontal: 8.0),
+      body: Column(
+        children: [
+          VmButton(
+            onPressed: () => AuthenticationScope.signOut(context),
+            child: const Text('Выйти'),
+          ),
+        ],
+      ),
+    );
   }
 }

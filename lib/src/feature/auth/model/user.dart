@@ -4,7 +4,7 @@ import 'package:vm_app/src/core/model/typedefs.dart';
 typedef UserID = int;
 
 @immutable
-class User {
+final class User {
   final UserID id;
   final String email;
 
