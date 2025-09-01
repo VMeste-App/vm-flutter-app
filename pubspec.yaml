@@ -34,7 +34,7 @@ dependencies:
   octopus: ^0.0.9
 
   # Logger
-  l: ^5.0.0
+  l: ^5.0.1
   stack_trace: ^1.12.1
 
   forui: ^0.10.0+1
