@@ -6,6 +6,6 @@ class InitializationFailedScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // TODO: implement initialization failed screen.
-    return const Scaffold();
+    return const Placeholder();
   }
 }

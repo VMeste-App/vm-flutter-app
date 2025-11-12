@@ -9,9 +9,9 @@ abstract interface class IThemeDataProvider {
 }
 
 final class ThemeDataProvider implements IThemeDataProvider {
-  const ThemeDataProvider({required SharedPreferences sharedPreferences}) : _sharedPreferences = sharedPreferences;
+  const ThemeDataProvider({required SharedPreferencesAsync sharedPreferences}) : _sharedPreferences = sharedPreferences;
 
-  final SharedPreferences _sharedPreferences;
+  final SharedPreferencesAsync _sharedPreferences;
 
   static const String _themeModeKey = 'theme_mode';
 
@@ -20,11 +20,11 @@ final class ThemeDataProvider implements IThemeDataProvider {
 
   @override
   Future<ThemeMode?> getThemeMode() async {
-    final themeModeValue = _sharedPreferences.getString(_themeModeKey);
+    final themeModeValue = await _sharedPreferences.getString(_themeModeKey);
 
     return themeModeValue != null ? themeCodec.decode(themeModeValue) : null;
   }
 
   @override
-  Future<bool> setThemeMode(ThemeMode mode) => _sharedPreferences.setString(_themeModeKey, themeCodec.encode(mode));
+  Future<void> setThemeMode(ThemeMode mode) => _sharedPreferences.setString(_themeModeKey, themeCodec.encode(mode));
 }

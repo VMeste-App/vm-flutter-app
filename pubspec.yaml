@@ -4,8 +4,8 @@ publish_to: 'none'
 version: 0.1.0
 
 environment:
-  flutter: ^3.32.0
-  sdk: ^3.8.0
+  flutter: ^3.35.0
+  sdk: ^3.9.0
 
 dependencies:
   flutter:
@@ -15,24 +15,25 @@ dependencies:
   async: any
   collection: any
   meta: any
+  stack_trace: any
+
 
   # State management
   control: ^0.2.0
 
   # Networking
   dio: ^5.9.0
-
+  
   # Localization
   flutter_localizations:
     sdk: flutter
   intl: any # Use the pinned version from flutter_localizations
 
   # Storage
-  shared_preferences: ^2.5.2
+  shared_preferences: ^2.5.3
 
   # Logger
-  l: ^5.0.0
-  stack_trace: ^1.12.1
+  l: ^5.0.1
 
 dev_dependencies:
   flutter_test:

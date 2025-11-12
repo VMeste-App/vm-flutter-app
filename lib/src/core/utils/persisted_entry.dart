@@ -30,7 +30,7 @@ abstract class SharedPreferencesEntry<T extends Object> extends PersistedEntry<T
   const SharedPreferencesEntry({required this.storage, required this.key});
 
   /// The instance of [SharedPreferences] used to read and write values.
-  final SharedPreferences storage;
+  final SharedPreferencesAsync storage;
 
   /// The key used to store the value in the cache.
   final String key;

@@ -11,7 +11,8 @@ final class Dependencies {
   factory Dependencies.of(BuildContext context) => DependenciesScope.of(context);
 
   final Dio client;
-  final SharedPreferences sharedPreferences;
+  // TODO: Сделать абстракцию для замены на FSS при надобности.
+  final SharedPreferencesAsync sharedPreferences;
 
   final AuthController authController;
   final SettingsController settingsController;

@@ -8,7 +8,6 @@ import 'package:vm_app/src/core/config/config.dart';
 import 'package:vm_app/src/core/di/dependencies.dart';
 import 'package:vm_app/src/feature/auth/controller/authentication_controller.dart';
 import 'package:vm_app/src/feature/auth/data/auth_repository.dart';
-import 'package:vm_app/src/feature/auth/model/user.dart';
 import 'package:vm_app/src/feature/event/controller/vm_event_controller.dart';
 import 'package:vm_app/src/feature/event/data/vm_event_repository.dart';
 import 'package:vm_app/src/feature/settings/controller/settings_controller.dart';
@@ -26,14 +25,12 @@ abstract base class DependencyInitializer {
         createHttpClient: () => HttpClient()..findProxy = (_) => 'PROXY ${AppConfig.proxy}',
       );
 
-    final sharedPreferences = await SharedPreferences.getInstance();
+    final sharedPreferences = SharedPreferencesAsync();
 
     /// --- Authentication ---
     final IAuthRepository authRepository = AuthRepository(client: client, storage: sharedPreferences);
-    final authController = AuthController(
-      authRepository: authRepository,
-      user: const User(id: 123, email: 'email'),
-    );
+    final user = await authRepository.restore();
+    final authController = AuthController(authRepository: authRepository, user: user);
 
     /// --- Settings ---
     final themeRepository = ThemeRepository(dataProvider: ThemeDataProvider(sharedPreferences: sharedPreferences));

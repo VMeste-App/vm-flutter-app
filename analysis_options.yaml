@@ -273,10 +273,6 @@ linter:
     # https://dart.dev/tools/linter-rules/always_use_package_imports
     - always_use_package_imports
 
-    # Удалить после обновления lints на 6.0.0.
-    - unnecessary_underscores
-    - strict_top_level_inference
-
     # Flutter specific rules
     #
     # Use SizedBox.shrink(...) and SizedBox.expand(...) constructors appropriately.

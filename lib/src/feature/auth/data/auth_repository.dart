@@ -17,16 +17,16 @@ abstract interface class IAuthRepository {
 
   Future<void> signOut();
 
-  Future<void> restore();
+  Future<User?> restore();
 }
 
 final class AuthRepository implements IAuthRepository {
   final Dio _client;
-  final SharedPreferences _storage;
+  final SharedPreferencesAsync _storage;
 
   AuthRepository({
     required Dio client,
-    required SharedPreferences storage,
+    required SharedPreferencesAsync storage,
   }) : _client = client,
        _storage = storage;
 

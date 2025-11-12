@@ -9,15 +9,16 @@ abstract interface class ILocaleDataProvider {
 }
 
 final class LocaleDataProvider implements ILocaleDataProvider {
-  const LocaleDataProvider({required SharedPreferences sharedPreferences}) : _sharedPreferences = sharedPreferences;
+  const LocaleDataProvider({required SharedPreferencesAsync sharedPreferences})
+    : _sharedPreferences = sharedPreferences;
 
-  final SharedPreferences _sharedPreferences;
+  final SharedPreferencesAsync _sharedPreferences;
 
   static const String _localKey = 'locale';
 
   @override
   Future<Locale?> getLocale() async {
-    final languageCode = _sharedPreferences.getString(_localKey);
+    final languageCode = await _sharedPreferences.getString(_localKey);
     if (languageCode == null) return null;
 
     return Locale(languageCode);

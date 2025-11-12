@@ -14,7 +14,7 @@ final class User {
   });
 
   factory User.fromJson(Json json) {
-    if (json case {'user_id': final UserID id, 'username': final String email}) {
+    if (json case {'user_id': final UserID id, 'email': final String email}) {
       return User(id: id, email: email);
     }
 
