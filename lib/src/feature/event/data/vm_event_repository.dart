@@ -1,8 +1,8 @@
-import 'package:vm_app/src/core/model/paged_data.dart';
+import 'package:dio/dio.dart';
 import 'package:vm_app/src/feature/event/model/event.dart';
 
 abstract interface class IVmEventRepository {
-  Future<PagedData<VmEvent>> fetch({int page = 0});
+  Future<List<VmEvent>> getEvents({int page = 0});
 
   Future<VmEvent> fetchByID(VmEventID id);
 
@@ -14,8 +14,12 @@ abstract interface class IVmEventRepository {
 }
 
 final class VmEventRepository implements IVmEventRepository {
+  final Dio _client;
+
+  VmEventRepository({required Dio client}) : _client = client;
+
   @override
-  Future<PagedData<VmEvent>> fetch({int page = 0}) {
+  Future<List<VmEvent>> getEvents({int page = 0}) {
     // TODO: implement fetch
     throw UnimplementedError();
   }

@@ -1,6 +1,5 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 
 enum _PagedListState { processing, idle }
 
@@ -9,19 +8,28 @@ enum _PagedListState { processing, idle }
 /// {@endtemplate}
 class LazyScrollView extends StatefulWidget {
   /// {@macro lazy_load_scroll_view}
-  const LazyScrollView({super.key, required this.child, this.onStartOfPage, this.onEndOfPage, this.scrollOffset = 100});
+  const LazyScrollView({
+    super.key,
+    this.onRefresh,
+    this.onLoadMore,
+    this.endOffset = 100,
+    this.refreshOffset = 100,
+    required this.child,
+  });
 
   /// The [Widget] that this widget watches for changes on.
   final Widget child;
 
   /// Called when the [child] reaches the start of the list.
-  final AsyncCallback? onStartOfPage;
+  final AsyncCallback? onRefresh;
 
   /// Called when the [child] reaches the end of the list.
-  final AsyncCallback? onEndOfPage;
+  final AsyncCallback? onLoadMore;
 
-  /// The offset to take into account when triggering [onEndOfPage]/[onStartOfPage] in pixels.
-  final double scrollOffset;
+  /// The offset to take into account when triggering [onLoadMore] in pixels.
+  final double endOffset;
+
+  final double refreshOffset;
 
   @override
   State<LazyScrollView> createState() => _LazyScrollViewState();
@@ -34,13 +42,33 @@ class _LazyScrollViewState extends State<LazyScrollView> {
 
   @override
   Widget build(BuildContext context) {
-    return NotificationListener<ScrollNotification>(onNotification: _onNotification, child: widget.child);
+    return NotificationListener<ScrollNotification>(
+      onNotification: _onNotification,
+      child: Stack(
+        alignment: Alignment.topCenter,
+        children: [
+          Transform.translate(
+            offset: Offset(0.0, -_scrollPosition / 2),
+            child: CircularProgressIndicator(
+              strokeWidth: 2.0,
+              value: -_scrollPosition / 70 > 1 ? null : -_scrollPosition / 70,
+              constraints: BoxConstraints.tight(const Size.square(16.0)),
+            ),
+          ),
+          Transform.translate(
+            offset: const Offset(0.0, 0),
+            child: widget.child,
+          ),
+        ],
+      ),
+    );
   }
 
   bool _onNotification(ScrollNotification notification) {
+    setState(() {});
     if (notification is ScrollUpdateNotification) {
       final pixels = notification.metrics.pixels;
-      final scrollOffset = widget.scrollOffset;
+      final scrollOffset = widget.endOffset;
       final extentBefore = notification.metrics.extentBefore;
       final extentAfter = notification.metrics.extentAfter;
       final scrollingDown = _scrollPosition < pixels;
@@ -48,11 +76,11 @@ class _LazyScrollViewState extends State<LazyScrollView> {
 
       if (scrollingDown) {
         if (extentAfter <= scrollOffset) {
-          _onEndOfPage();
+          _onLoadMore();
         }
       } else {
         if (extentBefore <= scrollOffset) {
-          _onStartOfPage();
+          _onRefresh();
         }
       }
 
@@ -61,9 +89,9 @@ class _LazyScrollViewState extends State<LazyScrollView> {
 
     if (notification is OverscrollNotification) {
       if (notification.overscroll > 0) {
-        _onEndOfPage();
+        _onLoadMore();
       } else if (notification.overscroll < 0) {
-        _onStartOfPage();
+        _onRefresh();
       }
 
       return false;
@@ -72,9 +100,9 @@ class _LazyScrollViewState extends State<LazyScrollView> {
     return false;
   }
 
-  void _onEndOfPage() => _onReachEdge(widget.onEndOfPage);
+  void _onLoadMore() => _onReachEdge(widget.onLoadMore);
 
-  void _onStartOfPage() => _onReachEdge(widget.onStartOfPage);
+  void _onRefresh() => _onReachEdge(widget.onRefresh);
 
   void _onReachEdge(AsyncCallback? callback) {
     if (callback == null || _pagedListState == _PagedListState.processing) {

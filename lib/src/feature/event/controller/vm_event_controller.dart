@@ -13,7 +13,7 @@ final class VmEventController extends StateController<VmEventState> with Sequent
   void fetch(VmEventID id) => handle(
     () async {
       state.processing();
-      await _repository.fetch(page: 1);
+      await _repository.getEvents(page: 1);
       setState(const VmEventState.success());
     },
     error: (e, _) async => setState(VmEventState.error(e)),

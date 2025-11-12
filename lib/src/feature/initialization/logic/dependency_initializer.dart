@@ -50,7 +50,7 @@ abstract base class DependencyInitializer {
     );
 
     /// --- Event ---
-    final eventRepository = VmEventRepository();
+    final eventRepository = VmEventRepository(client: client);
     final eventController = VmEventController(repository: eventRepository);
 
     return Dependencies(

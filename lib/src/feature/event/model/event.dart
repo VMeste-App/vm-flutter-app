@@ -38,22 +38,20 @@ final class VmEvent {
     this.description,
   });
 
-  Json toJson() {
-    return {
-      'activity_id': activityID,
-      'level_id': level.id,
-      'members_qty_up': membersQtyUp,
-      'members_qty_to': membersQtyTo,
-      'sex': membersSex.id,
-      'members_age_up': membersAgeUp,
-      'members_age_to': membersAgeTo,
-      'shared_cost': sharedCost,
-      'per_person_cost': perPersonCost,
-      'dt': dt.toUtc().toIso8601String(),
-      'duration': duration.inMinutes,
-      'description': description,
-    };
-  }
+  Json toJson() => {
+    'activity_id': activityID,
+    'level_id': level.id,
+    'members_qty_up': membersQtyUp,
+    'members_qty_to': membersQtyTo,
+    'sex': membersSex.id,
+    'members_age_up': membersAgeUp,
+    'members_age_to': membersAgeTo,
+    'shared_cost': sharedCost,
+    'per_person_cost': perPersonCost,
+    'dt': dt.toUtc().toIso8601String(),
+    'duration': duration.inMinutes,
+    'description': description,
+  };
 }
 
 typedef VmEvents = List<VmEvent>;

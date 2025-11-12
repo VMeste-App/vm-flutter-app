@@ -35,10 +35,6 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
-    // final controller = AuthScope.controllerOf(context);
-
-    // return Center(child: FilledButton(onPressed: controller.signOut, child: const Text('Sign out')));
-
     return ValueListenableBuilder<int>(
       valueListenable: _tabController,
       builder: (context, value, _) {

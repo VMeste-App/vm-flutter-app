@@ -43,8 +43,6 @@ class _CreateEventScreenState extends State<CreateEventScreen> {
   final TextEditingController _ageTo = TextEditingController();
 
   // --- Date and time ---
-  // late final FDateFieldController _date = FDateFieldController(vsync: this);
-  // late final FTimeFieldController _time = FTimeFieldController(vsync: this);
   final ValueNotifier<Duration?> _duration = ValueNotifier(null);
 
   // --- Price ---
@@ -147,7 +145,10 @@ class _CreateEventScreenState extends State<CreateEventScreen> {
             ),
             const SizedBox(height: 8.0),
 
-            VmSwitchListTile.controlled(_meAsMember, title: const Text('Добавить меня в список участников')),
+            VmSwitchListTile.controlled(
+              _meAsMember,
+              title: const Text('Добавить меня в список участников'),
+            ),
             spacer,
 
             /// --- Sex ---
@@ -171,7 +172,6 @@ class _CreateEventScreenState extends State<CreateEventScreen> {
               child: Column(
                 children: [
                   VmSwitchListTile.controlled(_isAdult, title: const Text('Только совершеннолетние')),
-                  const SizedBox(height: 8.0),
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 16.0),
                     child: ValueListenableBuilder(
@@ -207,11 +207,11 @@ class _CreateEventScreenState extends State<CreateEventScreen> {
             // --- Datetime ---
             const VmLabel(
               title: Text('Дата и время'),
-              child: Row(
-                spacing: 20,
+              child: Column(
+                spacing: 12,
                 children: [
-                  Flexible(child: DateTimeField()),
-                  Flexible(child: DurationField()),
+                  DateTimeField(),
+                  DurationField(),
                 ],
               ),
             ),
@@ -229,14 +229,6 @@ class _CreateEventScreenState extends State<CreateEventScreen> {
                   PriceField(controller: _sharedCost, hintText: 'Стоимость'),
                 ],
               ),
-
-              // _RowListTile(
-
-              //   children: [
-              //     PriceField(controller: _sharedCost, hintText: 'Общие расходы'),
-              //     PriceField(controller: _individualCost, hintText: 'Индивидуальные'),
-              //   ],
-              // ),
             ),
 
             spacer,

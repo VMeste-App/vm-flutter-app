@@ -27,15 +27,7 @@ class EventsTab extends StatelessWidget {
           ),
         ],
       ),
-      body: Container(),
-      // content: FTabs(
-      //   initialIndex: 1,
-      //   onPress: (index) {},
-      //   tabs: const [
-      //     FTabEntry(label: Text('Текущие'), content: SizedBox()),
-      //     FTabEntry(label: Text('Прошедшие'), content: SizedBox()),
-      //   ],
-      // ),
+      body: const SizedBox(),
     );
   }
 }

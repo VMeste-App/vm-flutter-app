@@ -5,7 +5,11 @@ import 'package:vm_app/src/shared/activity/widget/activities_screen.dart';
 import 'package:vm_app/src/shared/activity/widget/activity_scope.dart';
 
 class ActivityField extends StatefulWidget {
-  const ActivityField({super.key, this.onChanged, this.errorText});
+  const ActivityField({
+    super.key,
+    this.onChanged,
+    this.errorText,
+  });
 
   final ValueChanged<ActivityID>? onChanged;
   final String? errorText;
@@ -27,7 +31,6 @@ class _ActivityFieldState extends State<ActivityField> {
   Widget build(BuildContext context) {
     return VmTextField(
       controller: _controller,
-      // label: Text('Активность', style: context.theme.tileGroupStyle.enabledStyle.labelTextStyle),
       enableInteractiveSelection: false,
       maxLines: 1,
       readOnly: true,

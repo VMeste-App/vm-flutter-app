@@ -3,6 +3,7 @@ import 'package:vm_app/src/feature/auth/widget/sign_in_screen.dart';
 import 'package:vm_app/src/feature/auth/widget/sign_up_screen.dart';
 import 'package:vm_app/src/feature/event/widget/create_event_screen.dart';
 import 'package:vm_app/src/feature/home/home_screen.dart';
+import 'package:vm_app/src/feature/search/widget/filter_screen.dart';
 import 'package:vm_app/src/shared/activity/widget/activities_screen.dart';
 
 final class VmPage<T> extends MaterialPage<T> {
@@ -44,8 +45,8 @@ final class HomePage extends VmPage<void> {
 final class CreateEventPage extends VmPage<void> {
   const CreateEventPage()
     : super(
-        key: const ValueKey('create-event'),
-        name: 'create-event',
+        key: const ValueKey('create'),
+        name: 'create',
         fullscreenDialog: true,
         child: const CreateEventScreen(),
       );
@@ -57,5 +58,15 @@ final class ActivitiesPage extends VmPage<void> {
         key: const ValueKey('activities'),
         name: 'activities',
         child: const ActivitiesScreen(),
+      );
+}
+
+final class FilterPage extends VmPage<void> {
+  const FilterPage()
+    : super(
+        key: const ValueKey('filter'),
+        name: 'filter',
+        fullscreenDialog: true,
+        child: const FilterScreen(),
       );
 }
