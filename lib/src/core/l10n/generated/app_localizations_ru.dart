@@ -9,5 +9,20 @@ class AppLocalizationsRu extends AppLocalizations {
   AppLocalizationsRu([String locale = 'ru']) : super(locale);
 
   @override
-  String get theme_button_tooltip => 'Переключить режим темы';
+  String get settings => 'Настройки';
+
+  @override
+  String get themeModeTitle => 'Тема';
+
+  @override
+  String get themeModeSystem => 'Как на устройстве';
+
+  @override
+  String get themeModeLight => 'Светлая';
+
+  @override
+  String get themeModeDark => 'Темная';
+
+  @override
+  String get localeTitle => 'Язык приложения';
 }

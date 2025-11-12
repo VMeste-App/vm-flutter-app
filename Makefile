@@ -3,8 +3,12 @@ pg:
 	@flutter pub get --no-example
 
 .PHONY: clean
-get:
+clean:
 	@flutter clean
+
+.PHONY: init
+init:
+	make clean && make pg
 
 .PHONY: analyze
 analyze:

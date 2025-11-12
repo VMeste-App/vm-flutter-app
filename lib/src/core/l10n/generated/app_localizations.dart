@@ -90,16 +90,43 @@ abstract class AppLocalizations {
   ];
 
   /// A list of this localizations delegate's supported locales.
-  static const List<Locale> supportedLocales = <Locale>[
-    Locale('en'),
-    Locale('ru')
-  ];
+  static const List<Locale> supportedLocales = <Locale>[Locale('en'), Locale('ru')];
 
-  /// No description provided for @theme_button_tooltip.
+  /// No description provided for @settings.
   ///
   /// In en, this message translates to:
-  /// **'Toggle theme mode'**
-  String get theme_button_tooltip;
+  /// **'Settings'**
+  String get settings;
+
+  /// No description provided for @themeModeTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Appearance'**
+  String get themeModeTitle;
+
+  /// No description provided for @themeModeSystem.
+  ///
+  /// In en, this message translates to:
+  /// **'Use device theme'**
+  String get themeModeSystem;
+
+  /// No description provided for @themeModeLight.
+  ///
+  /// In en, this message translates to:
+  /// **'Light theme'**
+  String get themeModeLight;
+
+  /// No description provided for @themeModeDark.
+  ///
+  /// In en, this message translates to:
+  /// **'Dark theme'**
+  String get themeModeDark;
+
+  /// No description provided for @localeTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'App Language'**
+  String get localeTitle;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {
@@ -118,18 +145,18 @@ class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> 
 }
 
 AppLocalizations lookupAppLocalizations(Locale locale) {
-
-
   // Lookup logic when only language code is specified.
   switch (locale.languageCode) {
-    case 'en': return AppLocalizationsEn();
-    case 'ru': return AppLocalizationsRu();
+    case 'en':
+      return AppLocalizationsEn();
+    case 'ru':
+      return AppLocalizationsRu();
   }
 
   throw FlutterError(
     'AppLocalizations.delegate failed to load unsupported locale "$locale". This is likely '
     'an issue with the localizations generation tool. Please file an issue '
     'on GitHub with a reproducible sample app and the gen-l10n configuration '
-    'that was used.'
+    'that was used.',
   );
 }

@@ -1,25 +1,31 @@
 import 'package:control/control.dart';
 import 'package:flutter/material.dart';
-import 'package:vm_app/src/core/theme/app_theme.dart';
 import 'package:vm_app/src/feature/settings/controller/settings_controller.dart';
 
 class SettingsScope extends StatefulWidget {
-  const SettingsScope({super.key, required this.controller, required this.child});
+  const SettingsScope({
+    super.key,
+    required this.controller,
+    required this.child,
+  });
 
   final SettingsController controller;
   final Widget child;
 
+  /// Get the current theme mode.
+  static ThemeMode themeModeOf(BuildContext context) => _InheritedSettingsScope.themeModeOf(context);
+
+  /// Set the theme mode.
+  static void setThemeMode(BuildContext context, ThemeMode themeMode) => _controllerOf(context).setThemeMode(themeMode);
+
+  /// Get the current locale.
+  static Locale localeOf(BuildContext context) => _InheritedSettingsScope.localeOf(context);
+
+  /// Set the locale.
+  static void setLocale(BuildContext context, Locale locale) => _controllerOf(context).setLocale(locale);
+
   /// Get the [SettingsScopeController] of the closest [SettingsScope] ancestor.
-  static SettingsScopeController of(BuildContext context) =>
-      context.getInheritedWidgetOfExactType<_InheritedSettingsScope>()!.controller;
-
-  /// Get the [ThemeScopeController] of the closest [SettingsScope] ancestor.
-  static ThemeScopeController themeOf(BuildContext context) =>
-      InheritedModel.inheritFrom<_InheritedSettingsScope>(context, aspect: _SettingsScopeAspect.theme)!.controller;
-
-  /// Get the [LocaleScopeController] of the closest [SettingsScope] ancestor.
-  static LocaleScopeController localeOf(BuildContext context) =>
-      InheritedModel.inheritFrom<_InheritedSettingsScope>(context, aspect: _SettingsScopeAspect.locale)!.controller;
+  static SettingsScopeController _controllerOf(BuildContext context) => _InheritedSettingsScope.controllerOf(context);
 
   @override
   State<SettingsScope> createState() => _SettingsScopeState();
@@ -31,14 +37,16 @@ class _SettingsScopeState extends State<SettingsScope> implements SettingsScopeC
     return StateConsumer<SettingsController, SettingsState>(
       controller: widget.controller,
       buildWhen: (previous, current) => previous.settings != current.settings,
-      builder: (context, state, child) {
-        return _InheritedSettingsScope(state: state, controller: this, child: widget.child);
-      },
+      builder: (context, state, child) => _InheritedSettingsScope(
+        state: state,
+        controller: this,
+        child: widget.child,
+      ),
     );
   }
 
   @override
-  AppTheme get theme => widget.controller.state.settings.theme;
+  ThemeMode get themeMode => widget.controller.state.settings.themeMode;
 
   @override
   Locale get locale => widget.controller.state.settings.locale;
@@ -48,19 +56,33 @@ class _SettingsScopeState extends State<SettingsScope> implements SettingsScopeC
 
   @override
   void setThemeMode(ThemeMode themeMode) => widget.controller.setThemeMode(themeMode);
-
-  @override
-  void setThemeSeedColor(Color color) => widget.controller.setThemeSeedColor(color);
 }
 
 class _InheritedSettingsScope extends InheritedModel<_SettingsScopeAspect> {
-  const _InheritedSettingsScope({required this.state, required this.controller, required super.child});
+  const _InheritedSettingsScope({
+    required this.state,
+    required this.controller,
+    required super.child,
+  });
 
   final SettingsState state;
   final SettingsScopeController controller;
 
+  static SettingsScopeController controllerOf(BuildContext context) =>
+      context.getInheritedWidgetOfExactType<_InheritedSettingsScope>()!.controller;
+
+  static ThemeMode themeModeOf(BuildContext context) => InheritedModel.inheritFrom<_InheritedSettingsScope>(
+    context,
+    aspect: _SettingsScopeAspect.theme,
+  )!.state.settings.themeMode;
+
+  static Locale localeOf(BuildContext context) => InheritedModel.inheritFrom<_InheritedSettingsScope>(
+    context,
+    aspect: _SettingsScopeAspect.locale,
+  )!.state.settings.locale;
+
   @override
-  bool updateShouldNotify(covariant _InheritedSettingsScope oldWidget) => oldWidget.state != state;
+  bool updateShouldNotify(covariant _InheritedSettingsScope oldWidget) => oldWidget.state.settings != state.settings;
 
   @override
   bool updateShouldNotifyDependent(
@@ -70,7 +92,7 @@ class _InheritedSettingsScope extends InheritedModel<_SettingsScopeAspect> {
     var shouldNotify = false;
 
     if (dependencies.contains(_SettingsScopeAspect.theme)) {
-      shouldNotify = shouldNotify || state.settings.theme != oldWidget.state.settings.theme;
+      shouldNotify = shouldNotify || state.settings.themeMode != oldWidget.state.settings.themeMode;
     }
 
     if (dependencies.contains(_SettingsScopeAspect.locale)) {
@@ -82,21 +104,18 @@ class _InheritedSettingsScope extends InheritedModel<_SettingsScopeAspect> {
 }
 
 abstract interface class ThemeScopeController {
-  /// Get the current [AppTheme].
-  AppTheme get theme;
+  /// Get the current theme mode.
+  ThemeMode get themeMode;
 
-  /// Set the theme mode to [themeMode].
+  /// Set the theme mode.
   void setThemeMode(ThemeMode themeMode);
-
-  /// Set the theme accent color to [color].
-  void setThemeSeedColor(Color color);
 }
 
 abstract interface class LocaleScopeController {
-  /// Get the current [Locale]
+  /// Get the current locale.
   Locale get locale;
 
-  /// Set locale to [locale].
+  /// Set locale.
   void setLocale(Locale locale);
 }
 

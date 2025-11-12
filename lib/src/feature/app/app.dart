@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:forui/forui.dart';
-import 'package:octopus/octopus.dart';
+import 'package:vm_app/src/core/di/dependencies.dart';
 import 'package:vm_app/src/core/l10n/app_localization.dart';
-import 'package:vm_app/src/core/router/router_state_mixin.dart';
+import 'package:vm_app/src/core/navigator/navigator.dart';
+import 'package:vm_app/src/core/navigator/pages.dart';
+import 'package:vm_app/src/core/theme/app_theme.dart';
+import 'package:vm_app/src/feature/auth/widget/auth_guard.dart';
 import 'package:vm_app/src/feature/settings/widget/settings_scope.dart';
+import 'package:vm_app/src/shared/activity/widget/activity_scope.dart';
 
 class VmApp extends StatefulWidget {
   const VmApp({super.key});
@@ -12,29 +15,39 @@ class VmApp extends StatefulWidget {
   State<VmApp> createState() => _VmAppState();
 }
 
-class _VmAppState extends State<VmApp> with RouterStateMixin {
+class _VmAppState extends State<VmApp> {
+  // Чтобы исключить пересоздание дерева виджетов(при включении Widget Inspector, например).
+  final GlobalKey<_VmAppState> _appKey = GlobalKey<_VmAppState>();
+
   @override
   Widget build(BuildContext context) {
-    final theme = SettingsScope.themeOf(context).theme;
-    final locale = SettingsScope.localeOf(context).locale;
+    final themeMode = SettingsScope.themeModeOf(context);
+    final locale = SettingsScope.localeOf(context);
 
-    return MaterialApp.router(
+    return MaterialApp(
+      key: _appKey,
       debugShowCheckedModeBanner: false,
-      routerConfig: router.config,
-      localizationsDelegates: const [
-        ...AppLocalization.localizationsDelegates,
-        ...FLocalizations.localizationsDelegates,
-      ],
+      localizationsDelegates: AppLocalization.localizationsDelegates,
       supportedLocales: AppLocalization.supportedLocales,
       locale: locale,
-      themeMode: theme.mode,
-      theme: theme.lightTheme,
-      darkTheme: theme.darkTheme,
-      builder:
-          (context, child) => FTheme(
-            data: FThemes.slate.light,
-            child: MediaQuery.withNoTextScaling(child: OctopusTools(child: child!)),
+      themeMode: themeMode,
+      theme: AppTheme().lightTheme,
+      darkTheme: AppTheme().darkTheme,
+      builder: (context, child) => MediaQuery.withNoTextScaling(
+        child: AuthGuard(
+          child: SettingsScope(
+            controller: Dependencies.of(context).settingsController,
+            child: ActivityScope(
+              child: HeroControllerScope(
+                controller: HeroController(),
+                child: VmNavigator(
+                  pages: const [HomePage()],
+                ),
+              ),
+            ),
           ),
+        ),
+      ),
     );
   }
 }

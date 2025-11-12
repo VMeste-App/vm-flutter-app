@@ -30,7 +30,7 @@ abstract class SharedPreferencesEntry<T extends Object> extends PersistedEntry<T
   const SharedPreferencesEntry({required this.storage, required this.key});
 
   /// The instance of [SharedPreferences] used to read and write values.
-  final SharedPreferencesAsync storage;
+  final SharedPreferences storage;
 
   /// The key used to store the value in the cache.
   final String key;
@@ -47,7 +47,7 @@ class IntPreferencesEntry extends SharedPreferencesEntry<int> {
   const IntPreferencesEntry({required super.storage, required super.key});
 
   @override
-  Future<int?> read() => storage.getInt(key);
+  Future<int?> read() async => storage.getInt(key);
 
   @override
   Future<void> set(int value) async {
@@ -61,7 +61,7 @@ class StringPreferencesEntry extends SharedPreferencesEntry<String> {
   const StringPreferencesEntry({required super.storage, required super.key});
 
   @override
-  Future<String?> read() => storage.getString(key);
+  Future<String?> read() async => storage.getString(key);
 
   @override
   Future<void> set(String value) async {
@@ -75,7 +75,7 @@ class BoolPreferencesEntry extends SharedPreferencesEntry<bool> {
   const BoolPreferencesEntry({required super.storage, required super.key});
 
   @override
-  Future<bool?> read() => storage.getBool(key);
+  Future<bool?> read() async => storage.getBool(key);
 
   @override
   Future<void> set(bool value) async {
@@ -89,7 +89,7 @@ class DoublePreferencesEntry extends SharedPreferencesEntry<double> {
   const DoublePreferencesEntry({required super.storage, required super.key});
 
   @override
-  Future<double?> read() => storage.getDouble(key);
+  Future<double?> read() async => storage.getDouble(key);
 
   @override
   Future<void> set(double value) async {
@@ -103,7 +103,7 @@ class StringListPreferencesEntry extends SharedPreferencesEntry<List<String>> {
   const StringListPreferencesEntry({required super.storage, required super.key});
 
   @override
-  Future<List<String>?> read() => storage.getStringList(key);
+  Future<List<String>?> read() async => storage.getStringList(key);
 
   @override
   Future<void> set(List<String> value) async {

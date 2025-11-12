@@ -1,3 +1,8 @@
 {
-    "theme_button_tooltip": "Переключить режим темы"
+    "settings": "Настройки",
+    "themeModeTitle": "Тема",
+    "themeModeSystem": "Как на устройстве",
+    "themeModeLight": "Светлая",
+    "themeModeDark": "Темная",
+    "localeTitle": "Язык приложения"
 }

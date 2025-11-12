@@ -3,9 +3,9 @@ import 'dart:async';
 import 'package:control/control.dart';
 import 'package:flutter/widgets.dart';
 import 'package:vm_app/src/core/controller/controller_observer.dart';
+import 'package:vm_app/src/core/di/dependencies.dart';
 import 'package:vm_app/src/core/utils/log_util.dart';
 import 'package:vm_app/src/feature/initialization/logic/dependency_initializer.dart';
-import 'package:vm_app/src/feature/initialization/model/dependencies.dart';
 
 abstract base class AppInitializer {
   static FutureOr<Dependencies> run({

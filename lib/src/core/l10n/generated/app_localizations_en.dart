@@ -9,5 +9,20 @@ class AppLocalizationsEn extends AppLocalizations {
   AppLocalizationsEn([String locale = 'en']) : super(locale);
 
   @override
-  String get theme_button_tooltip => 'Toggle theme mode';
+  String get settings => 'Settings';
+
+  @override
+  String get themeModeTitle => 'Appearance';
+
+  @override
+  String get themeModeSystem => 'Use device theme';
+
+  @override
+  String get themeModeLight => 'Light theme';
+
+  @override
+  String get themeModeDark => 'Dark theme';
+
+  @override
+  String get localeTitle => 'App Language';
 }

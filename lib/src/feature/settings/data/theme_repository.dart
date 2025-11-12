@@ -1,13 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:vm_app/src/core/theme/app_theme.dart';
 import 'package:vm_app/src/feature/settings/data/theme_data_provider.dart';
 
 abstract interface class IThemeRepository {
   Future<void> setThemeMode(ThemeMode mode);
 
-  Future<void> setSeedColor(Color color);
-
-  Future<AppTheme?> getTheme();
+  Future<ThemeMode?> getThemeMode();
 }
 
 final class ThemeRepository implements IThemeRepository {
@@ -16,10 +13,7 @@ final class ThemeRepository implements IThemeRepository {
   final IThemeDataProvider _dataProvider;
 
   @override
-  Future<AppTheme?> getTheme() => _dataProvider.getTheme();
-
-  @override
-  Future<void> setSeedColor(Color color) => _dataProvider.setSeedColor(color);
+  Future<ThemeMode?> getThemeMode() => _dataProvider.getThemeMode();
 
   @override
   Future<void> setThemeMode(ThemeMode mode) => _dataProvider.setThemeMode(mode);

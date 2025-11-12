@@ -8,7 +8,10 @@
         {
             "name": "vm-flutter-client",
             "request": "launch",
-            "type": "dart"
+            "type": "dart",
+            "args": [
+                "--dart-define-from-file=environment/test.env"
+            ]
         },
         {
             "name": "vm-flutter-client (profile mode)",
