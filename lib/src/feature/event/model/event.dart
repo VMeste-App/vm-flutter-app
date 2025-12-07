@@ -55,3 +55,35 @@ final class VmEvent {
 }
 
 typedef VmEvents = List<VmEvent>;
+
+final class VmEventMutable {
+  String? title;
+  ActivityID? activityID;
+  Level? level;
+  int? membersQtyUp;
+  int? membersQtyTo;
+  Sex? membersSex;
+  int? membersAgeUp;
+  int? membersAgeTo;
+  DateTime? dt;
+  Duration? duration;
+  int? sharedCost;
+  int? perPersonCost;
+  String? description;
+
+  VmEventMutable({
+    this.title,
+    this.activityID,
+    this.level,
+    this.membersQtyUp,
+    this.membersQtyTo,
+    this.membersSex,
+    this.membersAgeUp,
+    this.membersAgeTo,
+    this.dt,
+    this.duration,
+    this.sharedCost,
+    this.perPersonCost,
+    this.description,
+  });
+}

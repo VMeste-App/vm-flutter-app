@@ -8,7 +8,7 @@ import 'package:vm_app/src/core/config/config.dart';
 import 'package:vm_app/src/core/di/dependencies.dart';
 import 'package:vm_app/src/feature/auth/controller/authentication_controller.dart';
 import 'package:vm_app/src/feature/auth/data/auth_repository.dart';
-import 'package:vm_app/src/feature/event/controller/vm_event_controller.dart';
+import 'package:vm_app/src/feature/event/controller/single/vm_event_controller.dart';
 import 'package:vm_app/src/feature/event/data/vm_event_repository.dart';
 import 'package:vm_app/src/feature/settings/controller/settings_controller.dart';
 import 'package:vm_app/src/feature/settings/data/locale_data_provider.dart';

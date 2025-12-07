@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:vm_app/src/core/navigator/navigator.dart';
 import 'package:vm_app/src/core/navigator/pages.dart';
+import 'package:vm_app/src/core/theme/colors.dart';
 import 'package:vm_app/src/core/widget/lazy_scroll_view.dart';
 import 'package:vm_app/src/core/widget/safe_scaffold.dart';
+import 'package:vm_app/src/feature/event/widget/event_card.dart';
 
 /// {@template search_tab}
 /// SearchTab widget.
@@ -16,6 +18,7 @@ class SearchTab extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SafeScaffold(
+      backgroundColor: AppColors.neutral3,
       appBar: AppBar(
         title: const Text('События'),
         actions: [
@@ -32,13 +35,9 @@ class SearchTab extends StatelessWidget {
           padding: const EdgeInsets.symmetric(horizontal: 12.0),
           itemCount: 100,
           separatorBuilder: (context, index) => const SizedBox(height: 12.0),
-          itemBuilder: (context, index) => Card(
-            child: Column(
-              children: [
-                Text('Title #$index'),
-                Text('Subtitle #$index'),
-              ],
-            ),
+          itemBuilder: (context, index) => InkWell(
+            onTap: () => VmNavigator.push(context, VmEventPage(id: index)),
+            child: const VmEventCard(),
           ),
         ),
       ),

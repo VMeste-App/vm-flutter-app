@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:vm_app/src/feature/auth/widget/sign_in_screen.dart';
 import 'package:vm_app/src/feature/auth/widget/sign_up_screen.dart';
+import 'package:vm_app/src/feature/event/model/event.dart';
 import 'package:vm_app/src/feature/event/widget/create_event_screen.dart';
+import 'package:vm_app/src/feature/event/widget/event_screen.dart';
 import 'package:vm_app/src/feature/home/home_screen.dart';
 import 'package:vm_app/src/feature/search/widget/filter_screen.dart';
 import 'package:vm_app/src/shared/activity/widget/activities_screen.dart';
@@ -69,4 +71,15 @@ final class FilterPage extends VmPage<void> {
         fullscreenDialog: true,
         child: const FilterScreen(),
       );
+}
+
+final class VmEventPage extends VmPage<void> {
+  VmEventPage({required this.id})
+    : super(
+        key: const ValueKey('filter'),
+        name: 'filter',
+        child: VmEventScreen(id: id),
+      );
+
+  final VmEventID id;
 }

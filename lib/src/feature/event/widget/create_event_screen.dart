@@ -8,6 +8,7 @@ import 'package:vm_app/src/core/ui-kit/picker_group.dart';
 import 'package:vm_app/src/core/ui-kit/switch_list_tile.dart';
 import 'package:vm_app/src/core/ui-kit/text_field.dart';
 import 'package:vm_app/src/core/widget/safe_scaffold.dart';
+import 'package:vm_app/src/feature/event/model/event.dart';
 import 'package:vm_app/src/shared/activity/model/activity.dart';
 import 'package:vm_app/src/shared/activity/widget/activity_field.dart';
 import 'package:vm_app/src/shared/level/model/level.dart';
@@ -21,55 +22,84 @@ class CreateEventScreen extends StatefulWidget {
 }
 
 class _CreateEventScreenState extends State<CreateEventScreen> {
-  // --- Activity ---
-  ActivityID? _activity;
-  final TextEditingController _activityController = TextEditingController();
+  final VmEventMutable _event = VmEventMutable();
 
-  // --- Level ---
+  // Title
+  final _titleKey = GlobalKey();
+  final _titleController = TextEditingController();
+  final _titleError = ValueNotifier<String?>(null);
+
+  // Activity
+  final _activityKey = GlobalKey();
+  final _activityController = ValueNotifier<ActivityID?>(null);
+  final _activityError = ValueNotifier<String?>(null);
+
+  // Level
+  final _levelKey = GlobalKey();
   final _levelController = ValueNotifier<LevelID?>(null);
-  // LevelID? _level;
+  final _levelError = ValueNotifier<String?>(null);
 
   // --- Members ---
-  final TextEditingController _membersFrom = TextEditingController();
-  final TextEditingController _membersTo = TextEditingController();
-  final ValueNotifier<bool> _meAsMember = ValueNotifier<bool>(false);
+  final _membersFrom = TextEditingController();
+  final _membersTo = TextEditingController();
+  final _meAsMember = ValueNotifier<bool>(false);
 
   // --- Sex ---
   final _sexController = ValueNotifier<SexID?>(null);
 
   // --- Age ---
-  final ValueNotifier<bool> _isAdult = ValueNotifier<bool>(false);
-  final TextEditingController _ageFrom = TextEditingController();
-  final TextEditingController _ageTo = TextEditingController();
+  final _isAdult = ValueNotifier<bool>(false);
+  final _ageFrom = TextEditingController();
+  final _ageTo = TextEditingController();
 
   // --- Date and time ---
-  final ValueNotifier<Duration?> _duration = ValueNotifier(null);
+  final _duration = ValueNotifier<Duration?>(null);
 
   // --- Price ---
-  final TextEditingController _sharedCost = TextEditingController();
-  final TextEditingController _individualCost = TextEditingController();
+  final _sharedCost = TextEditingController();
+  final _individualCost = TextEditingController();
 
   // --- Description ---
-  final TextEditingController _descriptionController = TextEditingController();
+  final _descriptionController = TextEditingController();
 
   // --- Error's controllers ---
-  final ValueNotifier<String?> _activityError = ValueNotifier(null);
-  final ValueNotifier<String?> _levelError = ValueNotifier(null);
-  final ValueNotifier<String?> _sexError = ValueNotifier(null);
+  final _sexError = ValueNotifier<String?>(null);
 
   // --- Keys ---
-  final GlobalKey _activityKey = GlobalKey();
-  final GlobalKey _levelKey = GlobalKey();
-  final GlobalKey _sexKey = GlobalKey();
+  final _sexKey = GlobalKey();
+
+  @override
+  void initState() {
+    super.initState();
+
+    Listenable.merge([
+      _titleController,
+      _activityController,
+      _levelController,
+    ]).addListener(() {
+      _event
+        ..title = _titleController.text
+        ..activityID = _activityController.value
+        ..level = Level.byID(10);
+    });
+  }
 
   @override
   void dispose() {
+    // Title
+    _titleController.dispose();
+    _titleError.dispose();
+    // Activity
     _activityController.dispose();
+    _activityError.dispose();
+    // Level
     _levelController.dispose();
+    _levelError.dispose();
+
     _membersFrom.dispose();
     _membersTo.dispose();
     _meAsMember.dispose();
-    // _sexController.dispose();
+    _sexController.dispose();
     _isAdult.dispose();
     _ageFrom.dispose();
     _ageTo.dispose();
@@ -79,6 +109,8 @@ class _CreateEventScreenState extends State<CreateEventScreen> {
     _sharedCost.dispose();
     _individualCost.dispose();
     _descriptionController.dispose();
+
+    _sexError.dispose();
 
     super.dispose();
   }
@@ -94,20 +126,44 @@ class _CreateEventScreenState extends State<CreateEventScreen> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            // --- Activity ---
+            // Title
             VmLabel(
-              title: const Text('Активность'),
+              key: _titleKey,
+              title: const Text('Название'),
               child: ValueListenableBuilder(
-                key: _activityKey,
-                valueListenable: _activityError,
-                builder: (context, value, _) =>
-                    ActivityField(onChanged: (value) => _activity = value, errorText: value),
+                valueListenable: _titleError,
+                builder: (context, value, _) {
+                  return VmTextField(
+                    controller: _titleController,
+                    maxLines: 1,
+                    decoration: InputDecoration(
+                      hintText: 'Название',
+                      errorText: value,
+                    ),
+                    textInputAction: TextInputAction.next,
+                  );
+                },
               ),
             ),
 
             spacer,
 
-            // --- Level ---
+            // Activity
+            VmLabel(
+              title: const Text('Активность'),
+              child: ValueListenableBuilder(
+                key: _activityKey,
+                valueListenable: _activityError,
+                builder: (context, value, _) => ActivityField(
+                  onChanged: (value) => _activityController.value = value,
+                  errorText: value,
+                ),
+              ),
+            ),
+
+            spacer,
+
+            // Level
             VmLabel(
               key: _levelKey,
               padding: EdgeInsets.zero,
@@ -132,6 +188,7 @@ class _CreateEventScreenState extends State<CreateEventScreen> {
                     keyboardType: TextInputType.number,
                     decoration: const InputDecoration(hintText: 'Кол-во от', counterText: ''),
                     maxLength: 2,
+                    textInputAction: TextInputAction.next,
                   ),
                   VmTextField(
                     controller: _membersTo,
@@ -225,8 +282,11 @@ class _CreateEventScreenState extends State<CreateEventScreen> {
               titlePadding: const EdgeInsets.only(left: 16.0, bottom: 8.0),
               child: Column(
                 children: [
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                    child: PriceField(controller: _sharedCost, hintText: 'Стоимость'),
+                  ),
                   VmSwitchListTile.controlled(_meAsMember, title: const Text('Разделить на всех')),
-                  PriceField(controller: _sharedCost, hintText: 'Стоимость'),
                 ],
               ),
             ),
@@ -247,20 +307,29 @@ class _CreateEventScreenState extends State<CreateEventScreen> {
           ],
         ),
       ),
-      persistentFooterButtons: [FilledButton(onPressed: _validate, child: const Text('Создать'))],
+      persistentFooterButtons: [
+        FilledButton(onPressed: _validate, child: const Text('Создать')),
+      ],
     );
   }
 
   bool _validate() {
     BuildContext? ctx;
-    if (_activity == null) {
+    if (_event.title?.isEmpty ?? true) {
+      _titleError.value = 'Укажите название';
+      ctx ??= _titleKey.currentContext;
+    } else {
+      _titleError.value = null;
+    }
+
+    if (_event.activityID == null) {
       _activityError.value = 'Выберите активность';
       ctx ??= _activityKey.currentContext;
     } else {
       _activityError.value = null;
     }
 
-    if (_levelController.value == null) {
+    if (_event.level == null) {
       _levelError.value = 'Выберите уровень';
       ctx ??= _levelKey.currentContext;
     } else {

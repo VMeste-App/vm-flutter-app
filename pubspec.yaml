@@ -17,7 +17,6 @@ dependencies:
   meta: any
   stack_trace: any
 
-
   # State management
   control: ^0.2.0
 
@@ -45,3 +44,15 @@ flutter:
 
   # Enable generation of localized Strings from arb files
   generate: true
+
+  fonts:
+    # - family: AppIcons
+    #   fonts:
+    #     - asset: assets/fonts/AppIcons.ttf
+    - family: Inter
+      fonts:
+        - asset: assets/fonts/Inter-VariableFont_opsz,wght.ttf
+          weight: 400
+        - asset: assets/fonts/Inter-Italic-VariableFont_opsz,wght.ttf
+          weight: 400
+          style: italic

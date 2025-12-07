@@ -9,4 +9,12 @@ enum Level {
   final LevelID id;
 
   const Level(this.id);
+
+  factory Level.byID(LevelID id) => switch (id) {
+    0 => Level.beginner,
+    1 => Level.intermediate,
+    2 => Level.advanced,
+    3 => Level.pro,
+    _ => throw ArgumentError('Unknown level id: $id'),
+  };
 }

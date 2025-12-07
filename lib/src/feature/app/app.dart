@@ -3,7 +3,7 @@ import 'package:vm_app/src/core/di/dependencies.dart';
 import 'package:vm_app/src/core/l10n/app_localization.dart';
 import 'package:vm_app/src/core/navigator/navigator.dart';
 import 'package:vm_app/src/core/navigator/pages.dart';
-import 'package:vm_app/src/core/theme/app_theme.dart';
+import 'package:vm_app/src/core/theme/theme.dart';
 import 'package:vm_app/src/feature/auth/widget/auth_guard.dart';
 import 'package:vm_app/src/feature/settings/widget/settings_scope.dart';
 import 'package:vm_app/src/shared/activity/widget/activity_scope.dart';

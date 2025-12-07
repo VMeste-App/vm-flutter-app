@@ -9,12 +9,14 @@ class SafeScaffold extends StatelessWidget {
   const SafeScaffold({
     super.key,
     this.appBar,
+    this.backgroundColor,
     required this.body,
     this.persistentFooterButtons,
     this.bottomNavigationBar,
   });
 
   final PreferredSizeWidget? appBar;
+  final Color? backgroundColor;
   final Widget body;
   final List<Widget>? persistentFooterButtons;
   final Widget? bottomNavigationBar;
@@ -22,7 +24,7 @@ class SafeScaffold extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: context.theme.scaffoldBackgroundColor,
+      backgroundColor: backgroundColor ?? context.theme.scaffoldBackgroundColor,
       appBar: appBar,
       body: SafeArea(child: body),
       persistentFooterButtons: persistentFooterButtons,

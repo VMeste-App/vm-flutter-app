@@ -1,5 +1,5 @@
 import 'package:control/control.dart';
-import 'package:vm_app/src/feature/event/controller/vm_event_state.dart';
+import 'package:vm_app/src/feature/event/controller/single/vm_event_state.dart';
 import 'package:vm_app/src/feature/event/data/vm_event_repository.dart';
 import 'package:vm_app/src/feature/event/model/event.dart';
 
@@ -14,16 +14,6 @@ final class VmEventController extends StateController<VmEventState> with Sequent
     () async {
       state.processing();
       await _repository.getEvents(page: 1);
-      setState(const VmEventState.success());
-    },
-    error: (e, _) async => setState(VmEventState.error(e)),
-    done: () async => setState(const VmEventState.idle()),
-  );
-
-  void create(VmEvent event) => handle(
-    () async {
-      state.processing();
-      await _repository.create(event);
       setState(const VmEventState.success());
     },
     error: (e, _) async => setState(VmEventState.error(e)),
