@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:dio/dio.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:supabase_flutter/supabase_flutter.dart' hide User;
 import 'package:vm_app/src/core/model/typedefs.dart';
 import 'package:vm_app/src/core/utils/persisted_entry.dart';
 import 'package:vm_app/src/feature/auth/model/dto/auth_response_dto.dart';
@@ -98,4 +99,42 @@ final class AuthRepository implements IAuthRepository {
 
     return User.fromJson(decodedUser);
   }
+}
+
+final class AuthRepository$Supabase implements IAuthRepository {
+  final Supabase _supabase;
+
+  AuthRepository$Supabase({required Supabase supabase}) : _supabase = supabase;
+
+  @override
+  Future<User> signUp(SignUpRequest request) async {
+    final response = await _supabase.client.auth.signUp(
+      email: request.email,
+      password: request.password,
+    );
+
+    return User(
+      id: response.user.id,
+      email: response.user.email,
+    );
+  }
+
+  @override
+  Future<User> signIn(SignInRequest request) async {
+    final response = await _supabase.client.auth.signInWithPassword(
+      email: request.email,
+      password: request.password,
+    );
+
+    return User(
+      id: response.user.id,
+      email: response.user.email,
+    );
+  }
+
+  @override
+  Future<User?> restore() => Future.value();
+
+  @override
+  Future<void> signOut() => _supabase.client.auth.signOut();
 }

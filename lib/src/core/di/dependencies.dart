@@ -1,6 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/widgets.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:vm_app/src/core/di/dependencies_scope.dart';
 import 'package:vm_app/src/feature/auth/controller/authentication_controller.dart';
 import 'package:vm_app/src/feature/event/controller/single/vm_event_controller.dart';
@@ -17,6 +18,7 @@ final class Dependencies {
   final AuthController authController;
   final SettingsController settingsController;
   final VmEventController eventController;
+  final Supabase supabase;
 
   Dependencies({
     required this.client,
@@ -24,5 +26,6 @@ final class Dependencies {
     required this.settingsController,
     required this.sharedPreferences,
     required this.eventController,
+    required this.supabase,
   });
 }

@@ -4,7 +4,9 @@ import 'dart:io';
 import 'package:dio/dio.dart';
 import 'package:dio/io.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:vm_app/src/core/config/config.dart';
+import 'package:vm_app/src/core/config/supabase_config.dart';
 import 'package:vm_app/src/core/di/dependencies.dart';
 import 'package:vm_app/src/feature/auth/controller/authentication_controller.dart';
 import 'package:vm_app/src/feature/auth/data/auth_repository.dart';
@@ -50,12 +52,18 @@ abstract base class DependencyInitializer {
     final eventRepository = VmEventRepository(client: client);
     final eventController = VmEventController(repository: eventRepository);
 
+    final supabase = await Supabase.initialize(
+      url: SupabaseConfig.apiUrl,
+      anonKey: SupabaseConfig.apiKey,
+    );
+
     return Dependencies(
       client: client,
       authController: authController,
       settingsController: settingsController,
       sharedPreferences: sharedPreferences,
       eventController: eventController,
+      supabase: supabase,
     );
   }
 }
