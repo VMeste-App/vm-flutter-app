@@ -14,7 +14,7 @@ dependencies:
   # Core
   async: any
   collection: any
-  meta: any
+  meta: 1.17.0
   stack_trace: any
 
   # State management
