@@ -29,7 +29,7 @@ dependencies:
   intl: any # Use the pinned version from flutter_localizations
 
   # Storage
-  shared_preferences: ^2.5.3
+  shared_preferences: ^2.5.4
 
   # Logger
   l: ^5.0.1
