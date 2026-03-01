@@ -127,6 +127,18 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'App Language'**
   String get localeTitle;
+
+  /// Level of skill proficiency
+  ///
+  /// In en, this message translates to:
+  /// **'{level, select, beginner{Beginner} intermediate{Intermediate} advanced{Advanced} pro{Professional} other{Unknown}}'**
+  String level(String level);
+
+  /// Participant category
+  ///
+  /// In en, this message translates to:
+  /// **'{participantCategory, select, male{Male} female{Female} mixed{Mixed} other{Unknown}}'**
+  String participantCategory(String participantCategory);
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

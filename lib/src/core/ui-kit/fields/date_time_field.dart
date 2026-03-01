@@ -1,13 +1,19 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
 import 'package:vm_app/src/core/ui-kit/bottom_sheet.dart';
 import 'package:vm_app/src/core/ui-kit/text_field.dart';
 
 class DateTimeField extends StatefulWidget {
-  const DateTimeField({super.key, this.onChanged});
+  const DateTimeField({
+    super.key,
+    this.onChanged,
+    this.textBuilder,
+    this.hintText,
+  });
 
   final ValueChanged<DateTime>? onChanged;
+  final String Function(DateTime dt)? textBuilder;
+  final String? hintText;
 
   @override
   State<DateTimeField> createState() => _DateTimeFieldState();
@@ -30,7 +36,7 @@ class _DateTimeFieldState extends State<DateTimeField> {
       enableInteractiveSelection: false,
       maxLines: 1,
       decoration: InputDecoration(
-        hintText: 'Дата и время',
+        hintText: widget.hintText ?? 'Дата и время',
         focusedBorder: Theme.of(context).inputDecorationTheme.enabledBorder,
         prefixIcon: const Icon(Icons.date_range_outlined),
       ),
@@ -42,7 +48,9 @@ class _DateTimeFieldState extends State<DateTimeField> {
     context,
     (context) => _DateTimePicker(
       onChanged: (value) {
-        _controller.text = DateFormat('dd MMMM HH:mm', 'ru').format(value);
+        _controller.text = widget.textBuilder?.call(value) ?? '';
+
+        // DateFormat('dd MMMM HH:mm', 'ru').format(value);
         widget.onChanged?.call(value);
       },
     ),

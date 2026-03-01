@@ -3,23 +3,23 @@ import 'package:vm_app/src/shared/activity/model/activity.dart';
 import 'package:vm_app/src/shared/level/model/level.dart';
 
 @immutable
-final class EventFilter {
-  final List<ActivityID> activities;
-  final List<Level> levels;
-  final ValueRange<DateTime> dt;
-  final ValueRange<int> age;
-  final ValueRange<int> membersQty;
-  final ValueRange<int> price;
-  final ValueRange<int> duration;
+final class SearchFilter {
+  final List<ActivityID>? activities;
+  final List<SkillLevel>? levels;
+  final ValueRange<DateTime>? dt;
+  final ValueRange<int>? age;
+  final ValueRange<int>? membersQty;
+  final ValueRange<int>? price;
+  final ValueRange<int>? duration;
 
-  const EventFilter({
-    this.activities = const [],
-    this.levels = const [],
-    required this.dt,
-    required this.age,
-    required this.membersQty,
-    required this.price,
-    required this.duration,
+  const SearchFilter({
+    this.activities,
+    this.levels,
+    this.dt,
+    this.age,
+    this.membersQty,
+    this.price,
+    this.duration,
   });
 }
 

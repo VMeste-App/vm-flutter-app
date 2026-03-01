@@ -3,7 +3,7 @@ import 'package:vm_app/src/core/widget/lazy_indexed_stack.dart';
 import 'package:vm_app/src/core/widget/safe_scaffold.dart';
 import 'package:vm_app/src/feature/event/widget/events_tab.dart';
 import 'package:vm_app/src/feature/profile/widget/profile_tab.dart';
-import 'package:vm_app/src/feature/search/widget/search_tab.dart';
+import 'package:vm_app/src/feature/search/widget/serach_tab.dart';
 
 /// {@template home_screen}
 /// HomeScreen widget.
@@ -52,7 +52,7 @@ class _HomeScreenState extends State<HomeScreen> {
             onDestinationSelected: (index) => _tabController.value = index,
             destinations: const [
               NavigationDestination(icon: Icon(Icons.search), label: 'Поиск'),
-              NavigationDestination(icon: Icon(Icons.emoji_events_outlined), label: 'События'),
+              NavigationDestination(icon: Icon(Icons.calendar_today_outlined), label: 'События'),
               NavigationDestination(icon: Icon(Icons.person_2_outlined), label: 'Профиль'),
             ],
           ),

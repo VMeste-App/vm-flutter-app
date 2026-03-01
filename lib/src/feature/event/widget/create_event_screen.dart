@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:vm_app/src/core/ui-kit/button.dart';
 import 'package:vm_app/src/core/ui-kit/fields/date_time_field.dart';
 import 'package:vm_app/src/core/ui-kit/fields/duration_field.dart';
 import 'package:vm_app/src/core/ui-kit/fields/price_field.dart';
@@ -7,6 +8,7 @@ import 'package:vm_app/src/core/ui-kit/label.dart';
 import 'package:vm_app/src/core/ui-kit/picker_group.dart';
 import 'package:vm_app/src/core/ui-kit/switch_list_tile.dart';
 import 'package:vm_app/src/core/ui-kit/text_field.dart';
+import 'package:vm_app/src/core/utils/extensions/context_extension.dart';
 import 'package:vm_app/src/core/widget/safe_scaffold.dart';
 import 'package:vm_app/src/feature/event/model/event.dart';
 import 'package:vm_app/src/shared/activity/model/activity.dart';
@@ -22,7 +24,7 @@ class CreateEventScreen extends StatefulWidget {
 }
 
 class _CreateEventScreenState extends State<CreateEventScreen> {
-  final VmEventMutable _event = VmEventMutable();
+  final VmCreateEventMutable _event = VmCreateEventMutable();
 
   // Title
   final _titleKey = GlobalKey();
@@ -36,37 +38,34 @@ class _CreateEventScreenState extends State<CreateEventScreen> {
 
   // Level
   final _levelKey = GlobalKey();
-  final _levelController = ValueNotifier<LevelID?>(null);
+  final _levelController = ValueNotifier<SkillLevelID?>(null);
   final _levelError = ValueNotifier<String?>(null);
 
-  // --- Members ---
-  final _membersFrom = TextEditingController();
-  final _membersTo = TextEditingController();
+  // Members
+  final _membersQtyUp = TextEditingController();
+  final _membersQtyTo = TextEditingController();
   final _meAsMember = ValueNotifier<bool>(false);
 
-  // --- Sex ---
-  final _sexController = ValueNotifier<SexID?>(null);
+  // Sex
+  final _sexKey = GlobalKey();
+  final _participantCategoryController = ValueNotifier<int?>(null);
+  final _sexError = ValueNotifier<String?>(null);
 
-  // --- Age ---
+  // Age
   final _isAdult = ValueNotifier<bool>(false);
   final _ageFrom = TextEditingController();
   final _ageTo = TextEditingController();
 
-  // --- Date and time ---
-  final _duration = ValueNotifier<Duration?>(null);
+  // Date and time
+  final _startDtController = ValueNotifier<DateTime?>(null);
+  final _durationController = ValueNotifier<Duration?>(null);
 
-  // --- Price ---
-  final _sharedCost = TextEditingController();
-  final _individualCost = TextEditingController();
+  // Price
+  final _cost = TextEditingController();
+  final _perParticipantCost = ValueNotifier<bool>(false);
 
-  // --- Description ---
+  // Description
   final _descriptionController = TextEditingController();
-
-  // --- Error's controllers ---
-  final _sexError = ValueNotifier<String?>(null);
-
-  // --- Keys ---
-  final _sexKey = GlobalKey();
 
   @override
   void initState() {
@@ -80,7 +79,20 @@ class _CreateEventScreenState extends State<CreateEventScreen> {
       _event
         ..title = _titleController.text
         ..activityID = _activityController.value
-        ..level = Level.byID(10);
+        ..level = _levelController.value != null ? SkillLevel.byID(_levelController.value!) : null
+        ..membersQtyUp = int.tryParse(_membersQtyUp.text)
+        ..membersQtyTo = int.tryParse(_membersQtyTo.text)
+        ..meAsMember = _meAsMember.value
+        ..participantCategory = _participantCategoryController.value != null
+            ? EventParticipantCategory.byID(_participantCategoryController.value!)
+            : null
+        ..membersAgeUp = int.tryParse(_ageFrom.text)
+        ..membersAgeTo = int.tryParse(_ageTo.text)
+        ..startDt = _startDtController.value
+        ..duration = _durationController.value
+        ..cost = int.tryParse(_cost.text)
+        ..perMemberCost = _perParticipantCost.value
+        ..description = _descriptionController.text;
     });
   }
 
@@ -96,20 +108,18 @@ class _CreateEventScreenState extends State<CreateEventScreen> {
     _levelController.dispose();
     _levelError.dispose();
 
-    _membersFrom.dispose();
-    _membersTo.dispose();
+    _membersQtyUp.dispose();
+    _membersQtyTo.dispose();
     _meAsMember.dispose();
-    _sexController.dispose();
+    _participantCategoryController.dispose();
     _isAdult.dispose();
     _ageFrom.dispose();
     _ageTo.dispose();
     // _date.dispose();
     // _time.dispose();
-    _duration.dispose();
-    _sharedCost.dispose();
-    _individualCost.dispose();
+    // _duration.dispose();
+    _cost.dispose();
     _descriptionController.dispose();
-
     _sexError.dispose();
 
     super.dispose();
@@ -140,7 +150,6 @@ class _CreateEventScreenState extends State<CreateEventScreen> {
                       hintText: 'Название',
                       errorText: value,
                     ),
-                    textInputAction: TextInputAction.next,
                   );
                 },
               ),
@@ -171,7 +180,7 @@ class _CreateEventScreenState extends State<CreateEventScreen> {
               title: const Text('Уровень'),
               child: VmPickerGroup(
                 controller: _levelController,
-                items: Level.values.map((e) => PickerItem(id: e.id, title: e.name)).toList(),
+                items: SkillLevel.values.map((e) => PickerItem(id: e.id, title: context.l10n.level(e.name))).toList(),
               ),
             ),
 
@@ -183,7 +192,7 @@ class _CreateEventScreenState extends State<CreateEventScreen> {
               child: _RowListTile(
                 children: [
                   VmTextField(
-                    controller: _membersFrom,
+                    controller: _membersQtyUp,
                     inputFormatters: [FilteringTextInputFormatter.digitsOnly],
                     keyboardType: TextInputType.number,
                     decoration: const InputDecoration(hintText: 'Кол-во от', counterText: ''),
@@ -191,7 +200,7 @@ class _CreateEventScreenState extends State<CreateEventScreen> {
                     textInputAction: TextInputAction.next,
                   ),
                   VmTextField(
-                    controller: _membersTo,
+                    controller: _membersQtyTo,
                     inputFormatters: [FilteringTextInputFormatter.digitsOnly],
                     keyboardType: TextInputType.number,
                     decoration: const InputDecoration(hintText: 'до', counterText: ''),
@@ -215,8 +224,10 @@ class _CreateEventScreenState extends State<CreateEventScreen> {
               titlePadding: const EdgeInsets.only(left: 16.0),
               title: const Text('Пол'),
               child: VmPickerGroup(
-                controller: _sexController,
-                items: Sex.values.map((e) => PickerItem(id: e.id, title: e.name)).toList(),
+                controller: _participantCategoryController,
+                items: EventParticipantCategory.values
+                    .map((e) => PickerItem(id: e.id, title: context.l10n.participantCategory(e.name)))
+                    .toList(),
               ),
             ),
             spacer,
@@ -262,13 +273,17 @@ class _CreateEventScreenState extends State<CreateEventScreen> {
             spacer,
 
             // --- Datetime ---
-            const VmLabel(
-              title: Text('Дата и время'),
+            VmLabel(
+              title: const Text('Дата и время'),
               child: Column(
                 spacing: 12,
                 children: [
-                  DateTimeField(),
-                  DurationField(),
+                  DateTimeField(
+                    onChanged: (dt) => _startDtController.value = dt,
+                  ),
+                  DurationField(
+                    onChanged: (duration) => _durationController.value = duration,
+                  ),
                 ],
               ),
             ),
@@ -284,9 +299,19 @@ class _CreateEventScreenState extends State<CreateEventScreen> {
                 children: [
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                    child: PriceField(controller: _sharedCost, hintText: 'Стоимость'),
+                    child: ValueListenableBuilder(
+                      valueListenable: _perParticipantCost,
+                      builder: (context, split, _) => PriceField(
+                        controller: _cost,
+                        hintText: 'Стоимость',
+                        helperText: !split ? 'Сумма разделится на всех учасников поровну' : null,
+                      ),
+                    ),
                   ),
-                  VmSwitchListTile.controlled(_meAsMember, title: const Text('Разделить на всех')),
+                  VmSwitchListTile.controlled(
+                    _perParticipantCost,
+                    title: const Text('За каждого участника'),
+                  ),
                 ],
               ),
             ),
@@ -308,16 +333,27 @@ class _CreateEventScreenState extends State<CreateEventScreen> {
         ),
       ),
       persistentFooterButtons: [
-        FilledButton(onPressed: _validate, child: const Text('Создать')),
+        VmButton(
+          onPressed: _validate,
+          // loading: ,
+          child: const Text('Создать'),
+        ),
       ],
     );
   }
 
+  void _create() {
+    if (!_validate()) return;
+  }
+
   bool _validate() {
+    var isValid = true;
     BuildContext? ctx;
+
     if (_event.title?.isEmpty ?? true) {
       _titleError.value = 'Укажите название';
       ctx ??= _titleKey.currentContext;
+      isValid = false;
     } else {
       _titleError.value = null;
     }
@@ -325,6 +361,7 @@ class _CreateEventScreenState extends State<CreateEventScreen> {
     if (_event.activityID == null) {
       _activityError.value = 'Выберите активность';
       ctx ??= _activityKey.currentContext;
+      isValid = false;
     } else {
       _activityError.value = null;
     }
@@ -332,13 +369,15 @@ class _CreateEventScreenState extends State<CreateEventScreen> {
     if (_event.level == null) {
       _levelError.value = 'Выберите уровень';
       ctx ??= _levelKey.currentContext;
+      isValid = false;
     } else {
       _activityError.value = null;
     }
 
-    if (_sexController.value == null) {
+    if (_participantCategoryController.value == null) {
       _sexError.value = 'Укажите пол участников';
       ctx ??= _sexKey.currentContext;
+      isValid = false;
     } else {
       _activityError.value = null;
     }
@@ -353,13 +392,6 @@ class _CreateEventScreenState extends State<CreateEventScreen> {
 
       HapticFeedback.heavyImpact();
     }
-
-    const bool isValid = true;
-
-    // if (_activity == null) {
-    //   _activityError.value = 'Error';
-    //   isValid = false;
-    // }
 
     return isValid;
   }

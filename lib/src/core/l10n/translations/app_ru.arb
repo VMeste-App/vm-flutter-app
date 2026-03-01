@@ -1,8 +1,27 @@
 {
+    "@@locale": "ru",
     "settings": "Настройки",
     "themeModeTitle": "Тема",
     "themeModeSystem": "Как на устройстве",
     "themeModeLight": "Светлая",
     "themeModeDark": "Темная",
-    "localeTitle": "Язык приложения"
+    "localeTitle": "Язык приложения",
+    "level": "{level, select, beginner{Начинающий} intermediate{Средний} advanced{Продвинутый} pro{Профессиональный} other{Unknown}}",
+    "@level": {
+        "description": "Уровень владения навыками",
+        "placeholders": {
+            "level": {
+                "type": "String"
+            }
+        }
+    },
+    "participantCategory": "{participantCategory, select, male{Мужской} female{Женский} mixed{Смешанный} other{Unknown}}",
+    "@participantCategory": {
+        "description": "Категория участников",
+        "placeholders": {
+            "participantCategory": {
+                "type": "String"
+            }
+        }
+    }
 }

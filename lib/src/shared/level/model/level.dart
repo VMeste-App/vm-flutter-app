@@ -1,20 +1,21 @@
-typedef LevelID = int;
+typedef SkillLevelID = int;
 
-enum Level {
+enum SkillLevel {
   beginner(0),
   intermediate(1),
   advanced(2),
-  pro(3);
+  pro(3)
+  ;
 
-  final LevelID id;
+  final SkillLevelID id;
 
-  const Level(this.id);
+  const SkillLevel(this.id);
 
-  factory Level.byID(LevelID id) => switch (id) {
-    0 => Level.beginner,
-    1 => Level.intermediate,
-    2 => Level.advanced,
-    3 => Level.pro,
-    _ => throw ArgumentError('Unknown level id: $id'),
+  factory SkillLevel.byID(SkillLevelID id) => switch (id) {
+    0 => SkillLevel.beginner,
+    1 => SkillLevel.intermediate,
+    2 => SkillLevel.advanced,
+    3 => SkillLevel.pro,
+    _ => throw ArgumentError('Unknown level id: $id', 'id'),
   };
 }

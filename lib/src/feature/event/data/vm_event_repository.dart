@@ -4,7 +4,7 @@ import 'package:vm_app/src/feature/event/model/event.dart';
 abstract interface class IVmEventRepository {
   Future<List<VmEvent>> getEvents({int page = 0});
 
-  Future<VmEvent> fetchByID(VmEventID id);
+  Future<VmEvent> getEventByID(VmEventID id);
 
   Future<VmEvent> create(VmEvent event);
 
@@ -25,7 +25,7 @@ final class VmEventRepository implements IVmEventRepository {
   }
 
   @override
-  Future<VmEvent> fetchByID(VmEventID id) {
+  Future<VmEvent> getEventByID(VmEventID id) {
     // TODO: implement fetchbyID
     throw UnimplementedError();
   }

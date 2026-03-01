@@ -26,12 +26,20 @@ class ActivityScope extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return _InheritedActivity(activities: _activities, activitiesMap: _activitiesMap, child: child);
+    return _InheritedActivity(
+      activities: _activities,
+      activitiesMap: _activitiesMap,
+      child: child,
+    );
   }
 }
 
 class _InheritedActivity extends InheritedWidget {
-  const _InheritedActivity({required this.activities, required this.activitiesMap, required super.child});
+  const _InheritedActivity({
+    required this.activities,
+    required this.activitiesMap,
+    required super.child,
+  });
 
   final Map<ActivityID, Activity> activitiesMap;
   final List<Activity> activities;

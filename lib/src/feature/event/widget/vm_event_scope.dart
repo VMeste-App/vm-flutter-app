@@ -57,10 +57,9 @@
 //   /// Table of events.
 //   final Map<VmEventID, VmEvent> table;
 
-//   static _InheritedEvents? maybeOf(BuildContext context, {bool listen = true}) =>
-//       listen
-//           ? context.dependOnInheritedWidgetOfExactType<_InheritedEvents>()
-//           : context.getInheritedWidgetOfExactType<_InheritedEvents>();
+//   static _InheritedEvents? maybeOf(BuildContext context, {bool listen = true}) => listen
+//       ? context.dependOnInheritedWidgetOfExactType<_InheritedEvents>()
+//       : context.getInheritedWidgetOfExactType<_InheritedEvents>();
 
 //   /// Get product by id.
 //   static VmEvent? getById(BuildContext context, VmEventID id, {bool listen = true}) =>

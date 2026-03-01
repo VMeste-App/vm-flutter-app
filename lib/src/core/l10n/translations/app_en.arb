@@ -1,8 +1,27 @@
 {
+    "@@locale": "en",
     "settings": "Settings",
     "themeModeTitle": "Appearance",
     "themeModeSystem": "Use device theme",
     "themeModeLight": "Light theme",
     "themeModeDark": "Dark theme",
-    "localeTitle": "App Language"
+    "localeTitle": "App Language",
+    "level": "{level, select, beginner{Beginner} intermediate{Intermediate} advanced{Advanced} pro{Professional} other{Unknown}}",
+    "@level": {
+        "description": "Level of skill proficiency",
+        "placeholders": {
+            "level": {
+                "type": "String"
+            }
+        }
+    },
+    "participantCategory": "{participantCategory, select, male{Male} female{Female} mixed{Mixed} other{Unknown}}",
+    "@participantCategory": {
+        "description": "Participant category",
+        "placeholders": {
+            "participantCategory": {
+                "type": "String"
+            }
+        }
+    }
 }

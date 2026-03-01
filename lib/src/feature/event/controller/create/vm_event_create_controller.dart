@@ -3,10 +3,11 @@ import 'package:vm_app/src/feature/event/controller/create/vm_event_create_state
 import 'package:vm_app/src/feature/event/data/vm_event_repository.dart';
 import 'package:vm_app/src/feature/event/model/event.dart';
 
-final class VmEventController extends StateController<VmEventCreateState> with SequentialControllerHandler {
-  VmEventController({required IVmEventRepository repository})
-    : _repository = repository,
-      super(initialState: const VmEventCreateState.idle());
+final class VmEventCreateController extends StateController<VmEventCreateState> with SequentialControllerHandler {
+  VmEventCreateController({
+    required IVmEventRepository repository,
+  }) : _repository = repository,
+       super(initialState: const VmEventCreateState.idle());
 
   final IVmEventRepository _repository;
 

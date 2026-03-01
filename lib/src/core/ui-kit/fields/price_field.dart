@@ -7,11 +7,18 @@ import 'package:vm_app/src/core/ui-kit/text_field.dart';
 /// {@endtemplate}
 class PriceField extends StatelessWidget {
   /// {@macro price_filed}
-  const PriceField({super.key, this.controller, this.focusNode, this.hintText});
+  const PriceField({
+    super.key,
+    this.controller,
+    this.focusNode,
+    this.hintText,
+    this.helperText,
+  });
 
   final TextEditingController? controller;
   final FocusNode? focusNode;
   final String? hintText;
+  final String? helperText;
 
   @override
   Widget build(BuildContext context) {
@@ -20,7 +27,13 @@ class PriceField extends StatelessWidget {
       focusNode: focusNode,
       inputFormatters: [FilteringTextInputFormatter.digitsOnly],
       keyboardType: TextInputType.number,
-      decoration: InputDecoration(suffixText: '₽', hintText: hintText),
+      decoration: InputDecoration(
+        suffixText: '₽',
+        hintText: hintText,
+        helperMaxLines: 2,
+        helperStyle: const TextStyle(color: Colors.grey),
+        helperText: helperText,
+      ),
       maxLines: 1,
     );
   }

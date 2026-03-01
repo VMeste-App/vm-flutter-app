@@ -4,15 +4,15 @@ import 'package:vm_app/src/shared/level/model/level.dart';
 class LevelField extends StatefulWidget {
   const LevelField({super.key, this.selected, this.onChanged});
 
-  final LevelID? selected;
-  final ValueChanged<LevelID>? onChanged;
+  final SkillLevelID? selected;
+  final ValueChanged<SkillLevelID>? onChanged;
 
   @override
   State<LevelField> createState() => _LevelFieldState();
 }
 
 class _LevelFieldState extends State<LevelField> {
-  late final ValueNotifier<LevelID?> _levelController;
+  late final ValueNotifier<SkillLevelID?> _levelController;
 
   @override
   void initState() {
@@ -32,7 +32,7 @@ class _LevelFieldState extends State<LevelField> {
       valueListenable: _levelController,
       builder: (context, selected, _) => Column(
         mainAxisSize: MainAxisSize.min,
-        children: Level.values
+        children: SkillLevel.values
             .map(
               (level) => CheckboxListTile(
                 title: Text(level.name),

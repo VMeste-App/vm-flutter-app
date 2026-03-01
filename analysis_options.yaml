@@ -182,9 +182,9 @@ linter:
     # Can help if you accidentally make mistakes when calling methods.
     # https://dart.dev/tools/linter-rules/unnecessary_statements
     - unnecessary_statements
-    # Prompt to correct way to handle nullable bools.
-    # https://dart.dev/tools/linter-rules/use_if_null_to_convert_nulls_to_bools
-    - use_if_null_to_convert_nulls_to_bools
+    # # Prompt to correct way to handle nullable bools.
+    # # https://dart.dev/tools/linter-rules/use_if_null_to_convert_nulls_to_bools
+    # - use_if_null_to_convert_nulls_to_bools
     # use named constants if there is any, instead of magic numbers
     # https://dart.dev/tools/linter-rules/use_named_constants
     - use_named_constants

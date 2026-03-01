@@ -5,6 +5,7 @@ final class AppTheme {
   AppTheme({ThemeMode? mode})
     : mode = mode ?? ThemeMode.system,
       darkTheme = ThemeData.dark().copyWith(
+        textTheme: ThemeData.dark().textTheme.apply(fontFamily: 'Inter'),
         colorScheme: const ColorScheme.dark(),
         inputDecorationTheme: _inputDecorationTheme,
         scaffoldBackgroundColor: Colors.black,
@@ -13,7 +14,6 @@ final class AppTheme {
             minimumSize: WidgetStateProperty.all(const Size.fromHeight(40.0)),
             fixedSize: WidgetStateProperty.all(const Size.fromHeight(40.0)),
             shape: WidgetStateProperty.all(RoundedRectangleBorder(borderRadius: BorderRadius.circular(12.0))),
-            splashFactory: NoSplash.splashFactory,
           ),
         ),
         appBarTheme: const AppBarTheme(
@@ -43,6 +43,8 @@ final class AppTheme {
         ),
       ),
       lightTheme = ThemeData.light().copyWith(
+        splashFactory: NoSplash.splashFactory,
+        textTheme: ThemeData.light().textTheme.apply(fontFamily: 'Inter'),
         primaryColor: Colors.black,
         colorScheme: const ColorScheme.light(primary: Colors.black),
         inputDecorationTheme: _inputDecorationTheme,
@@ -52,7 +54,6 @@ final class AppTheme {
             minimumSize: WidgetStateProperty.all(const Size.fromHeight(40.0)),
             fixedSize: WidgetStateProperty.all(const Size.fromHeight(40.0)),
             shape: WidgetStateProperty.all(RoundedRectangleBorder(borderRadius: BorderRadius.circular(12.0))),
-            splashFactory: NoSplash.splashFactory,
           ),
         ),
         appBarTheme: const AppBarTheme(
@@ -79,6 +80,21 @@ final class AppTheme {
         listTileTheme: const ListTileThemeData(
           contentPadding: EdgeInsets.only(left: 16.0, right: 8.0),
           titleTextStyle: TextStyle(fontSize: 14.0, color: Colors.black),
+        ),
+        navigationBarTheme: const NavigationBarThemeData(
+          indicatorColor: Colors.transparent,
+          iconTheme: WidgetStateProperty.fromMap(
+            {
+              WidgetState.selected: IconThemeData(color: Colors.black),
+              WidgetState.any: IconThemeData(color: Colors.grey),
+            },
+          ),
+          labelTextStyle: WidgetStateProperty.fromMap(
+            {
+              WidgetState.selected: TextStyle(color: Colors.black),
+              WidgetState.any: TextStyle(color: Colors.grey),
+            },
+          ),
         ),
       );
 

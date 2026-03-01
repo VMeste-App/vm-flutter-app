@@ -1,89 +1,128 @@
 import 'package:meta/meta.dart';
-import 'package:vm_app/src/core/model/typedefs.dart';
 import 'package:vm_app/src/shared/activity/model/activity.dart';
 import 'package:vm_app/src/shared/level/model/level.dart';
 import 'package:vm_app/src/shared/sex/model/sex.dart';
 
 typedef VmEventID = int;
+// typedef VmEvents = List<VmEvent>;
 
 @immutable
 final class VmEvent {
+  /// Event ID.
   final VmEventID id;
+
+  /// Title.
+  final String title;
+
+  /// ID of the activity associated with the event.
   final ActivityID activityID;
-  final Level level;
+
+  /// Required skill level.
+  final SkillLevel level;
+
+  /// Minimum number of participants.
   final int membersQtyUp;
+
+  /// Maximum number of participants.
   final int membersQtyTo;
-  final Sex membersSex;
+
+  /// Gender of participants.
+  final EventParticipantCategory participantCategory;
+
+  /// Minimum age of participants.
   final int membersAgeUp;
+
+  /// Maximum age of participants.
   final int membersAgeTo;
-  final DateTime dt;
+
+  /// Event start date and time.
+  final DateTime startDt;
+
+  /// Duration of the event.
   final Duration duration;
-  final int sharedCost;
-  final int perPersonCost;
+
+  /// Event cost.
+  final int cost;
+
+  /// Indicates whether the cost is per participant.
+  final bool perMemberCost;
+
+  /// Event description.
   final String? description;
 
   const VmEvent({
     this.id = -1,
+    required this.title,
     required this.activityID,
     required this.level,
     required this.membersQtyUp,
     required this.membersQtyTo,
-    required this.membersSex,
+    required this.participantCategory,
     required this.membersAgeUp,
     required this.membersAgeTo,
-    required this.sharedCost,
-    required this.perPersonCost,
-    required this.dt,
+    required this.startDt,
     required this.duration,
+    required this.cost,
+    this.perMemberCost = false,
     this.description,
   });
-
-  Json toJson() => {
-    'activity_id': activityID,
-    'level_id': level.id,
-    'members_qty_up': membersQtyUp,
-    'members_qty_to': membersQtyTo,
-    'sex': membersSex.id,
-    'members_age_up': membersAgeUp,
-    'members_age_to': membersAgeTo,
-    'shared_cost': sharedCost,
-    'per_person_cost': perPersonCost,
-    'dt': dt.toUtc().toIso8601String(),
-    'duration': duration.inMinutes,
-    'description': description,
-  };
 }
 
-typedef VmEvents = List<VmEvent>;
-
-final class VmEventMutable {
+final class VmCreateEventMutable {
+  /// Title.
   String? title;
+
+  /// ID of the activity associated with the event.
   ActivityID? activityID;
-  Level? level;
+
+  /// Required skill level.
+  SkillLevel? level;
+
+  /// Minimum number of participants.
   int? membersQtyUp;
+
+  /// Maximum number of participants.
   int? membersQtyTo;
-  Sex? membersSex;
+
+  bool meAsMember = true;
+
+  /// Gender of participants.
+  EventParticipantCategory? participantCategory;
+
+  /// Minimum age of participants.
   int? membersAgeUp;
+
+  /// Maximum age of participants.
   int? membersAgeTo;
-  DateTime? dt;
+
+  /// Event start date and time.
+  DateTime? startDt;
+
+  /// Duration of the event.
   Duration? duration;
-  int? sharedCost;
-  int? perPersonCost;
+
+  /// Total event cost.
+  int? cost;
+
+  /// Indicates whether the cost is per participant.
+  bool perMemberCost = false;
+
+  /// Event description.
   String? description;
 
-  VmEventMutable({
+  VmCreateEventMutable({
     this.title,
     this.activityID,
     this.level,
     this.membersQtyUp,
     this.membersQtyTo,
-    this.membersSex,
+    this.participantCategory,
     this.membersAgeUp,
     this.membersAgeTo,
-    this.dt,
+    this.startDt,
     this.duration,
-    this.sharedCost,
-    this.perPersonCost,
+    this.cost,
+    this.perMemberCost = false,
     this.description,
   });
 }

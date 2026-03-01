@@ -5,15 +5,15 @@ import 'package:vm_app/src/shared/sex/model/sex.dart';
 class SexField extends StatefulWidget {
   const SexField({super.key, this.selected, this.onChanged});
 
-  final LevelID? selected;
-  final ValueChanged<LevelID>? onChanged;
+  final SkillLevelID? selected;
+  final ValueChanged<SkillLevelID>? onChanged;
 
   @override
   State<SexField> createState() => _SexFieldState();
 }
 
 class _SexFieldState extends State<SexField> {
-  late final ValueNotifier<LevelID?> _levelController;
+  late final ValueNotifier<SkillLevelID?> _levelController;
 
   @override
   void initState() {
@@ -31,24 +31,22 @@ class _SexFieldState extends State<SexField> {
   Widget build(BuildContext context) {
     return ValueListenableBuilder(
       valueListenable: _levelController,
-      builder:
-          (context, selected, _) => Column(
-            mainAxisSize: MainAxisSize.min,
-            children:
-                Sex.values
-                    .map(
-                      (level) => CheckboxListTile(
-                        title: Text(level.name),
-                        value: selected == level.id,
-                        onChanged: (value) {
-                          if (value ?? false) {
-                            _levelController.value = level.id;
-                          }
-                        },
-                      ),
-                    )
-                    .toList(),
-          ),
+      builder: (context, selected, _) => Column(
+        mainAxisSize: MainAxisSize.min,
+        children: EventParticipantCategory.values
+            .map(
+              (level) => CheckboxListTile(
+                title: Text(level.name),
+                value: selected == level.id,
+                onChanged: (value) {
+                  if (value ?? false) {
+                    _levelController.value = level.id;
+                  }
+                },
+              ),
+            )
+            .toList(),
+      ),
     );
   }
 }

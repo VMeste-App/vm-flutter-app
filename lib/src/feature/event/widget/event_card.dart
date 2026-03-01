@@ -19,42 +19,68 @@ class VmEventCard extends StatelessWidget {
           children: [
             const Text(
               'Футбольный матч в парке Горького',
-              style: TextStyle(
-                fontWeight: FontWeight.bold,
-                fontSize: 18.0,
-              ),
+              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18.0),
               maxLines: 2,
               overflow: TextOverflow.ellipsis,
             ),
             const SizedBox(height: 12),
+
+            // Дата, время и место проведения
             const Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Icon(Icons.calendar_month_outlined),
-                SizedBox(width: 8),
-                Text('Завтра в 01:04'),
-                Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 8),
-                  child: SizedBox.square(
-                    dimension: 5.0,
-                    child: DecoratedBox(
-                      decoration: BoxDecoration(
-                        color: Colors.black,
-                        shape: BoxShape.circle,
-                      ),
+                Column(
+                  children: [
+                    Row(
+                      children: [
+                        Icon(
+                          Icons.calendar_month_outlined,
+                          color: Colors.grey,
+                        ),
+                        SizedBox(width: 8),
+                        Text(
+                          'Завтра в 01:04',
+                          style: TextStyle(color: Colors.grey),
+                        ),
+                        Padding(
+                          padding: EdgeInsets.symmetric(horizontal: 8),
+                          child: SizedBox.square(
+                            dimension: 5.0,
+                            child: DecoratedBox(
+                              decoration: BoxDecoration(
+                                color: Colors.grey,
+                                shape: BoxShape.circle,
+                              ),
+                            ),
+                          ),
+                        ),
+                        Text(
+                          '2 часа',
+                          style: TextStyle(color: Colors.grey),
+                        ),
+                      ],
                     ),
-                  ),
+                    SizedBox(height: 4.0),
+                    Row(
+                      children: [
+                        Icon(
+                          Icons.place_outlined,
+                          color: Colors.grey,
+                        ),
+                        SizedBox(width: 8.0),
+                        Text(
+                          'Парк Горького, поле №3',
+                          style: TextStyle(color: Colors.grey),
+                        ),
+                      ],
+                    ),
+                  ],
                 ),
-                Text('2 часа'),
+                VmAvatar(),
               ],
             ),
-            const SizedBox(height: 12.0),
-            const Row(
-              children: [
-                Icon(Icons.place_outlined),
-                SizedBox(width: 8.0),
-                Text('Парк Горького, поле №3'),
-              ],
-            ),
+
             const SizedBox(height: 16.0),
             const Wrap(
               spacing: 8.0,
@@ -125,8 +151,11 @@ class _Members extends StatelessWidget {
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Text('8 из 10 участников'),
-            Text('Осталось 2', style: TextStyle(color: AppColors.blue3)),
+            Text(
+              '8 из 10 участников',
+              style: TextStyle(color: Colors.grey),
+            ),
+            Text('Осталось 2', style: TextStyle(color: AppColors.orange1)),
           ],
         ),
         SizedBox(height: 8.0),
@@ -145,7 +174,7 @@ class _Members extends StatelessWidget {
             DecoratedBox(
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.all(Radius.circular(16.0)),
-                color: AppColors.blue3,
+                color: AppColors.orange1,
               ),
               child: SizedBox(
                 width: 200,

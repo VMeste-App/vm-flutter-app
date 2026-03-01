@@ -25,4 +25,33 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String get localeTitle => 'Язык приложения';
+
+  @override
+  String level(String level) {
+    String _temp0 = intl.Intl.selectLogic(
+      level,
+      {
+        'beginner': 'Начинающий',
+        'intermediate': 'Средний',
+        'advanced': 'Продвинутый',
+        'pro': 'Профессиональный',
+        'other': 'Unknown',
+      },
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String participantCategory(String participantCategory) {
+    String _temp0 = intl.Intl.selectLogic(
+      participantCategory,
+      {
+        'male': 'Мужской',
+        'female': 'Женский',
+        'mixed': 'Смешанный',
+        'other': 'Unknown',
+      },
+    );
+    return '$_temp0';
+  }
 }
