@@ -13,6 +13,8 @@ class SafeScaffold extends StatelessWidget {
     required this.body,
     this.persistentFooterButtons,
     this.bottomNavigationBar,
+    this.floatingActionButton,
+    this.floatingActionButtonLocation,
   });
 
   final PreferredSizeWidget? appBar;
@@ -20,6 +22,8 @@ class SafeScaffold extends StatelessWidget {
   final Widget body;
   final List<Widget>? persistentFooterButtons;
   final Widget? bottomNavigationBar;
+  final Widget? floatingActionButton;
+  final FloatingActionButtonLocation? floatingActionButtonLocation;
 
   @override
   Widget build(BuildContext context) {
@@ -29,6 +33,8 @@ class SafeScaffold extends StatelessWidget {
       body: SafeArea(child: body),
       persistentFooterButtons: persistentFooterButtons,
       bottomNavigationBar: bottomNavigationBar,
+      floatingActionButton: floatingActionButton,
+      floatingActionButtonLocation: floatingActionButtonLocation,
     );
   }
 }

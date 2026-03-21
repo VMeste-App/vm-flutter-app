@@ -1,37 +1,27 @@
 // import 'package:flutter/widgets.dart';
 // import 'package:vm_app/src/core/di/dependencies.dart';
-// import 'package:vm_app/src/feature/event/controller/vm_event_controller.dart';
+// import 'package:vm_app/src/feature/event/controller/create/vm_event_create_controller.dart';
 // import 'package:vm_app/src/feature/event/model/event.dart';
 
 // /// {@template vm_event_scope}
 // /// VmEventScope widget.
 // /// {@endtemplate}
-// class VmEventScope extends StatefulWidget {
+// class VmEventCreateScope extends StatefulWidget {
 //   /// {@macro vm_event_scope}
-//   const VmEventScope({super.key, required this.child});
+//   const VmEventCreateScope({super.key, required this.child});
 
 //   final Widget child;
 
-//   static VmEventController controllerOf(BuildContext context) => Dependencies.of(context).eventController;
-
-//   // static void refresh(BuildContext context) => controllerOf(context).fetch(id);
-
-//   // static void fetch(BuildContext context) => controllerOf(context).fetch(id);
-
-//   static void fetchByID(BuildContext context, VmEventID id) => controllerOf(context).fetch(id);
+//   static VmEventCreateController controllerOf(BuildContext context) => Dependencies.of(context).eventController;
 
 //   static void create(BuildContext context, VmEvent event) => controllerOf(context).create(event);
 
-//   static void update(BuildContext context, VmEvent event) => controllerOf(context).update(event);
-
-//   static void delete(BuildContext context, VmEventID id) => controllerOf(context).delete(id);
-
 //   @override
-//   State<VmEventScope> createState() => _VmEventScopeState();
+//   State<VmEventCreateScope> createState() => _VmEventCreateScopeState();
 // }
 
 // /// State for widget VmEventScope.
-// class _VmEventScopeState extends State<VmEventScope> {
+// class _VmEventCreateScopeState extends State<VmEventCreateScope> {
 //   /* #region Lifecycle */
 //   @override
 //   void initState() {

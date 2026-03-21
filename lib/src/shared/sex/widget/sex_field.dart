@@ -33,7 +33,7 @@ class _SexFieldState extends State<SexField> {
       valueListenable: _levelController,
       builder: (context, selected, _) => Column(
         mainAxisSize: MainAxisSize.min,
-        children: EventParticipantCategory.values
+        children: EventMembersType.values
             .map(
               (level) => CheckboxListTile(
                 title: Text(level.name),

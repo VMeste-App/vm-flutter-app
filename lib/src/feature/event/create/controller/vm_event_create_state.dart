@@ -44,6 +44,8 @@ base mixin _VmEventCreateStateShortcuts on _VmEventCreateStateBase {
 abstract base class _VmEventCreateStateBase {
   const _VmEventCreateStateBase();
 
+  bool get isLoading => maybeMap<bool>(processing: (_) => true, orElse: () => false);
+
   R map<R>({
     required _VmStateMatch<R, VmEventCreateStateIdle> idle,
     required _VmStateMatch<R, VmEventCreateStateProcessing> processing,

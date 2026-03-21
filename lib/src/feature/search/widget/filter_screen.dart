@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:vm_app/src/core/ui-kit/button.dart';
 import 'package:vm_app/src/core/widget/safe_scaffold.dart';
 
 class FilterScreen extends StatefulWidget {
@@ -26,7 +27,7 @@ class _FilterScreenState extends State<FilterScreen> {
       appBar: AppBar(title: const Text('Фильтры')),
       body: const SizedBox(),
       persistentFooterButtons: [
-        FilledButton(
+        VmButton(
           onPressed: () {},
           child: const Text('Показать'),
         ),

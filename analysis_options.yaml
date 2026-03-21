@@ -43,6 +43,7 @@ analyzer:
 
     # Allow having TODOs in the code.
     todo: info
+    experimental_member_use: ignore
 
 formatter:
   page_width: 120

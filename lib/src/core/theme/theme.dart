@@ -96,6 +96,15 @@ final class AppTheme {
             },
           ),
         ),
+        tabBarTheme: TabBarThemeData(
+          labelColor: Colors.black,
+          unselectedLabelColor: Colors.grey,
+          dividerColor: Colors.transparent,
+          overlayColor: WidgetStateProperty.all(Colors.transparent),
+          indicator: const UnderlineTabIndicator(
+            borderSide: BorderSide(width: 2.0),
+          ),
+        ),
       );
 
   /// The type of theme to use.

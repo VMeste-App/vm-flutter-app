@@ -3,13 +3,8 @@ import 'package:vm_app/src/shared/activity/model/activity.dart';
 import 'package:vm_app/src/shared/level/model/level.dart';
 import 'package:vm_app/src/shared/sex/model/sex.dart';
 
-typedef VmEventID = int;
-
 @immutable
-final class VmEvent {
-  /// Event ID.
-  final VmEventID id;
-
+final class VmEvent$Create {
   /// Title.
   final String title;
 
@@ -17,16 +12,18 @@ final class VmEvent {
   final ActivityID activityID;
 
   /// Required skill level.
-  final SkillLevel level;
+  final SkillLevelID levelID;
 
   /// Minimum number of participants.
-  final int membersQtyUp;
+  final int? membersQtyUp;
 
   /// Maximum number of participants.
-  final int membersQtyTo;
+  final int? membersQtyTo;
+
+  final bool meAsMember;
 
   /// Gender of participants.
-  final EventMembersType participantCategory;
+  final EventMembersTypeID membersTypeID;
 
   /// Minimum age of participants.
   final int? membersAgeUp;
@@ -40,7 +37,7 @@ final class VmEvent {
   /// Duration of the event.
   final Duration duration;
 
-  /// Event cost.
+  /// Total event cost.
   final int cost;
 
   /// Indicates whether the cost is per participant.
@@ -49,20 +46,20 @@ final class VmEvent {
   /// Event description.
   final String? description;
 
-  const VmEvent({
-    this.id = -1,
+  const VmEvent$Create({
     required this.title,
     required this.activityID,
-    required this.level,
+    required this.levelID,
     required this.membersQtyUp,
     required this.membersQtyTo,
-    required this.participantCategory,
+    required this.meAsMember,
+    required this.membersTypeID,
     required this.membersAgeUp,
     required this.membersAgeTo,
     required this.dt,
     required this.duration,
     required this.cost,
-    this.perMemberCost = false,
-    this.description,
+    required this.perMemberCost,
+    required this.description,
   });
 }

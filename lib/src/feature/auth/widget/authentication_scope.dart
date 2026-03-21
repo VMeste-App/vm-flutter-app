@@ -1,7 +1,7 @@
 import 'package:flutter/widgets.dart';
 import 'package:vm_app/src/core/di/dependencies.dart';
 import 'package:vm_app/src/core/utils/extensions/context_extension.dart';
-import 'package:vm_app/src/feature/auth/controller/authentication_controller.dart';
+import 'package:vm_app/src/feature/auth/controller/auth_controller.dart';
 import 'package:vm_app/src/feature/auth/model/user.dart';
 
 class AuthenticationScope extends StatefulWidget {

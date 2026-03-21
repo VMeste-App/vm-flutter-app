@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:vm_app/src/core/di/dependencies.dart';
 import 'package:vm_app/src/core/l10n/app_localization.dart';
 import 'package:vm_app/src/core/navigator/navigator.dart';
+import 'package:vm_app/src/core/navigator/observer.dart';
 import 'package:vm_app/src/core/navigator/pages.dart';
 import 'package:vm_app/src/core/theme/theme.dart';
 import 'package:vm_app/src/feature/auth/widget/auth_guard.dart';
@@ -41,6 +42,7 @@ class _VmAppState extends State<VmApp> {
               child: HeroControllerScope(
                 controller: HeroController(),
                 child: VmNavigator(
+                  observers: [VmNavigatorObserver()],
                   pages: const [HomePage()],
                 ),
               ),

@@ -1,30 +1,40 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:vm_app/src/core/ui-kit/bottom_sheet.dart';
+import 'package:vm_app/src/core/ui-kit/button.dart';
 import 'package:vm_app/src/core/ui-kit/text_field.dart';
 
 class DateTimeField extends StatefulWidget {
   const DateTimeField({
     super.key,
+    this.initial,
     this.onChanged,
     this.textBuilder,
+    this.buttonTextBuilder,
     this.hintText,
+    this.errorText,
   });
 
+  final DateTime? initial;
   final ValueChanged<DateTime>? onChanged;
   final String Function(DateTime dt)? textBuilder;
+  final String Function(DateTime dt)? buttonTextBuilder;
   final String? hintText;
+  final String? errorText;
 
   @override
   State<DateTimeField> createState() => _DateTimeFieldState();
 }
 
 class _DateTimeFieldState extends State<DateTimeField> {
-  final TextEditingController _controller = TextEditingController();
+  final _controller = TextEditingController();
+  late final _dtController = ValueNotifier<DateTime?>(widget.initial);
 
   @override
   void dispose() {
     _controller.dispose();
+    _dtController.dispose();
     super.dispose();
   }
 
@@ -39,28 +49,60 @@ class _DateTimeFieldState extends State<DateTimeField> {
         hintText: widget.hintText ?? 'Дата и время',
         focusedBorder: Theme.of(context).inputDecorationTheme.enabledBorder,
         prefixIcon: const Icon(Icons.date_range_outlined),
+        errorText: widget.errorText,
       ),
       onTap: _onTap,
     );
   }
 
-  Future<void> _onTap() => showVmBottomSheet<void>(
-    context,
-    (context) => _DateTimePicker(
-      onChanged: (value) {
-        _controller.text = widget.textBuilder?.call(value) ?? '';
+  Future<void> _onTap() {
+    final now = DateTime.now();
 
-        // DateFormat('dd MMMM HH:mm', 'ru').format(value);
-        widget.onChanged?.call(value);
-      },
-    ),
-  );
+    return showVmBottomSheet<void>(
+      context,
+      (context) => _DateTimePicker(
+        initial: _dtController.value ?? now,
+        minimum: now,
+        maximum: now.add(const Duration(days: 30)),
+        textBuilder: widget.buttonTextBuilder,
+        onSelected: (value) {
+          _controller.text = widget.textBuilder?.call(value) ?? DateFormat('dd MMMM HH:mm').format(value);
+          _dtController.value = value;
+          widget.onChanged?.call(value);
+        },
+      ),
+    );
+  }
 }
 
-class _DateTimePicker extends StatelessWidget {
-  const _DateTimePicker({required this.onChanged});
+class _DateTimePicker extends StatefulWidget {
+  const _DateTimePicker({
+    this.initial,
+    this.minimum,
+    this.maximum,
+    this.textBuilder,
+    this.onSelected,
+  });
 
-  final ValueChanged<DateTime> onChanged;
+  final DateTime? initial;
+  final DateTime? minimum;
+  final DateTime? maximum;
+  final String Function(DateTime dt)? textBuilder;
+  final ValueChanged<DateTime>? onSelected;
+
+  @override
+  State<_DateTimePicker> createState() => _DateTimePickerState();
+}
+
+class _DateTimePickerState extends State<_DateTimePicker> {
+  final _now = DateTime.now();
+  late final _focused = ValueNotifier<DateTime>(widget.initial ?? _now);
+
+  @override
+  void dispose() {
+    _focused.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -70,12 +112,24 @@ class _DateTimePicker extends StatelessWidget {
         height: 250,
         child: CupertinoDatePicker(
           use24hFormat: true,
-          minimumDate: DateTime.now(),
-          maximumDate: DateTime.now().copyWith(month: DateTime.now().month + 1),
-          onDateTimeChanged: onChanged,
+          initialDateTime: widget.initial ?? _now,
+          minimumDate: widget.minimum,
+          maximumDate: widget.maximum,
+          onDateTimeChanged: (value) => _focused.value = value,
         ),
       ),
-      action: FilledButton(onPressed: () {}, child: const Text('Начало cегодня в 19:50')),
+      action: VmButton(
+        onPressed: () {
+          Navigator.pop(context);
+          widget.onSelected?.call(_focused.value);
+        },
+        child: ValueListenableBuilder(
+          valueListenable: _focused,
+          builder: (context, value, child) {
+            return Text(widget.textBuilder?.call(value) ?? DateFormat('dd MMMM HH:mm').format(value));
+          },
+        ),
+      ),
     );
   }
 }

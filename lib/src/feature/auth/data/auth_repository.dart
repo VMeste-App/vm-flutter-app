@@ -11,13 +11,13 @@ import 'package:vm_app/src/feature/auth/model/token_pair.dart';
 import 'package:vm_app/src/feature/auth/model/user.dart';
 
 abstract interface class IAuthRepository {
+  Future<User?> restore();
+
   Future<User> signUp(SignUpRequest request);
 
   Future<User> signIn(SignInRequest request);
 
   Future<void> signOut();
-
-  Future<User?> restore();
 }
 
 final class AuthRepository implements IAuthRepository {
@@ -36,6 +36,18 @@ final class AuthRepository implements IAuthRepository {
 
   // User
   late final userEntry = StringPreferencesEntry(storage: _storage, key: 'user');
+
+  @override
+  Future<User?> restore() async {
+    final token = await accessTokenEntry.read();
+    final user = await _loadUser();
+
+    if (token == null || user == null) {
+      return null;
+    }
+
+    return user;
+  }
 
   @override
   Future<User> signUp(SignUpRequest request) async {
@@ -62,18 +74,6 @@ final class AuthRepository implements IAuthRepository {
     await userEntry.remove();
   }
 
-  @override
-  Future<User?> restore() async {
-    final token = await accessTokenEntry.read();
-    final user = await _loadUser();
-
-    if (token == null || user == null) {
-      return null;
-    }
-
-    return user;
-  }
-
   Future<void> _saveData(AuthResponseDto data) async {
     await _saveTokenPair(data.tokenPair);
     await _saveUser(data.user);
@@ -98,4 +98,20 @@ final class AuthRepository implements IAuthRepository {
 
     return User.fromJson(decodedUser);
   }
+}
+
+final class FakeAuthRepository implements IAuthRepository {
+  @override
+  Future<User?> restore() => _fakeUser;
+
+  @override
+  Future<User> signUp(SignUpRequest request) => _fakeUser;
+
+  @override
+  Future<User> signIn(SignInRequest request) => _fakeUser;
+
+  @override
+  Future<void> signOut() => Future.value();
+
+  Future<User> get _fakeUser => Future.value(const User(id: 1, email: 'fake@example.com'));
 }

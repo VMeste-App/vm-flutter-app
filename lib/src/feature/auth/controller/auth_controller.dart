@@ -5,7 +5,7 @@ import 'package:vm_app/src/feature/auth/model/request/sign_in_request.dart';
 import 'package:vm_app/src/feature/auth/model/request/sign_up_request.dart';
 import 'package:vm_app/src/feature/auth/model/user.dart';
 
-part 'authentication_state.dart';
+part 'auth_state.dart';
 
 final class AuthController extends StateController<AuthenticationState> with ConcurrentControllerHandler {
   AuthController({

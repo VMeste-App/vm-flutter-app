@@ -6,7 +6,7 @@ import 'package:dio/io.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:vm_app/src/core/config/config.dart';
 import 'package:vm_app/src/core/di/dependencies.dart';
-import 'package:vm_app/src/feature/auth/controller/authentication_controller.dart';
+import 'package:vm_app/src/feature/auth/controller/auth_controller.dart';
 import 'package:vm_app/src/feature/auth/data/auth_repository.dart';
 import 'package:vm_app/src/feature/event/controller/single/vm_event_controller.dart';
 import 'package:vm_app/src/feature/event/data/vm_event_repository.dart';
@@ -28,7 +28,8 @@ abstract base class DependencyInitializer {
     final sharedPreferences = SharedPreferencesAsync();
 
     /// --- Authentication ---
-    final IAuthRepository authRepository = AuthRepository(client: client, storage: sharedPreferences);
+    final authRepository = FakeAuthRepository();
+    //  AuthRepository(client: client, storage: sharedPreferences);
     final user = await authRepository.restore();
     final authController = AuthController(authRepository: authRepository, user: user);
 
@@ -56,6 +57,7 @@ abstract base class DependencyInitializer {
       settingsController: settingsController,
       sharedPreferences: sharedPreferences,
       eventController: eventController,
+      eventRepository: eventRepository,
     );
   }
 }

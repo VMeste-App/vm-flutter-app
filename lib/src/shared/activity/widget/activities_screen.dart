@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:vm_app/src/core/ui-kit/button.dart';
 import 'package:vm_app/src/core/ui-kit/picker_group.dart';
 import 'package:vm_app/src/core/widget/safe_scaffold.dart';
 import 'package:vm_app/src/shared/activity/model/activity.dart';
@@ -42,8 +43,9 @@ class _ActivitiesScreenState extends State<ActivitiesScreen> {
             items: activities,
           ),
           persistentFooterButtons: [
-            FilledButton(
-              onPressed: selected == null ? null : () => Navigator.of(context).pop(selected),
+            VmButton(
+              enabled: selected != null,
+              onPressed: () => Navigator.of(context).pop(selected),
               child: const Text('Выбрать'),
             ),
           ],

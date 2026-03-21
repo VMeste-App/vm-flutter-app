@@ -2,6 +2,8 @@ import 'dart:async';
 
 import 'package:control/control.dart';
 import 'package:flutter/widgets.dart';
+import 'package:intl/date_symbol_data_local.dart';
+import 'package:intl/intl.dart';
 import 'package:vm_app/src/core/controller/controller_observer.dart';
 import 'package:vm_app/src/core/di/dependencies.dart';
 import 'package:vm_app/src/core/utils/log_util.dart';
@@ -23,6 +25,10 @@ abstract base class AppInitializer {
 
       // Set up controller observer.
       Controller.observer = const ControllerObserver();
+
+      await initializeDateFormatting();
+      // FIXME:
+      Intl.defaultLocale = 'ru_RU';
 
       // Set up dependencies.
       final dependencies = await DependencyInitializer.run();

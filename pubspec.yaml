@@ -53,3 +53,6 @@ flutter:
         - asset: assets/fonts/Inter-Italic-VariableFont_opsz,wght.ttf
           weight: 400
           style: italic
+
+  shaders:
+    - lib/src/core/ui-kit/shimmer/shimmer.frag

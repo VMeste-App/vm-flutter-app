@@ -2,7 +2,7 @@ import 'package:control/control.dart';
 import 'package:flutter/material.dart';
 import 'package:vm_app/src/core/navigator/navigator.dart';
 import 'package:vm_app/src/core/navigator/pages.dart';
-import 'package:vm_app/src/feature/auth/controller/authentication_controller.dart';
+import 'package:vm_app/src/feature/auth/controller/auth_controller.dart';
 import 'package:vm_app/src/feature/auth/widget/authentication_scope.dart';
 
 class AuthGuard extends StatefulWidget {

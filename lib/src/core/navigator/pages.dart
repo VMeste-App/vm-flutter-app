@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:vm_app/src/feature/auth/widget/sign_in_screen.dart';
 import 'package:vm_app/src/feature/auth/widget/sign_up_screen.dart';
+import 'package:vm_app/src/feature/event/create/widget/create_event_screen.dart';
 import 'package:vm_app/src/feature/event/model/event.dart';
-import 'package:vm_app/src/feature/event/widget/create_event_screen.dart';
 import 'package:vm_app/src/feature/event/widget/event_screen.dart';
 import 'package:vm_app/src/feature/home/home_screen.dart';
+import 'package:vm_app/src/feature/location/widget/locations_screen.dart';
 import 'package:vm_app/src/feature/search/widget/filter_screen.dart';
 import 'package:vm_app/src/shared/activity/widget/activities_screen.dart';
 
@@ -82,4 +83,13 @@ final class VmEventPage extends VmPage<void> {
       );
 
   final VmEventID id;
+}
+
+final class VmLocationsPage extends VmPage<void> {
+  const VmLocationsPage()
+    : super(
+        key: const ValueKey('locations'),
+        name: 'locations',
+        child: const LocationsScreen(),
+      );
 }
