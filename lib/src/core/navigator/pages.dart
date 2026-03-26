@@ -5,6 +5,8 @@ import 'package:vm_app/src/feature/event/create/widget/create_event_screen.dart'
 import 'package:vm_app/src/feature/event/model/event.dart';
 import 'package:vm_app/src/feature/event/widget/event_screen.dart';
 import 'package:vm_app/src/feature/home/home_screen.dart';
+import 'package:vm_app/src/feature/location/model/location.dart';
+import 'package:vm_app/src/feature/location/widget/location_screen.dart';
 import 'package:vm_app/src/feature/location/widget/locations_screen.dart';
 import 'package:vm_app/src/feature/search/widget/filter_screen.dart';
 import 'package:vm_app/src/shared/activity/widget/activities_screen.dart';
@@ -92,4 +94,15 @@ final class VmLocationsPage extends VmPage<void> {
         name: 'locations',
         child: const LocationsScreen(),
       );
+}
+
+final class VmLocationPage extends VmPage<void> {
+  VmLocationPage({required this.id})
+    : super(
+        key: const ValueKey('location'),
+        name: 'location',
+        child: LocationScreen(id: id),
+      );
+
+  final LocationId id;
 }

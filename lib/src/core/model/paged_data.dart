@@ -1,7 +1,14 @@
-final class PagedData<T extends Object> {
-  final List<T> data;
-  final int page;
-  final bool endReached;
+import 'dart:collection';
 
-  PagedData({required this.data, required this.page, required this.endReached});
+class PagedData<T extends Object> extends UnmodifiableListView<T> {
+  final int page;
+  final bool hasMore;
+
+  PagedData(
+    super.source, {
+    required this.page,
+    required this.hasMore,
+  });
+
+  PagedData.empty() : page = 0, hasMore = false, super(const []);
 }

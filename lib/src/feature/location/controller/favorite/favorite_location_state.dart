@@ -1,5 +1,4 @@
-import 'package:meta/meta.dart';
-import 'package:vm_app/src/feature/location/model/location.dart';
+part of 'favorite_location_controller.dart';
 
 @immutable
 sealed class FavoriteLocationState extends _LocationStateBase with _LocationStateShortcuts {
@@ -16,27 +15,21 @@ sealed class FavoriteLocationState extends _LocationStateBase with _LocationStat
 
 // --- States's helper classes ---
 final class FavoriteLocationStateIdle extends FavoriteLocationState {
-  const FavoriteLocationStateIdle({
-    this.locations = const {},
-  });
+  const FavoriteLocationStateIdle({this.locations = const {}});
 
   @override
   final Set<LocationId> locations;
 }
 
 final class FavoriteLocationStateProcessing extends FavoriteLocationState {
-  const FavoriteLocationStateProcessing({
-    this.locations = const {},
-  });
+  const FavoriteLocationStateProcessing({this.locations = const {}});
 
   @override
   final Set<LocationId> locations;
 }
 
 final class FavoriteLocationStateSuccess extends FavoriteLocationState {
-  const FavoriteLocationStateSuccess({
-    required this.locations,
-  });
+  const FavoriteLocationStateSuccess({required this.locations});
 
   @override
   final Set<LocationId> locations;

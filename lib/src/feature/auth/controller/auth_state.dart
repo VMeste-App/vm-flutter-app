@@ -58,50 +58,19 @@ extension AuthStateX on AuthenticationState {
   bool get isAuthenticated => user != null;
 
   /// Is in progress state?
-  bool get isProcessing => maybeMap<bool>(processing: (_) => true, orElse: () => false);
+  bool get isProcessing => switch (this) {
+    _AuthStateProcessing() => true,
+    _ => false,
+  };
 
   /// Is in idle state?
   bool get isIdling => !isProcessing;
 
   /// Is in error state?
-  bool get isError => maybeMap<bool>(error: (_) => true, orElse: () => false);
-
-  R map<R>({
-    required AuthStateMatch<R, _AuthStateIdle> idle,
-    required AuthStateMatch<R, _AuthStateProcessing> processing,
-    required AuthStateMatch<R, _AuthStateSuccess> success,
-    required AuthStateMatch<R, _AuthStateError> error,
-  }) => switch (this) {
-    final _AuthStateIdle s => idle(s),
-    final _AuthStateProcessing s => processing(s),
-    final _AuthStateSuccess s => success(s),
-    final _AuthStateError s => error(s),
+  bool get isError => switch (this) {
+    _AuthStateError() => true,
+    _ => false,
   };
-
-  R maybeMap<R>({
-    required R Function() orElse,
-    AuthStateMatch<R, _AuthStateIdle>? idle,
-    AuthStateMatch<R, _AuthStateProcessing>? processing,
-    AuthStateMatch<R, _AuthStateSuccess>? success,
-    AuthStateMatch<R, _AuthStateError>? error,
-  }) => map<R>(
-    idle: idle ?? (_) => orElse(),
-    processing: processing ?? (_) => orElse(),
-    success: success ?? (_) => orElse(),
-    error: error ?? (_) => orElse(),
-  );
-
-  R? mapOrNull<R>({
-    AuthStateMatch<R, _AuthStateIdle>? idle,
-    AuthStateMatch<R, _AuthStateProcessing>? processing,
-    AuthStateMatch<R, _AuthStateSuccess>? success,
-    AuthStateMatch<R, _AuthStateError>? error,
-  }) => map<R?>(
-    idle: idle ?? (_) => null,
-    processing: processing ?? (_) => null,
-    success: success ?? (_) => null,
-    error: error ?? (_) => null,
-  );
 }
 
 // --- Helpers for matching ---

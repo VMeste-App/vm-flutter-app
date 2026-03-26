@@ -1,13 +1,15 @@
 import 'package:control/control.dart';
-import 'package:vm_app/src/feature/location/controller/location_state.dart';
+import 'package:meta/meta.dart';
 import 'package:vm_app/src/feature/location/data/location_repository.dart';
 import 'package:vm_app/src/feature/location/model/location.dart';
 
-final class FavoriteLocationController extends StateController<LocationState> with SequentialControllerHandler {
+part 'favorite_location_state.dart';
+
+final class FavoriteLocationController extends StateController<FavoriteLocationState> with SequentialControllerHandler {
   FavoriteLocationController({
     required ILocationRepository repository,
   }) : _repository = repository,
-       super(initialState: const LocationState.idle());
+       super(initialState: const FavoriteLocationState.idle());
 
   final ILocationRepository _repository;
 
@@ -21,10 +23,10 @@ final class FavoriteLocationController extends StateController<LocationState> wi
     done: () async => setState(state.idle()),
   );
 
-  void add(Location location) => handle(
+  void add(LocationId locationId) => handle(
     () async {
       setState(state.processing());
-      await _repository.addFavorite(location);
+      await _repository.addFavorite(locationId);
       setState(state.success(locations: state.locations));
     },
     error: (e, _) async => setState(state.errorState(e)),
