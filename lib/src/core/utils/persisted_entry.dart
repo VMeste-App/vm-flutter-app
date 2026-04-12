@@ -109,4 +109,18 @@ class StringListPreferencesEntry extends SharedPreferencesEntry<List<String>> {
   Future<void> set(List<String> value) async {
     await storage.setStringList(key, value);
   }
+
+  Future<List<String>> add(String value) async {
+    final current = await read();
+    final newList = [...?current, value];
+    await storage.setStringList(key, newList);
+    return newList;
+  }
+
+  Future<List<String>> delete(String value) async {
+    final current = await read();
+    final newList = (current ?? []).where((e) => e != value).toList();
+    await storage.setStringList(key, newList);
+    return newList;
+  }
 }

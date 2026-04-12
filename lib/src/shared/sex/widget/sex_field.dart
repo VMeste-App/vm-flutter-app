@@ -5,15 +5,15 @@ import 'package:vm_app/src/shared/sex/model/sex.dart';
 class SexField extends StatefulWidget {
   const SexField({super.key, this.selected, this.onChanged});
 
-  final SkillLevelID? selected;
-  final ValueChanged<SkillLevelID>? onChanged;
+  final SkillLevelId? selected;
+  final ValueChanged<SkillLevelId>? onChanged;
 
   @override
   State<SexField> createState() => _SexFieldState();
 }
 
 class _SexFieldState extends State<SexField> {
-  late final ValueNotifier<SkillLevelID?> _levelController;
+  late final ValueNotifier<SkillLevelId?> _levelController;
 
   @override
   void initState() {

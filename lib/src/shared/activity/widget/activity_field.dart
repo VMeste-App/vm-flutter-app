@@ -11,7 +11,7 @@ class ActivityField extends StatefulWidget {
     this.errorText,
   });
 
-  final ValueChanged<ActivityID>? onChanged;
+  final ValueChanged<ActivityId>? onChanged;
   final String? errorText;
 
   @override
@@ -47,7 +47,7 @@ class _ActivityFieldState extends State<ActivityField> {
     final id = int.tryParse(_controller.text);
     final activityID = await Navigator.of(
       context,
-    ).push(MaterialPageRoute<ActivityID>(builder: (context) => ActivitiesScreen(selected: id)));
+    ).push(MaterialPageRoute<ActivityId>(builder: (context) => ActivitiesScreen(selected: id)));
 
     if (activityID == null) return;
 

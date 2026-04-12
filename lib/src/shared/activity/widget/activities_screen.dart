@@ -8,14 +8,14 @@ import 'package:vm_app/src/shared/activity/widget/activity_scope.dart';
 class ActivitiesScreen extends StatefulWidget {
   const ActivitiesScreen({super.key, this.selected});
 
-  final ActivityID? selected;
+  final ActivityId? selected;
 
   @override
   State<ActivitiesScreen> createState() => _ActivitiesScreenState();
 }
 
 class _ActivitiesScreenState extends State<ActivitiesScreen> {
-  late final ValueNotifier<ActivityID?> _activityController;
+  late final ValueNotifier<ActivityId?> _activityController;
 
   @override
   void initState() {
@@ -33,7 +33,7 @@ class _ActivitiesScreenState extends State<ActivitiesScreen> {
   Widget build(BuildContext context) {
     final activities = ActivityScope.activitiesOf(context).map((e) => PickerItem(id: e.id, title: e.name)).toList();
 
-    return ValueListenableBuilder<ActivityID?>(
+    return ValueListenableBuilder<ActivityId?>(
       valueListenable: _activityController,
       builder: (context, selected, _) {
         return SafeScaffold(

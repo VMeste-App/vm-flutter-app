@@ -21,7 +21,7 @@ class ActivityScope extends StatelessWidget {
 
   static List<Activity> activitiesOf(BuildContext context) => context.inhOf<_InheritedActivity>().activities;
 
-  static Activity? activityOf(BuildContext context, ActivityID id) =>
+  static Activity? activityOf(BuildContext context, ActivityId id) =>
       context.inhOf<_InheritedActivity>().activitiesMap[id];
 
   @override
@@ -41,7 +41,7 @@ class _InheritedActivity extends InheritedWidget {
     required super.child,
   });
 
-  final Map<ActivityID, Activity> activitiesMap;
+  final Map<ActivityId, Activity> activitiesMap;
   final List<Activity> activities;
 
   @override

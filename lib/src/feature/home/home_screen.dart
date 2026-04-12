@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:vm_app/src/core/widget/lazy_indexed_stack.dart';
 import 'package:vm_app/src/core/widget/safe_scaffold.dart';
 import 'package:vm_app/src/feature/event/widget/events_tab.dart';
+import 'package:vm_app/src/feature/favorite/widget/favorite_tab.dart';
 import 'package:vm_app/src/feature/profile/widget/profile_tab.dart';
 import 'package:vm_app/src/feature/search/widget/serach_tab.dart';
 
@@ -43,6 +44,7 @@ class _HomeScreenState extends State<HomeScreen> {
             index: value,
             children: const [
               SearchTab(),
+              FavoriteTab(),
               EventsTab(),
               ProfileTab(),
             ],
@@ -52,6 +54,7 @@ class _HomeScreenState extends State<HomeScreen> {
             onDestinationSelected: (index) => _tabController.value = index,
             destinations: const [
               NavigationDestination(icon: Icon(Icons.search), label: 'Поиск'),
+              NavigationDestination(icon: Icon(Icons.favorite_border_outlined), label: 'Избранное'),
               NavigationDestination(icon: Icon(Icons.calendar_today_outlined), label: 'События'),
               NavigationDestination(icon: Icon(Icons.person_2_outlined), label: 'Профиль'),
             ],

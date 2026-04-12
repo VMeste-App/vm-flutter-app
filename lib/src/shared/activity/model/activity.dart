@@ -1,11 +1,14 @@
 import 'package:meta/meta.dart';
 
-typedef ActivityID = int;
+typedef ActivityId = int;
 
 @immutable
 final class Activity {
-  final ActivityID id;
+  final ActivityId id;
   final String name;
 
-  const Activity({required this.id, required this.name});
+  const Activity({
+    required this.id,
+    required this.name,
+  });
 }

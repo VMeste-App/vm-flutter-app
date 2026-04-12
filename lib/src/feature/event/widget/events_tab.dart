@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:vm_app/src/core/navigator/navigator.dart';
 import 'package:vm_app/src/core/navigator/pages.dart';
 import 'package:vm_app/src/core/widget/safe_scaffold.dart';
+import 'package:vm_app/src/feature/event/model/event.dart';
 import 'package:vm_app/src/feature/event/widget/event_card.dart';
 
 class EventsTab extends StatefulWidget {
@@ -44,21 +45,31 @@ class _EventsTabState extends State<EventsTab> with SingleTickerProviderStateMix
         children: [
           ListView.separated(
             padding: const EdgeInsets.symmetric(horizontal: 12.0),
-            itemCount: 100,
+            itemCount: 10,
             separatorBuilder: (context, index) => const SizedBox(height: 12.0),
-            itemBuilder: (context, index) => InkWell(
-              onTap: () => VmNavigator.push(context, VmEventPage(id: index)),
-              child: const VmEventCard(),
-            ),
+            itemBuilder: (context, index) {
+              final event = fakeEvent;
+
+              return VmEventCard(
+                key: ValueKey(event.id),
+                onPressed: () => VmNavigator.push(context, VmEventPage(id: event.id)),
+                event: fakeEvent,
+              );
+            },
           ),
           ListView.separated(
             padding: const EdgeInsets.symmetric(horizontal: 12.0),
-            itemCount: 100,
+            itemCount: 10,
             separatorBuilder: (context, index) => const SizedBox(height: 12.0),
-            itemBuilder: (context, index) => InkWell(
-              onTap: () => VmNavigator.push(context, VmEventPage(id: index)),
-              child: const VmEventCard(),
-            ),
+            itemBuilder: (context, index) {
+              final event = fakeEvent;
+
+              return VmEventCard(
+                key: ValueKey(event.id),
+                onPressed: () => VmNavigator.push(context, VmEventPage(id: event.id)),
+                event: fakeEvent,
+              );
+            },
           ),
         ],
       ),

@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:vm_app/src/feature/auth/widget/sign_in_screen.dart';
 import 'package:vm_app/src/feature/auth/widget/sign_up_screen.dart';
-import 'package:vm_app/src/feature/event/create/widget/create_event_screen.dart';
 import 'package:vm_app/src/feature/event/model/event.dart';
+import 'package:vm_app/src/feature/event/widget/create/create_event_screen.dart';
 import 'package:vm_app/src/feature/event/widget/event_screen.dart';
 import 'package:vm_app/src/feature/home/home_screen.dart';
-import 'package:vm_app/src/feature/location/model/location.dart';
-import 'package:vm_app/src/feature/location/widget/location_screen.dart';
-import 'package:vm_app/src/feature/location/widget/locations_screen.dart';
+import 'package:vm_app/src/feature/place/model/place.dart';
+import 'package:vm_app/src/feature/place/widget/place_map.dart';
+import 'package:vm_app/src/feature/place/widget/place_screen.dart';
+import 'package:vm_app/src/feature/place/widget/places_screen.dart';
 import 'package:vm_app/src/feature/search/widget/filter_screen.dart';
 import 'package:vm_app/src/shared/activity/widget/activities_screen.dart';
 
@@ -84,25 +85,35 @@ final class VmEventPage extends VmPage<void> {
         child: VmEventScreen(id: id),
       );
 
-  final VmEventID id;
+  final VmEventId id;
 }
 
-final class VmLocationsPage extends VmPage<void> {
-  const VmLocationsPage()
+final class VmPlacesPage extends VmPage<void> {
+  const VmPlacesPage()
     : super(
-        key: const ValueKey('locations'),
-        name: 'locations',
-        child: const LocationsScreen(),
+        key: const ValueKey('places'),
+        name: 'places',
+        child: const PlacesScreen(),
       );
 }
 
-final class VmLocationPage extends VmPage<void> {
-  VmLocationPage({required this.id})
+final class VmPlacePage extends VmPage<void> {
+  VmPlacePage({required this.id})
     : super(
-        key: const ValueKey('location'),
-        name: 'location',
-        child: LocationScreen(id: id),
+        key: const ValueKey('place'),
+        name: 'place',
+        child: PlaceScreen(id: id),
       );
 
-  final LocationId id;
+  final PlaceId id;
+}
+
+final class VmPlacesMapPage extends VmPage<void> {
+  const VmPlacesMapPage()
+    : super(
+        key: const ValueKey('places-map'),
+        name: 'places-map',
+        // fullscreenDialog: true,
+        child: const PlaceMapScreen(),
+      );
 }

@@ -1,15 +1,14 @@
 import 'package:control/control.dart';
 import 'package:flutter/material.dart';
+import 'package:vm_app/src/core/di/dependencies.dart';
 import 'package:vm_app/src/feature/settings/controller/settings_controller.dart';
 
 class SettingsScope extends StatefulWidget {
   const SettingsScope({
     super.key,
-    required this.controller,
     required this.child,
   });
 
-  final SettingsController controller;
   final Widget child;
 
   /// Get the current theme mode.
@@ -32,10 +31,12 @@ class SettingsScope extends StatefulWidget {
 }
 
 class _SettingsScopeState extends State<SettingsScope> implements SettingsScopeController {
+  late final _controller = Dependencies.of(context).settingsController;
+
   @override
   Widget build(BuildContext context) {
     return StateConsumer<SettingsController, SettingsState>(
-      controller: widget.controller,
+      controller: _controller,
       buildWhen: (previous, current) => previous.settings != current.settings,
       builder: (context, state, child) => _InheritedSettingsScope(
         state: state,
@@ -46,16 +47,16 @@ class _SettingsScopeState extends State<SettingsScope> implements SettingsScopeC
   }
 
   @override
-  ThemeMode get themeMode => widget.controller.state.settings.themeMode;
+  ThemeMode get themeMode => _controller.state.settings.themeMode;
 
   @override
-  Locale get locale => widget.controller.state.settings.locale;
+  Locale get locale => _controller.state.settings.locale;
 
   @override
-  void setLocale(Locale locale) => widget.controller.setLocale(locale);
+  void setLocale(Locale locale) => _controller.setLocale(locale);
 
   @override
-  void setThemeMode(ThemeMode themeMode) => widget.controller.setThemeMode(themeMode);
+  void setThemeMode(ThemeMode themeMode) => _controller.setThemeMode(themeMode);
 }
 
 class _InheritedSettingsScope extends InheritedModel<_SettingsScopeAspect> {

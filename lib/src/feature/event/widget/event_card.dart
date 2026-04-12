@@ -1,118 +1,169 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:vm_app/src/core/theme/colors.dart';
+import 'package:vm_app/src/core/ui-kit/avatar.dart';
+import 'package:vm_app/src/core/ui-kit/fields/duration_field.dart';
+import 'package:vm_app/src/feature/event/model/event.dart';
+import 'package:vm_app/src/feature/favorite/widget/scope/favorite_event_scope.dart';
 
 class VmEventCard extends StatelessWidget {
-  const VmEventCard({super.key});
+  const VmEventCard({
+    super.key,
+    required this.event,
+    this.onPressed,
+  });
+
+  final VmEvent event;
+  final VoidCallback? onPressed;
 
   @override
   Widget build(BuildContext context) {
-    return Card.outlined(
-      shape: RoundedRectangleBorder(
-        side: const BorderSide(color: AppColors.neutral4, width: 2),
-        borderRadius: BorderRadius.circular(16),
-      ),
-      child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 12.0, vertical: 16.0),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            const Text(
-              'Футбольный матч в парке Горького',
-              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18.0),
-              maxLines: 2,
-              overflow: TextOverflow.ellipsis,
-            ),
-            const SizedBox(height: 12),
+    return InkWell(
+      onTap: onPressed,
+      child: Card.outlined(
+        shape: RoundedRectangleBorder(
+          side: const BorderSide(color: AppColors.neutral4, width: 2),
+          borderRadius: BorderRadius.circular(16),
+        ),
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 12.0, vertical: 16.0),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              // Название
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Flexible(
+                    child: Text(
+                      event.title,
+                      style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 18.0),
+                      maxLines: 2,
+                      overflow: TextOverflow.ellipsis,
+                    ),
+                  ),
+                  const _FavoriteButton(10),
+                ],
+              ),
 
-            // Дата, время и место проведения
-            const Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Column(
-                  children: [
-                    Row(
-                      children: [
-                        Icon(
-                          Icons.calendar_month_outlined,
-                          color: Colors.grey,
-                        ),
-                        SizedBox(width: 8),
-                        Text(
-                          'Завтра в 01:04',
-                          style: TextStyle(color: Colors.grey),
-                        ),
-                        Padding(
-                          padding: EdgeInsets.symmetric(horizontal: 8),
-                          child: SizedBox.square(
-                            dimension: 5.0,
-                            child: DecoratedBox(
-                              decoration: BoxDecoration(
-                                color: Colors.grey,
-                                shape: BoxShape.circle,
+              const SizedBox(height: 12),
+
+              // Дата, время и место проведения
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Row(
+                        children: [
+                          const Icon(
+                            Icons.calendar_month_outlined,
+                            color: Colors.grey,
+                          ),
+                          const SizedBox(width: 8),
+                          Text(
+                            DateFormat('dd MMMM HH:mm').format(event.dt), //  'Завтра в 01:04',
+                            style: const TextStyle(color: Colors.grey),
+                          ),
+                          const Padding(
+                            padding: EdgeInsets.symmetric(horizontal: 8),
+                            child: SizedBox.square(
+                              dimension: 5.0,
+                              child: DecoratedBox(
+                                decoration: BoxDecoration(
+                                  color: Colors.grey,
+                                  shape: BoxShape.circle,
+                                ),
                               ),
                             ),
                           ),
-                        ),
-                        Text(
-                          '2 часа',
-                          style: TextStyle(color: Colors.grey),
-                        ),
-                      ],
-                    ),
-                    SizedBox(height: 4.0),
-                    Row(
-                      children: [
-                        Icon(
-                          Icons.place_outlined,
-                          color: Colors.grey,
-                        ),
-                        SizedBox(width: 8.0),
-                        Text(
-                          'Парк Горького, поле №3',
-                          style: TextStyle(color: Colors.grey),
-                        ),
-                      ],
-                    ),
-                  ],
-                ),
-                VmAvatar(),
-              ],
-            ),
-
-            const SizedBox(height: 16.0),
-            const Wrap(
-              spacing: 8.0,
-              children: [
-                _Chip(child: Text('Футбол')),
-                _Chip(child: Text('18+')),
-                _Chip(child: Icon(Icons.man_2_rounded, size: 20)),
-              ],
-            ),
-            const SizedBox(height: 16.0),
-            const _Members(),
-            const SizedBox(height: 16.0),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                const Text('3000 Р'),
-                SizedBox(
-                  width: 120,
-                  height: 48,
-                  child: FilledButton(
-                    onPressed: () {},
-                    style: FilledButton.styleFrom(
-                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(18.0)),
-                      padding: EdgeInsets.zero,
-                      textStyle: const TextStyle(fontWeight: FontWeight.bold),
-                    ),
-                    child: const Text('Участвовать'),
+                          Text(
+                            event.duration.toText, // '2 часа',
+                            style: const TextStyle(color: Colors.grey),
+                          ),
+                        ],
+                      ),
+                      const SizedBox(height: 4.0),
+                      const Row(
+                        children: [
+                          Icon(
+                            Icons.place_outlined,
+                            color: Colors.grey,
+                          ),
+                          SizedBox(width: 8.0),
+                          Text(
+                            'Парк Горького, поле №3',
+                            style: TextStyle(color: Colors.grey),
+                          ),
+                        ],
+                      ),
+                    ],
                   ),
-                ),
-              ],
-            ),
-          ],
+                  const VmAvatar(),
+                ],
+              ),
+
+              const SizedBox(height: 16.0),
+              const Wrap(
+                spacing: 8.0,
+                children: [
+                  _Chip(child: Text('Футбол')),
+                  _Chip(child: Text('18+')),
+                  _Chip(child: Icon(Icons.man_2_rounded, size: 20)),
+                ],
+              ),
+              const SizedBox(height: 16.0),
+              const Padding(
+                padding: EdgeInsetsDirectional.symmetric(vertical: 16.0),
+                child: _Members(),
+              ),
+              const SizedBox(height: 16.0),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text('${event.cost} Р'),
+                  SizedBox(
+                    width: 120,
+                    height: 48,
+                    child: FilledButton(
+                      onPressed: () {},
+                      style: FilledButton.styleFrom(
+                        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(18.0)),
+                        padding: EdgeInsets.zero,
+                        textStyle: const TextStyle(fontWeight: FontWeight.bold),
+                      ),
+                      child: const Text('Участвовать'),
+                    ),
+                  ),
+                ],
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class _FavoriteButton extends StatelessWidget {
+  const _FavoriteButton(this.id);
+
+  final VmEventId id;
+
+  @override
+  Widget build(BuildContext context) {
+    final isFavorite = FavoriteScope$Event.isFavorite(context, id);
+    final icon = isFavorite ? Icons.favorite_rounded : Icons.favorite_border_rounded;
+
+    return GestureDetector(
+      onTap: () => isFavorite ? FavoriteScope$Event.remove(context, id) : FavoriteScope$Event.add(context, id),
+      child: RepaintBoundary(
+        child: Icon(
+          icon,
+          color: FavoriteScope$Event.isFavorite(context, id) ? Colors.red : null,
         ),
       ),
     );
@@ -142,7 +193,7 @@ class _Chip extends StatelessWidget {
 }
 
 class _Members extends StatelessWidget {
-  const _Members({super.key});
+  const _Members();
 
   @override
   Widget build(BuildContext context) {
@@ -184,30 +235,6 @@ class _Members extends StatelessWidget {
           ],
         ),
       ],
-    );
-  }
-}
-
-/// {@template event_card}
-/// VmAvatar widget.
-/// {@endtemplate}
-class VmAvatar extends StatelessWidget {
-  /// {@macro event_card}
-  const VmAvatar({
-    super.key, // ignore: unused_element_parameter
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return const SizedBox.square(
-      dimension: 32.0,
-      child: DecoratedBox(
-        decoration: BoxDecoration(
-          color: AppColors.neutral4,
-          shape: BoxShape.circle,
-        ),
-        child: Center(child: Text('А')),
-      ),
     );
   }
 }

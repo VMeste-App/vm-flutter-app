@@ -22,6 +22,8 @@ dependencies:
 
   # Networking
   dio: ^5.9.0
+
+  yandex_maps_mapkit_lite: 4.30.0-beta
   
   # Localization
   flutter_localizations:

@@ -28,11 +28,22 @@ class VmPickerGroup extends StatefulWidget {
 
 class _VmPickerGroupState extends State<VmPickerGroup> {
   late final ValueNotifier<Object?> _controller;
+  late final bool _ownsController;
 
   @override
   void initState() {
     super.initState();
+    _ownsController = widget.controller == null;
     _controller = widget.controller ?? ValueNotifier(widget.selected);
+  }
+
+  @override
+  void dispose() {
+    if (_ownsController) {
+      _controller.dispose();
+    }
+
+    super.dispose();
   }
 
   @override
@@ -45,19 +56,42 @@ class _VmPickerGroupState extends State<VmPickerGroup> {
         itemCount: widget.items.length,
         itemBuilder: (context, index) {
           final item = widget.items[index];
+          final isSelected = selected == item.id;
 
-          return CheckboxListTile(
+          return _VmPickerListTile(
             title: Text(item.title),
-            value: selected == item.id,
-            onChanged: (value) {
-              if (value ?? false) {
-                _controller.value = item.id;
-                widget.onSelected?.call(item.id);
-              }
+            selected: isSelected,
+            onTap: () {
+              _controller.value = item.id;
+              widget.onSelected?.call(item.id);
             },
           );
         },
       ),
+    );
+  }
+}
+
+class _VmPickerListTile extends StatelessWidget {
+  const _VmPickerListTile({
+    required this.title,
+    required this.selected,
+    required this.onTap,
+  });
+
+  final Widget title;
+  final bool selected;
+  final VoidCallback onTap;
+
+  @override
+  Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+
+    return ListTile(
+      title: title,
+      selected: selected,
+      trailing: selected ? Icon(Icons.check, color: theme.colorScheme.primary) : null,
+      onTap: onTap,
     );
   }
 }

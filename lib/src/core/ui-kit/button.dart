@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:vm_app/src/core/ui-kit/loader.dart';
 
 class VmButton extends StatelessWidget {
   const VmButton({
@@ -10,6 +11,15 @@ class VmButton extends StatelessWidget {
     this.enabled = true,
     this.child,
   });
+
+  // const VmButton.icon({
+  //   super.key,
+  //   this.onPressed,
+  //   this.icon,
+  //   this.loading = false,
+  //   this.enabled = true,
+  // }) : stretched = false,
+  //      child = null;
 
   final VoidCallback? onPressed;
   final Widget? icon;
@@ -24,7 +34,7 @@ class VmButton extends StatelessWidget {
 
     Widget? effectiveChild = child;
     if (loading) {
-      effectiveChild = const _ProgressIndicator();
+      effectiveChild = VmLoader.small();
     } else if (child case final child?) {
       if (icon case final icon?) {
         effectiveChild = Row(
@@ -45,23 +55,6 @@ class VmButton extends StatelessWidget {
         ),
         onPressed: isActive ? onPressed : null,
         child: effectiveChild,
-      ),
-    );
-  }
-}
-
-class _ProgressIndicator extends StatelessWidget {
-  const _ProgressIndicator();
-
-  @override
-  Widget build(BuildContext context) {
-    return const RepaintBoundary(
-      child: SizedBox.square(
-        dimension: 20.0,
-        child: CircularProgressIndicator(
-          strokeWidth: 2.0,
-          color: Colors.white,
-        ),
       ),
     );
   }

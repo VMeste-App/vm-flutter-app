@@ -4,15 +4,15 @@ import 'package:vm_app/src/shared/level/model/level.dart';
 class LevelField extends StatefulWidget {
   const LevelField({super.key, this.selected, this.onChanged});
 
-  final SkillLevelID? selected;
-  final ValueChanged<SkillLevelID>? onChanged;
+  final SkillLevelId? selected;
+  final ValueChanged<SkillLevelId>? onChanged;
 
   @override
   State<LevelField> createState() => _LevelFieldState();
 }
 
 class _LevelFieldState extends State<LevelField> {
-  late final ValueNotifier<SkillLevelID?> _levelController;
+  late final ValueNotifier<SkillLevelId?> _levelController;
 
   @override
   void initState() {

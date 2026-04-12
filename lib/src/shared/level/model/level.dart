@@ -1,4 +1,4 @@
-typedef SkillLevelID = int;
+typedef SkillLevelId = int;
 
 enum SkillLevel {
   beginner(0),
@@ -7,11 +7,11 @@ enum SkillLevel {
   pro(3)
   ;
 
-  final SkillLevelID id;
+  final SkillLevelId id;
 
   const SkillLevel(this.id);
 
-  factory SkillLevel.byID(SkillLevelID id) => switch (id) {
+  factory SkillLevel.byId(SkillLevelId id) => switch (id) {
     0 => SkillLevel.beginner,
     1 => SkillLevel.intermediate,
     2 => SkillLevel.advanced,

@@ -11,13 +11,20 @@ import 'package:vm_app/src/feature/auth/model/token_pair.dart';
 import 'package:vm_app/src/feature/auth/model/user.dart';
 
 abstract interface class IAuthRepository {
+  /// Восстановить данные авторизации.
   Future<User?> restore();
 
+  /// Зарегистрироваться.
   Future<User> signUp(SignUpRequest request);
 
+  /// Авторизоваться.
   Future<User> signIn(SignInRequest request);
 
+  /// Выйти из аккаунта.
   Future<void> signOut();
+
+  /// Удалить аккаунт.
+  Future<void> deleteAccount();
 }
 
 final class AuthRepository implements IAuthRepository {
@@ -98,6 +105,13 @@ final class AuthRepository implements IAuthRepository {
 
     return User.fromJson(decodedUser);
   }
+
+  @override
+  Future<void> deleteAccount() async {
+    await accessTokenEntry.remove();
+    await refreshTokenEntry.remove();
+    await userEntry.remove();
+  }
 }
 
 final class FakeAuthRepository implements IAuthRepository {
@@ -114,4 +128,7 @@ final class FakeAuthRepository implements IAuthRepository {
   Future<void> signOut() => Future.value();
 
   Future<User> get _fakeUser => Future.value(const User(id: 1, email: 'fake@example.com'));
+
+  @override
+  Future<void> deleteAccount() => Future.value();
 }

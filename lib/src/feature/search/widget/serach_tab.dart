@@ -3,6 +3,7 @@ import 'package:vm_app/src/core/navigator/navigator.dart';
 import 'package:vm_app/src/core/navigator/pages.dart';
 import 'package:vm_app/src/core/widget/lazy_scroll_view.dart';
 import 'package:vm_app/src/core/widget/safe_scaffold.dart';
+import 'package:vm_app/src/feature/event/model/event.dart';
 import 'package:vm_app/src/feature/event/widget/event_card.dart';
 
 /// {@template events_tab}
@@ -37,9 +38,9 @@ class SearchTab extends StatelessWidget {
           padding: const EdgeInsets.symmetric(horizontal: 12.0),
           itemCount: 10,
           separatorBuilder: (context, index) => const SizedBox(height: 12.0),
-          itemBuilder: (context, index) => InkWell(
-            onTap: () => VmNavigator.push(context, VmEventPage(id: index)),
-            child: const VmEventCard(),
+          itemBuilder: (context, index) => VmEventCard(
+            onPressed: () => VmNavigator.push(context, VmEventPage(id: index)),
+            event: fakeEvent,
           ),
         ),
       ),

@@ -8,7 +8,7 @@ class VmEventScreen extends StatelessWidget {
     required this.id,
   });
 
-  final VmEventID id;
+  final VmEventId id;
 
   @override
   Widget build(BuildContext context) {

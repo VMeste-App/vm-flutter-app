@@ -5,7 +5,10 @@ import 'package:vm_app/src/feature/auth/controller/auth_controller.dart';
 import 'package:vm_app/src/feature/auth/model/user.dart';
 
 class AuthenticationScope extends StatefulWidget {
-  const AuthenticationScope({super.key, required this.child});
+  const AuthenticationScope({
+    super.key,
+    required this.child,
+  });
 
   /// The widget below this widget in the tree.
   final Widget child;

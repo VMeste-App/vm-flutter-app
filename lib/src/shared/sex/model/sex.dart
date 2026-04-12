@@ -12,7 +12,7 @@ enum EventMembersType {
 
   const EventMembersType(this.id);
 
-  factory EventMembersType.byID(EventMembersTypeID id) => switch (id) {
+  factory EventMembersType.byId(EventMembersTypeID id) => switch (id) {
     0 => EventMembersType.male,
     1 => EventMembersType.female,
     3 => EventMembersType.mixed,

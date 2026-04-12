@@ -91,8 +91,8 @@ final class AppTheme {
           ),
           labelTextStyle: WidgetStateProperty.fromMap(
             {
-              WidgetState.selected: TextStyle(color: Colors.black),
-              WidgetState.any: TextStyle(color: Colors.grey),
+              WidgetState.selected: TextStyle(color: Colors.black, fontSize: 10.0),
+              WidgetState.any: TextStyle(color: Colors.grey, fontSize: 10.0),
             },
           ),
         ),

@@ -4,7 +4,7 @@ import 'package:vm_app/src/shared/level/model/level.dart';
 
 @immutable
 final class SearchFilter {
-  final List<ActivityID>? activities;
+  final List<ActivityId>? activities;
   final List<SkillLevel>? levels;
   final ValueRange<DateTime>? dt;
   final ValueRange<int>? age;
