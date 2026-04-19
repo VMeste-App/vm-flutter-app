@@ -136,6 +136,7 @@ final _inputDecorationTheme = InputDecorationTheme(
 
     return TextStyle(color: Colors.grey.withValues(alpha: 0.5));
   }),
+  helperStyle: const TextStyle(color: Colors.grey),
   disabledBorder: _border.copyWith(borderSide: BorderSide(color: Colors.grey.withValues(alpha: 0.2))),
   prefixIconColor: Colors.grey.withValues(alpha: 0.5),
 );

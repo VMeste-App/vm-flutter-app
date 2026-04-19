@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:vm_app/src/core/ui-kit/picker_group.dart';
+import 'package:vm_app/src/core/ui-kit/scaffold.dart';
 import 'package:vm_app/src/core/utils/extensions/context_extension.dart';
-import 'package:vm_app/src/core/widget/safe_scaffold.dart';
 import 'package:vm_app/src/feature/settings/widget/settings_scope.dart';
 
 class ThemeModeScreen extends StatelessWidget {
@@ -11,7 +11,7 @@ class ThemeModeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = SettingsScope.themeModeOf(context);
 
-    return SafeScaffold(
+    return VmScaffold(
       appBar: AppBar(title: Text(context.l10n.themeModeTitle)),
       body: VmPickerGroup(
         selected: theme,

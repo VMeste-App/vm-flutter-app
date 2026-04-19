@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:vm_app/src/core/navigator/navigator.dart';
 import 'package:vm_app/src/core/navigator/pages.dart';
+import 'package:vm_app/src/core/ui-kit/scaffold.dart';
 import 'package:vm_app/src/core/widget/lazy_scroll_view.dart';
-import 'package:vm_app/src/core/widget/safe_scaffold.dart';
 import 'package:vm_app/src/feature/event/model/event.dart';
 import 'package:vm_app/src/feature/event/widget/event_card.dart';
 
@@ -17,7 +17,7 @@ class SearchTab extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SafeScaffold(
+    return VmScaffold(
       appBar: AppBar(
         title: const Text('Поиск'),
         actions: [

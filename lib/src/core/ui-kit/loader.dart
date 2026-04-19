@@ -38,7 +38,7 @@ class VmLoader extends StatelessWidget {
         child: CircularProgressIndicator(
           strokeWidth: 2.0,
           valueColor: AlwaysStoppedAnimation(color),
-          color: Colors.white,
+          color: Theme.of(context).primaryColor,
         ),
       ),
     );

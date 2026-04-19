@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:vm_app/src/core/ui-kit/button.dart';
 import 'package:vm_app/src/core/ui-kit/picker_group.dart';
-import 'package:vm_app/src/core/widget/safe_scaffold.dart';
+import 'package:vm_app/src/core/ui-kit/scaffold.dart';
 import 'package:vm_app/src/shared/activity/model/activity.dart';
 import 'package:vm_app/src/shared/activity/widget/activity_scope.dart';
 
@@ -36,7 +36,7 @@ class _ActivitiesScreenState extends State<ActivitiesScreen> {
     return ValueListenableBuilder<ActivityId?>(
       valueListenable: _activityController,
       builder: (context, selected, _) {
-        return SafeScaffold(
+        return VmScaffold(
           appBar: AppBar(title: const Text('Активность')),
           body: VmPickerGroup(
             controller: _activityController,

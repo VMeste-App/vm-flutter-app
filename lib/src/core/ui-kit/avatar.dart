@@ -1,20 +1,37 @@
 import 'package:flutter/material.dart';
 import 'package:vm_app/src/core/theme/colors.dart';
 
-/// {@template event_card}
-/// VmAvatar widget.
-/// {@endtemplate}
+enum AvatarSize {
+  small,
+  medium,
+  large,
+}
+
 class VmAvatar extends StatelessWidget {
-  /// {@macro event_card}
   const VmAvatar({
-    super.key, // ignore: unused_element_parameter
+    super.key,
+    required this.size,
   });
+
+  const VmAvatar.small({
+    super.key,
+  }) : size = .small;
+
+  const VmAvatar.medium({
+    super.key,
+  }) : size = .medium;
+
+  const VmAvatar.large({
+    super.key,
+  }) : size = .large;
+
+  final AvatarSize size;
 
   @override
   Widget build(BuildContext context) {
-    return const SizedBox.square(
-      dimension: 32.0,
-      child: DecoratedBox(
+    return SizedBox.fromSize(
+      size: _buildSize(size),
+      child: const DecoratedBox(
         decoration: BoxDecoration(
           color: AppColors.neutral4,
           shape: BoxShape.circle,
@@ -22,5 +39,13 @@ class VmAvatar extends StatelessWidget {
         child: Center(child: Text('А')),
       ),
     );
+  }
+
+  Size _buildSize(AvatarSize size) {
+    return switch (size) {
+      .small => const Size.square(32.0),
+      .medium => const Size.square(64.0),
+      .large => const Size.square(96.0),
+    };
   }
 }

@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:vm_app/src/core/l10n/app_localization.dart';
 import 'package:vm_app/src/core/ui-kit/picker_group.dart';
+import 'package:vm_app/src/core/ui-kit/scaffold.dart';
 import 'package:vm_app/src/core/utils/extensions/context_extension.dart';
 import 'package:vm_app/src/core/utils/extensions/locale_extension.dart';
-import 'package:vm_app/src/core/widget/safe_scaffold.dart';
 import 'package:vm_app/src/feature/settings/widget/settings_scope.dart';
 
 class LocaleScreen extends StatelessWidget {
@@ -13,7 +13,7 @@ class LocaleScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final locale = SettingsScope.localeOf(context);
 
-    return SafeScaffold(
+    return VmScaffold(
       appBar: AppBar(title: Text(context.l10n.localeTitle)),
       body: VmPickerGroup(
         selected: locale,

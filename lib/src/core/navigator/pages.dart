@@ -9,6 +9,8 @@ import 'package:vm_app/src/feature/place/model/place.dart';
 import 'package:vm_app/src/feature/place/widget/place_map.dart';
 import 'package:vm_app/src/feature/place/widget/place_screen.dart';
 import 'package:vm_app/src/feature/place/widget/places_screen.dart';
+import 'package:vm_app/src/feature/profile/widget/profile_edit_screen.dart';
+import 'package:vm_app/src/feature/profile/widget/profile_screen.dart';
 import 'package:vm_app/src/feature/search/widget/filter_screen.dart';
 import 'package:vm_app/src/shared/activity/widget/activities_screen.dart';
 
@@ -115,5 +117,25 @@ final class VmPlacesMapPage extends VmPage<void> {
         name: 'places-map',
         // fullscreenDialog: true,
         child: const PlaceMapScreen(),
+      );
+}
+
+final class ProfilePage extends VmPage<void> {
+  const ProfilePage()
+    : super(
+        key: const ValueKey('profile'),
+        name: 'profile',
+        // fullscreenDialog: true,
+        child: const ProfileScreen(),
+      );
+}
+
+final class ProfileEditPage extends VmPage<void> {
+  const ProfileEditPage()
+    : super(
+        key: const ValueKey('profile-edit'),
+        name: 'profile',
+        // fullscreenDialog: true,
+        child: const ProfileEditScreen(id: 1),
       );
 }

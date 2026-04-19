@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:vm_app/src/core/widget/safe_scaffold.dart';
+import 'package:vm_app/src/core/ui-kit/scaffold.dart';
 import 'package:vm_app/src/feature/event/model/event.dart';
 
 class VmEventScreen extends StatelessWidget {
@@ -26,7 +26,7 @@ class VmEventScreen extends StatelessWidget {
     //   duration: const Duration(hours: 2),
     // );
 
-    return SafeScaffold(
+    return VmScaffold(
       appBar: AppBar(
         title: const Text('123132'),
       ),

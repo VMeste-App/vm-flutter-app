@@ -7,7 +7,7 @@ import 'package:vm_app/src/core/theme/colors.dart';
 import 'package:vm_app/src/core/ui-kit/avatar.dart';
 import 'package:vm_app/src/core/ui-kit/button.dart';
 import 'package:vm_app/src/core/ui-kit/fields/search_field.dart';
-import 'package:vm_app/src/core/widget/safe_scaffold.dart';
+import 'package:vm_app/src/core/ui-kit/scaffold.dart';
 import 'package:vm_app/src/feature/place/controller/list/place_list_controller.dart';
 import 'package:vm_app/src/feature/place/model/place_filter.dart';
 import 'package:vm_app/src/shared/activity/model/activity.dart';
@@ -39,7 +39,7 @@ class _PlacesScreenState extends State<PlacesScreen> {
       () => PlaceListController(repository: Dependencies.of(context).placeRepository)..fetch(const PlaceFilter()),
       child: StateConsumer<PlaceListController, SearchLocationState>(
         builder: (context, state, child) {
-          return SafeScaffold(
+          return VmScaffold(
             appBar: AppBar(title: const Text('Локация')),
             floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
             floatingActionButton: VmButton(
@@ -66,7 +66,7 @@ class _PlacesScreenState extends State<PlacesScreen> {
                       selectedTileColor: Colors.transparent,
                       hoverColor: Colors.transparent,
                       enableFeedback: false,
-                      leading: const VmAvatar(),
+                      leading: const VmAvatar.small(),
                       title: Text(location.name),
                       subtitle: Text(location.address),
                       trailing: GestureDetector(

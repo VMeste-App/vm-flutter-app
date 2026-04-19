@@ -102,7 +102,7 @@ class VmEventCard extends StatelessWidget {
                       ),
                     ],
                   ),
-                  const VmAvatar(),
+                  const VmAvatar.small(),
                 ],
               ),
 

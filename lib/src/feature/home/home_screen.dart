@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:vm_app/src/core/ui-kit/scaffold.dart';
 import 'package:vm_app/src/core/widget/lazy_indexed_stack.dart';
-import 'package:vm_app/src/core/widget/safe_scaffold.dart';
 import 'package:vm_app/src/feature/event/widget/events_tab.dart';
 import 'package:vm_app/src/feature/favorite/widget/favorite_tab.dart';
 import 'package:vm_app/src/feature/profile/widget/profile_tab.dart';
@@ -39,7 +39,7 @@ class _HomeScreenState extends State<HomeScreen> {
     return ValueListenableBuilder<int>(
       valueListenable: _tabController,
       builder: (context, value, _) {
-        return SafeScaffold(
+        return VmScaffold(
           body: LazyIndexedStack(
             index: value,
             children: const [

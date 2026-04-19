@@ -11,10 +11,10 @@ import 'package:vm_app/src/core/ui-kit/fields/duration_field.dart';
 import 'package:vm_app/src/core/ui-kit/fields/price_field.dart';
 import 'package:vm_app/src/core/ui-kit/label.dart';
 import 'package:vm_app/src/core/ui-kit/picker_group.dart';
+import 'package:vm_app/src/core/ui-kit/scaffold.dart';
 import 'package:vm_app/src/core/ui-kit/switch_list_tile.dart';
 import 'package:vm_app/src/core/ui-kit/text_field.dart';
 import 'package:vm_app/src/core/utils/extensions/context_extension.dart';
-import 'package:vm_app/src/core/widget/safe_scaffold.dart';
 import 'package:vm_app/src/feature/event/controller/create/vm_event_create_controller.dart';
 import 'package:vm_app/src/feature/event/controller/create/vm_event_create_state.dart';
 import 'package:vm_app/src/feature/event/model/create_event.dart';
@@ -123,7 +123,7 @@ class _CreateEventScreenState extends State<CreateEventScreen> {
         repository: Dependencies.of(context).eventRepository,
         eventChanges: ValueNotifier(const VmEvent$Draft()),
       ),
-      child: SafeScaffold(
+      child: VmScaffold(
         appBar: AppBar(title: const Text('Новое событие')),
         body: SingleChildScrollView(
           padding: const EdgeInsets.symmetric(vertical: 16.0),

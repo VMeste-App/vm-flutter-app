@@ -1,3 +1,5 @@
+import 'package:vm_app/src/feature/profile/model/sex.dart';
+
 typedef ProfileId = int;
 
 class Profile {
@@ -9,7 +11,7 @@ class Profile {
   /// Фамилия
   final String lastName;
 
-  /// Дата рождения.
+  /// Дата рождения
   final DateTime birthDate;
 
   /// Пол
@@ -24,10 +26,13 @@ class Profile {
   /// Рост (в см)
   final int? height;
 
-  /// Ссылка на фото.
+  // О себе
+  final String? aboutMe;
+
+  /// Ссылка на фото
   final String? photoUrl;
 
-  /// Хеш заблюренного фото для превью.
+  /// Хеш фото для превью
   final String? blurhash;
 
   Profile({
@@ -39,25 +44,35 @@ class Profile {
     required this.email,
     this.weight,
     this.height,
+    this.aboutMe,
     this.photoUrl,
     this.blurhash,
   });
-}
 
-typedef SexId = int;
-
-enum Sex {
-  male(1),
-  female(2),
-  ;
-
-  final SexId id;
-
-  const Sex(this.id);
-
-  factory Sex.byId(SexId id) => switch (id) {
-    1 => Sex.male,
-    2 => Sex.female,
-    _ => throw ArgumentError('Unknown sex id: $id', 'id'),
-  };
+  Profile copyWith({
+    String? firstName,
+    String? lastName,
+    DateTime? birthDate,
+    Sex? sex,
+    String? email,
+    int? weight,
+    int? height,
+    String? aboutMe,
+    String? photoUrl,
+    String? blurhash,
+  }) {
+    return Profile(
+      id: id,
+      firstName: firstName ?? this.firstName,
+      lastName: lastName ?? this.lastName,
+      birthDate: birthDate ?? this.birthDate,
+      sex: sex ?? this.sex,
+      email: email ?? this.email,
+      weight: weight ?? this.weight,
+      height: height ?? this.height,
+      aboutMe: aboutMe ?? this.aboutMe,
+      photoUrl: photoUrl ?? this.photoUrl,
+      blurhash: blurhash ?? this.blurhash,
+    );
+  }
 }

@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:vm_app/src/core/navigator/navigator.dart';
 import 'package:vm_app/src/core/navigator/pages.dart';
+import 'package:vm_app/src/core/ui-kit/scaffold.dart';
 import 'package:vm_app/src/core/utils/extensions/context_extension.dart';
 import 'package:vm_app/src/core/utils/extensions/locale_extension.dart';
-import 'package:vm_app/src/core/widget/safe_scaffold.dart';
 import 'package:vm_app/src/feature/settings/widget/locale_screen.dart';
 import 'package:vm_app/src/feature/settings/widget/settings_scope.dart';
 import 'package:vm_app/src/feature/settings/widget/theme_mode_screen.dart';
@@ -13,7 +13,7 @@ class SettingsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SafeScaffold(
+    return VmScaffold(
       appBar: AppBar(title: Text(context.l10n.settings)),
       body: const Column(
         mainAxisSize: MainAxisSize.min,

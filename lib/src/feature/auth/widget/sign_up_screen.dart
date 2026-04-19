@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:vm_app/src/core/constants/regexp.dart';
 import 'package:vm_app/src/core/ui-kit/button.dart';
-import 'package:vm_app/src/core/widget/safe_scaffold.dart';
+import 'package:vm_app/src/core/ui-kit/scaffold.dart';
 import 'package:vm_app/src/feature/auth/widget/authentication_scope.dart';
 import 'package:vm_app/src/feature/auth/widget/components/email_field.dart';
 import 'package:vm_app/src/feature/auth/widget/components/password_field.dart';
@@ -33,7 +33,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return SafeScaffold(
+    return VmScaffold(
       appBar: AppBar(title: const Text('Sign Up')),
       body: AutofillGroup(
         child: Column(

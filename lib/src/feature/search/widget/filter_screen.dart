@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:vm_app/src/core/ui-kit/button.dart';
-import 'package:vm_app/src/core/widget/safe_scaffold.dart';
+import 'package:vm_app/src/core/ui-kit/scaffold.dart';
 
 class FilterScreen extends StatefulWidget {
   const FilterScreen({super.key});
@@ -23,7 +23,7 @@ class _FilterScreenState extends State<FilterScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return SafeScaffold(
+    return VmScaffold(
       appBar: AppBar(title: const Text('Фильтры')),
       body: const SizedBox(),
       persistentFooterButtons: [

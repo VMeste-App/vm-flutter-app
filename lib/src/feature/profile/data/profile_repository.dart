@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:dio/dio.dart';
 import 'package:vm_app/src/core/model/typedefs.dart';
 import 'package:vm_app/src/feature/profile/model/profile.dart';
+import 'package:vm_app/src/feature/profile/model/sex.dart';
 
 abstract interface class IProfileRepository {
   /// {@template profile.byId}
@@ -18,7 +19,7 @@ abstract interface class IProfileRepository {
   /// {@template profile.update}
   /// Обновить данные профиля.
   /// {@endtemplate}
-  Future<Profile> update();
+  Future<Profile> update(Profile profile);
 
   /// {@template profile.uploadAvatar}
   /// Добавить/обновить аватар.
@@ -33,6 +34,18 @@ class ProfileRepository implements IProfileRepository {
 
   @override
   Future<Profile> getProfileById(ProfileId id) async {
+    return Profile(
+      id: id,
+      firstName: 'Иван',
+      lastName: 'Иванов',
+      birthDate: DateTime(1988),
+      sex: Sex.male,
+      email: 'test2@gmail.com',
+      weight: 80,
+      height: 190,
+      aboutMe: 'about me',
+    );
+
     final response = await _client.get<Json>('/profile/{$id}');
     return _parseFromResponse(response);
   }
@@ -44,7 +57,7 @@ class ProfileRepository implements IProfileRepository {
   }
 
   @override
-  Future<Profile> update() async {
+  Future<Profile> update(Profile profile) async {
     final response = await _client.put<Json>('/profile', data: {});
     return _parseFromResponse(response);
   }

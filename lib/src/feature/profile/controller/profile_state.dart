@@ -1,55 +1,55 @@
 import 'package:meta/meta.dart';
-import 'package:vm_app/src/feature/event/model/event.dart';
+import 'package:vm_app/src/feature/profile/model/profile.dart';
 
 @immutable
 sealed class ProfileState extends _ProfileStateBase with _ProfileStateShortcuts {
-  const ProfileState({super.event});
+  const ProfileState({super.profile});
 
-  const factory ProfileState.idle({VmEvent? event}) = ProfileStateIdle;
+  const factory ProfileState.idle({Profile? profile}) = ProfileStateIdle;
 
-  const factory ProfileState.processing({VmEvent? event}) = ProfileStateProcessing;
+  const factory ProfileState.processing({Profile? profile}) = ProfileStateProcessing;
 
-  const factory ProfileState.success({VmEvent event}) = ProfileStateSuccess;
+  const factory ProfileState.success({Profile profile}) = ProfileStateSuccess;
 
-  const factory ProfileState.error(Object error, {VmEvent? event}) = ProfileStateError;
+  const factory ProfileState.error(Object error, {Profile? profile}) = ProfileStateError;
 }
 
 // --- States's helper classes ---
 final class ProfileStateIdle extends ProfileState {
-  const ProfileStateIdle({super.event});
+  const ProfileStateIdle({super.profile});
 }
 
 final class ProfileStateProcessing extends ProfileState {
-  const ProfileStateProcessing({super.event});
+  const ProfileStateProcessing({super.profile});
 }
 
 final class ProfileStateSuccess extends ProfileState {
-  const ProfileStateSuccess({super.event});
+  const ProfileStateSuccess({super.profile});
 }
 
 final class ProfileStateError extends ProfileState {
-  const ProfileStateError(this.error, {super.event});
+  const ProfileStateError(this.error, {super.profile});
 
   final Object error;
 }
 
 // --- State's shortcuts ---
 base mixin _ProfileStateShortcuts on _ProfileStateBase {
-  ProfileState idle() => ProfileState.idle(event: event);
+  ProfileState idle() => ProfileState.idle(profile: profile);
 
-  ProfileState processing() => ProfileState.processing(event: event);
+  ProfileState processing() => ProfileState.processing(profile: profile);
 
-  ProfileState success(VmEvent event) => ProfileState.success(event: event);
+  ProfileState success(Profile profile) => ProfileState.success(profile: profile);
 
-  ProfileState errorState(Object error) => ProfileState.error(error, event: event);
+  ProfileState errorState(Object error) => ProfileState.error(error, profile: profile);
 }
 
 // --- State's base class ---
 @immutable
 abstract base class _ProfileStateBase {
-  const _ProfileStateBase({this.event});
+  const _ProfileStateBase({this.profile});
 
-  final VmEvent? event;
+  final Profile? profile;
 
   R map<R>({
     required _VmStateMatch<R, ProfileStateIdle> idle,

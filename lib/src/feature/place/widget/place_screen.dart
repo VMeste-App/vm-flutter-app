@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:vm_app/src/core/widget/safe_scaffold.dart';
+import 'package:vm_app/src/core/ui-kit/scaffold.dart';
 import 'package:vm_app/src/feature/place/model/place.dart';
 
 class PlaceScreen extends StatelessWidget {
@@ -12,7 +12,7 @@ class PlaceScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SafeScaffold(
+    return VmScaffold(
       appBar: AppBar(
         title: const Text('Локации'),
       ),

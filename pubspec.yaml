@@ -24,6 +24,7 @@ dependencies:
   dio: ^5.9.0
 
   yandex_maps_mapkit_lite: 4.30.0-beta
+  image_picker: ^1.2.1
   
   # Localization
   flutter_localizations:

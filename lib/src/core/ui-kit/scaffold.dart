@@ -4,9 +4,9 @@ import 'package:vm_app/src/core/utils/extensions/context_extension.dart';
 /// {@template safe_scaffold}
 /// SafeScaffold widget.
 /// {@endtemplate}
-class SafeScaffold extends StatelessWidget {
+class VmScaffold extends StatelessWidget {
   /// {@macro safe_scaffold}
-  const SafeScaffold({
+  const VmScaffold({
     super.key,
     this.appBar,
     this.backgroundColor,
@@ -31,7 +31,7 @@ class SafeScaffold extends StatelessWidget {
       backgroundColor: backgroundColor ?? context.theme.scaffoldBackgroundColor,
       appBar: appBar,
       body: SafeArea(child: body),
-      persistentFooterButtons: persistentFooterButtons,
+      persistentFooterButtons: (persistentFooterButtons?.isEmpty ?? true) ? null : persistentFooterButtons,
       bottomNavigationBar: bottomNavigationBar,
       floatingActionButton: floatingActionButton,
       floatingActionButtonLocation: floatingActionButtonLocation,

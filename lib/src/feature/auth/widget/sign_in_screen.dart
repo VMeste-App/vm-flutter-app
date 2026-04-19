@@ -3,7 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:vm_app/src/core/navigator/navigator.dart';
 import 'package:vm_app/src/core/navigator/pages.dart';
 import 'package:vm_app/src/core/ui-kit/button.dart';
-import 'package:vm_app/src/core/widget/safe_scaffold.dart';
+import 'package:vm_app/src/core/ui-kit/scaffold.dart';
 import 'package:vm_app/src/feature/auth/widget/authentication_scope.dart';
 import 'package:vm_app/src/feature/auth/widget/components/email_field.dart';
 import 'package:vm_app/src/feature/auth/widget/components/password_field.dart';
@@ -34,7 +34,7 @@ class _SignInScreenState extends State<SignInScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return SafeScaffold(
+    return VmScaffold(
       appBar: AppBar(title: const Text('Sign In')),
       body: AutofillGroup(
         child: Column(

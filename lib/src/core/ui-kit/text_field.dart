@@ -32,6 +32,10 @@ class VmTextField extends StatelessWidget {
     this.enableInteractiveSelection,
     this.autofillHints,
     this.enableSuggestions = true,
+    this.hintText,
+    this.helperText,
+    this.errorText,
+    this.showCounter = true,
   });
 
   final TextEditingController? controller;
@@ -96,6 +100,14 @@ class VmTextField extends StatelessWidget {
 
   final bool enableSuggestions;
 
+  // ---
+  final String? hintText;
+  final String? helperText;
+  final String? errorText;
+
+  /// Показывать ли счетчик символов.
+  final bool showCounter;
+
   @override
   Widget build(BuildContext context) {
     return TextField(
@@ -118,7 +130,12 @@ class VmTextField extends StatelessWidget {
       inputFormatters: inputFormatters,
       onTapOutside: onTapOutside,
       style: const TextStyle(fontSize: 14, height: 1.25),
-      decoration: decoration,
+      decoration: (decoration ?? const InputDecoration()).copyWith(
+        hintText: hintText,
+        helperText: helperText,
+        errorText: errorText,
+        counterText: showCounter ? null : '',
+      ),
       textAlign: textAlign ?? TextAlign.start,
       onTap: onTap,
       enableInteractiveSelection: enableInteractiveSelection,
