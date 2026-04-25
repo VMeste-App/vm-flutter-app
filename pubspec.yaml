@@ -21,6 +21,8 @@ dependencies:
   control: ^0.2.0
 
   # Networking
+  cronet_http: ^1.8.0
+  cupertino_http: ^2.4.0
   http: ^1.6.0
 
   yandex_maps_mapkit_lite: 4.30.0-beta
