@@ -1,5 +1,5 @@
-import 'package:dio/dio.dart';
 import 'package:vm_app/src/core/model/typedefs.dart';
+import 'package:vm_app/src/core/network/vm_http_client.dart';
 import 'package:vm_app/src/feature/place/model/place.dart';
 import 'package:vm_app/src/feature/place/model/place_filter.dart';
 
@@ -21,13 +21,13 @@ abstract interface class IPlaceRepository {
 }
 
 final class PlaceRepository implements IPlaceRepository {
-  final Dio _client;
+  final VmHttpClient _client;
 
-  PlaceRepository({required Dio client}) : _client = client;
+  PlaceRepository({required VmHttpClient client}) : _client = client;
 
   @override
   Future<List<Place>> getPlaces(PlaceFilter filter, {int page = 1}) async {
-    final response = await _client.get<Json>(
+    final response = await _client.get(
       '/places',
       queryParameters: {
         'page': page,
@@ -35,7 +35,7 @@ final class PlaceRepository implements IPlaceRepository {
       },
     );
 
-    if (response.data case {
+    if (response case {
       'data': final List<Json> data,
     }) {
       return data.map(_parsePlace).toList();
@@ -46,22 +46,14 @@ final class PlaceRepository implements IPlaceRepository {
 
   @override
   Future<Place> getById(PlaceId id) async {
-    final response = await _client.get<Json>('/places/{$id}');
-    return _parsePlaceFromResponse(response);
+    final response = await _client.get('/places/{$id}');
+    return _parsePlace(response);
   }
 
   @override
   Future<Place> create(Place$Create place) async {
-    final response = await _client.post<Json>('/places', data: place.toJson());
-    return _parsePlaceFromResponse(response);
-  }
-
-  Place _parsePlaceFromResponse(Response<Json> response) {
-    if (response.data case final data?) {
-      return _parsePlace(data);
-    }
-
-    throw Exception('Failed to parse data');
+    final response = await _client.post('/places', body: place.toJson());
+    return _parsePlace(response);
   }
 
   Place _parsePlace(Json data) {

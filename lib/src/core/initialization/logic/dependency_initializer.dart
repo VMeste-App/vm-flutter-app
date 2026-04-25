@@ -1,11 +1,11 @@
 import 'dart:async';
 import 'dart:io';
 
-import 'package:dio/dio.dart';
-import 'package:dio/io.dart';
+import 'package:http/io_client.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:vm_app/src/core/config/config.dart';
 import 'package:vm_app/src/core/di/dependencies.dart';
+import 'package:vm_app/src/core/network/vm_http_client.dart';
 import 'package:vm_app/src/feature/auth/controller/auth_controller.dart';
 import 'package:vm_app/src/feature/auth/data/auth_repository.dart';
 import 'package:vm_app/src/feature/event/data/vm_event_repository.dart';
@@ -23,17 +23,17 @@ import 'package:vm_app/src/feature/settings/model/app_settings.dart';
 
 abstract base class DependencyInitializer {
   static Future<Dependencies> run() async {
-    // ignore: avoid_redundant_argument_values
-    final client = Dio(BaseOptions(baseUrl: AppConfig.apiUrl))
-      ..httpClientAdapter = IOHttpClientAdapter(
-        createHttpClient: () => HttpClient()..findProxy = (_) => 'PROXY ${AppConfig.proxy}',
-      );
+    final httpClient = HttpClient()..findProxy = (_) => AppConfig.proxy.isEmpty ? 'DIRECT' : 'PROXY ${AppConfig.proxy}';
+    final client = VmHttpClient(
+      client: IOClient(httpClient),
+      baseUri: Uri.parse(AppConfig.apiUrl),
+    );
 
     final sharedPreferences = SharedPreferencesAsync();
 
     /// --- Authentication ---
     final authRepository = FakeAuthRepository();
-    //  AuthRepository(client: client, storage: sharedPreferences);
+    // AuthRepository(client: client, storage: sharedPreferences);
     final user = await authRepository.restore();
     final authController = AuthController(authRepository: authRepository, user: user);
 

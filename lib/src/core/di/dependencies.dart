@@ -1,7 +1,7 @@
-import 'package:dio/dio.dart';
 import 'package:flutter/widgets.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:vm_app/src/core/di/dependencies_scope.dart';
+import 'package:vm_app/src/core/network/vm_http_client.dart';
 import 'package:vm_app/src/feature/auth/controller/auth_controller.dart';
 import 'package:vm_app/src/feature/event/data/vm_event_repository.dart';
 import 'package:vm_app/src/feature/favorite/controller/favorite_controller.dart';
@@ -12,7 +12,7 @@ import 'package:vm_app/src/feature/settings/controller/settings_controller.dart'
 final class Dependencies {
   static Dependencies of(BuildContext context) => DependenciesScope.of(context);
 
-  final Dio client;
+  final VmHttpClient client;
   // TODO: Сделать абстракцию для замены на FSS при надобности.
   final SharedPreferencesAsync sharedPreferences;
 

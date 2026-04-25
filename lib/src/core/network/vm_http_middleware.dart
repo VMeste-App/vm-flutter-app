@@ -149,6 +149,10 @@ final class VmHttpLoggerMiddleware implements VmHttpMiddleware {
   VmHttpHandler call(VmHttpHandler next) {
     return (VmHttpRequestContext context) async {
       final stopwatch = Stopwatch()..start();
+      if (options.enabled && options.logRequest) {
+        _writeInfo('HTTP ${context.method} ${context.uri.path} started');
+      }
+
       try {
         final response = await next(context);
         if (options.enabled && options.logResponse) {

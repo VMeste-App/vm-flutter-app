@@ -1,5 +1,4 @@
-import 'package:dio/dio.dart';
-import 'package:vm_app/src/core/model/typedefs.dart';
+import 'package:vm_app/src/core/network/vm_http_client.dart';
 import 'package:vm_app/src/feature/event/model/event.dart';
 import 'package:vm_app/src/feature/favorite/data/favorite_local_data_source.dart';
 import 'package:vm_app/src/feature/place/model/place.dart';
@@ -32,18 +31,18 @@ abstract interface class IFavoriteRepository<Value extends Object, Id extends Ob
 }
 
 class FavoriteRepository$Event implements IFavoriteRepository$Event {
-  final Dio _httpClient;
+  final VmHttpClient _httpClient;
   final FavoriteLocalDataSource<VmEventId> _localDs;
 
   FavoriteRepository$Event({
-    required Dio httpClient,
+    required VmHttpClient httpClient,
     required FavoriteLocalDataSource<VmEventId> localDs,
   }) : _httpClient = httpClient,
        _localDs = localDs;
 
   @override
   Future<List<VmEvent>> get({int page = 1}) async {
-    await _httpClient.get<Json>(
+    await _httpClient.get(
       '/events/favorites',
       queryParameters: {'page': page},
     );
@@ -57,30 +56,30 @@ class FavoriteRepository$Event implements IFavoriteRepository$Event {
 
   @override
   Future<Set<VmEventId>> add(VmEventId id) async {
-    // await _httpClient.post<Json>('/events/favorite/add/$id');
+    // await _httpClient.post('/events/favorite/add/$id');
     return _localDs.add(id);
   }
 
   @override
   Future<Set<VmEventId>> remove(VmEventId id) async {
-    // await _httpClient.post<Json>('/events/favorite/remove/$id');
+    // await _httpClient.post('/events/favorite/remove/$id');
     return _localDs.remove(id);
   }
 }
 
 class FavoriteRepository$Profile implements IFavoriteRepository$Profile {
-  final Dio _httpClient;
+  final VmHttpClient _httpClient;
   final FavoriteLocalDataSource<ProfileId> _localDs;
 
   FavoriteRepository$Profile({
-    required Dio httpClient,
+    required VmHttpClient httpClient,
     required FavoriteLocalDataSource<ProfileId> localDs,
   }) : _httpClient = httpClient,
        _localDs = localDs;
 
   @override
   Future<List<Profile>> get({int page = 1}) async {
-    await _httpClient.get<Json>(
+    await _httpClient.get(
       '/profiles/favorites',
       queryParameters: {'page': page},
     );
@@ -94,30 +93,30 @@ class FavoriteRepository$Profile implements IFavoriteRepository$Profile {
 
   @override
   Future<Set<ProfileId>> add(VmEventId id) async {
-    await _httpClient.post<Json>('/profiles/favorite/add/$id');
+    await _httpClient.post('/profiles/favorite/add/$id');
     return {};
   }
 
   @override
   Future<Set<ProfileId>> remove(VmEventId id) async {
-    await _httpClient.post<Json>('/profiles/favorite/remove/$id');
+    await _httpClient.post('/profiles/favorite/remove/$id');
     return {};
   }
 }
 
 class FavoriteRepository$Place implements IFavoriteRepository$Place {
-  final Dio _httpClient;
+  final VmHttpClient _httpClient;
   final FavoriteLocalDataSource<PlaceId> _localDs;
 
   FavoriteRepository$Place({
-    required Dio httpClient,
+    required VmHttpClient httpClient,
     required FavoriteLocalDataSource<PlaceId> localDs,
   }) : _httpClient = httpClient,
        _localDs = localDs;
 
   @override
   Future<List<Place>> get({int page = 1}) async {
-    await _httpClient.get<Json>(
+    await _httpClient.get(
       '/profiles/favorites',
       queryParameters: {'page': page},
     );
@@ -131,13 +130,13 @@ class FavoriteRepository$Place implements IFavoriteRepository$Place {
 
   @override
   Future<Set<PlaceId>> add(VmEventId id) async {
-    await _httpClient.post<Json>('/profiles/favorite/add/$id');
+    await _httpClient.post('/profiles/favorite/add/$id');
     return {};
   }
 
   @override
   Future<Set<PlaceId>> remove(VmEventId id) async {
-    await _httpClient.post<Json>('/profiles/favorite/remove/$id');
+    await _httpClient.post('/profiles/favorite/remove/$id');
     return {};
   }
 }

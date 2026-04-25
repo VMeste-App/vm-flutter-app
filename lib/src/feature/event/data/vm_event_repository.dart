@@ -1,9 +1,9 @@
 import 'dart:async';
 import 'dart:convert';
 
-import 'package:dio/dio.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:vm_app/src/core/model/typedefs.dart';
+import 'package:vm_app/src/core/network/vm_http_client.dart';
 import 'package:vm_app/src/feature/event/logic/event_parser.dart';
 import 'package:vm_app/src/feature/event/model/complain.dart';
 import 'package:vm_app/src/feature/event/model/create_event.dart';
@@ -68,11 +68,11 @@ abstract interface class IVmEventRepository {
 }
 
 final class VmEventRepository with EventParser implements IVmEventRepository {
-  final Dio _client;
+  final VmHttpClient _client;
   final SharedPreferencesAsync _sp;
 
   VmEventRepository({
-    required Dio client,
+    required VmHttpClient client,
     required SharedPreferencesAsync sp,
   }) : _client = client,
        _sp = sp;
@@ -83,7 +83,7 @@ final class VmEventRepository with EventParser implements IVmEventRepository {
     EventSort sort, {
     int page = 0,
   }) async {
-    final response = await _client.get<Json>(
+    final response = await _client.get(
       '/events',
       queryParameters: {
         'sort': sort.id,
@@ -92,7 +92,7 @@ final class VmEventRepository with EventParser implements IVmEventRepository {
       },
     );
 
-    if (response.data case {
+    if (response case {
       'data': final List<Json> data,
     }) {
       return data.map(parseEvent).toList();
@@ -103,45 +103,45 @@ final class VmEventRepository with EventParser implements IVmEventRepository {
 
   @override
   Future<VmEvent> getEventById(VmEventId id) async {
-    final response = await _client.get<Json>('/events/{$id}');
-    return _parseEventFromResponse(response);
+    final response = await _client.get('/events/{$id}');
+    return parseEvent(response);
   }
 
   @override
   Future<VmEvent> create(VmEvent$Create event) async {
-    final response = await _client.post<Json>('/events', data: event.toJson());
+    final response = await _client.post('/events', body: event.toJson());
     await _sp.remove('event.draft');
-    return _parseEventFromResponse(response);
+    return parseEvent(response);
   }
 
   @override
   Future<VmEvent> update(VmEvent event) async {
-    final response = await _client.put<Json>('/events/${event.id}', data: {});
-    return _parseEventFromResponse(response);
+    final response = await _client.put('/events/${event.id}', body: {});
+    return parseEvent(response);
   }
 
   @override
   Future<VmEvent> join(VmEventId id) async {
-    final response = await _client.post<Json>('/events/{$id}/join');
-    return _parseEventFromResponse(response);
+    final response = await _client.post('/events/{$id}/join');
+    return parseEvent(response);
   }
 
   @override
   Future<VmEvent> decline(VmEventId id) async {
-    final response = await _client.post<Json>('/events/{$id}/decline');
-    return _parseEventFromResponse(response);
+    final response = await _client.post('/events/{$id}/decline');
+    return parseEvent(response);
   }
 
   @override
   Future<VmEvent> cancel(VmEventId id) async {
-    final response = await _client.get<Json>('/events/{$id}/cancel');
-    return _parseEventFromResponse(response);
+    final response = await _client.get('/events/{$id}/cancel');
+    return parseEvent(response);
   }
 
   @override
   Future<VmEvent> complain(VmEventId id, Complain complain) async {
-    final response = await _client.post<Json>('/events/{$id}/complain', data: complain.toJson());
-    return _parseEventFromResponse(response);
+    final response = await _client.post('/events/{$id}/complain', body: complain.toJson());
+    return parseEvent(response);
   }
 
   // --- DRAFT ---
@@ -190,13 +190,5 @@ final class VmEventRepository with EventParser implements IVmEventRepository {
   Future<void> saveDraft(VmEvent$Draft event) async {
     final json = event.toJson();
     await _sp.setString('event.draft', jsonEncode(json));
-  }
-
-  VmEvent _parseEventFromResponse(Response<Json> response) {
-    if (response.data case final data?) {
-      return parseEvent(data);
-    }
-
-    throw Exception('Failed to parse data');
   }
 }

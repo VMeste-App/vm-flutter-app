@@ -1,7 +1,7 @@
 import 'dart:io';
 
-import 'package:dio/dio.dart';
 import 'package:vm_app/src/core/model/typedefs.dart';
+import 'package:vm_app/src/core/network/vm_http_client.dart';
 import 'package:vm_app/src/feature/profile/model/profile.dart';
 import 'package:vm_app/src/feature/profile/model/sex.dart';
 
@@ -28,9 +28,9 @@ abstract interface class IProfileRepository {
 }
 
 class ProfileRepository implements IProfileRepository {
-  final Dio _client;
+  final VmHttpClient _client;
 
-  ProfileRepository({required Dio client}) : _client = client;
+  ProfileRepository({required VmHttpClient client}) : _client = client;
 
   @override
   Future<Profile> getProfileById(ProfileId id) async {
@@ -46,36 +46,30 @@ class ProfileRepository implements IProfileRepository {
       aboutMe: 'about me',
     );
 
-    final response = await _client.get<Json>('/profile/{$id}');
-    return _parseFromResponse(response);
+    final response = await _client.get('/profile/{$id}');
+    return _parseProfile(response);
   }
 
   @override
   Future<Profile> create() async {
-    final response = await _client.post<Json>('/profile', data: {});
-    return _parseFromResponse(response);
+    final response = await _client.post('/profile', body: {});
+    return _parseProfile(response);
   }
 
   @override
   Future<Profile> update(Profile profile) async {
-    final response = await _client.put<Json>('/profile', data: {});
-    return _parseFromResponse(response);
+    final response = await _client.put('/profile', body: {});
+    return _parseProfile(response);
   }
 
   @override
   Future<Profile> uploadAvatar(ProfileId id, File file) async {
-    final multipartFile = MultipartFile.fromFile(file.path);
-    final formData = FormData.fromMap({'photo': multipartFile});
-    final response = await _client.post<Json>('/profile/{$id}/avatar', data: formData);
-    return _parseFromResponse(response);
-  }
-
-  Profile _parseFromResponse(Response<Json> response) {
-    if (response.data case final data?) {
-      return _parseProfile(data);
-    }
-
-    throw Exception('Failed to parse data');
+    final response = await _client.postMultipart(
+      '/profile/{$id}/avatar',
+      fieldName: 'photo',
+      file: file,
+    );
+    return _parseProfile(response);
   }
 
   Profile _parseProfile(Json json) {

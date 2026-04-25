@@ -1,8 +1,8 @@
 import 'dart:convert';
 
-import 'package:dio/dio.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:vm_app/src/core/model/typedefs.dart';
+import 'package:vm_app/src/core/network/vm_http_client.dart';
 import 'package:vm_app/src/core/utils/persisted_entry.dart';
 import 'package:vm_app/src/feature/auth/model/dto/auth_response_dto.dart';
 import 'package:vm_app/src/feature/auth/model/request/sign_in_request.dart';
@@ -28,11 +28,11 @@ abstract interface class IAuthRepository {
 }
 
 final class AuthRepository implements IAuthRepository {
-  final Dio _client;
+  final VmHttpClient _client;
   final SharedPreferencesAsync _storage;
 
   AuthRepository({
-    required Dio client,
+    required VmHttpClient client,
     required SharedPreferencesAsync storage,
   }) : _client = client,
        _storage = storage;
@@ -58,8 +58,8 @@ final class AuthRepository implements IAuthRepository {
 
   @override
   Future<User> signUp(SignUpRequest request) async {
-    final response = await _client.post<Json>('/register', data: request.toJson());
-    final dto = AuthResponseDto.fromJson(response.data!);
+    final response = await _client.post('/register', body: request.toJson());
+    final dto = AuthResponseDto.fromJson(response);
     await _saveData(dto);
 
     return dto.user;
@@ -67,8 +67,8 @@ final class AuthRepository implements IAuthRepository {
 
   @override
   Future<User> signIn(SignInRequest request) async {
-    final response = await _client.post<Json>('/login', data: request.toJson());
-    final dto = AuthResponseDto.fromJson(response.data!);
+    final response = await _client.post('/login', body: request.toJson());
+    final dto = AuthResponseDto.fromJson(response);
     await _saveData(dto);
 
     return dto.user;
