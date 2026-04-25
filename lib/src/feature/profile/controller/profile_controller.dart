@@ -17,7 +17,6 @@ final class ProfileController extends VmController<ProfileState> {
   void fetch() => handle(
     () async {
       setState(state.processing());
-      await Future.delayed(const Duration(seconds: 5));
       final profile = await _repository.getProfileById(id);
       setState(state.success(profile));
     },

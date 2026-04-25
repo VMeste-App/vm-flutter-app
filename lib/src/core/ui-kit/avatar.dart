@@ -31,12 +31,17 @@ class VmAvatar extends StatelessWidget {
   Widget build(BuildContext context) {
     return SizedBox.fromSize(
       size: _buildSize(size),
-      child: const DecoratedBox(
-        decoration: BoxDecoration(
+      child: DecoratedBox(
+        decoration: const BoxDecoration(
           color: AppColors.neutral4,
           shape: BoxShape.circle,
         ),
-        child: Center(child: Text('А')),
+        child: Center(
+          child: Text(
+            'А',
+            style: TextStyle(fontSize: _buildTextSize(size)),
+          ),
+        ),
       ),
     );
   }
@@ -46,6 +51,14 @@ class VmAvatar extends StatelessWidget {
       .small => const Size.square(32.0),
       .medium => const Size.square(64.0),
       .large => const Size.square(96.0),
+    };
+  }
+
+  double _buildTextSize(AvatarSize size) {
+    return switch (size) {
+      .small => 8.0,
+      .medium => 16.0,
+      .large => 48.0,
     };
   }
 }

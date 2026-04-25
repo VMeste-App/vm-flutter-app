@@ -2,9 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:vm_app/src/core/navigator/navigator.dart';
 import 'package:vm_app/src/core/navigator/pages.dart';
 import 'package:vm_app/src/core/ui-kit/avatar.dart';
-import 'package:vm_app/src/core/ui-kit/button.dart';
 import 'package:vm_app/src/core/ui-kit/scaffold.dart';
-import 'package:vm_app/src/feature/auth/widget/authentication_scope.dart';
 import 'package:vm_app/src/feature/settings/widget/settings_screen.dart';
 
 class ProfileTab extends StatelessWidget {
@@ -33,15 +31,36 @@ class ProfileTab extends StatelessWidget {
             ),
             const SizedBox(height: 48.0),
             ListTile(
+              leading: const Icon(Icons.person_2_rounded),
               onTap: () => VmNavigator.push(context, const ProfilePage()),
               title: const Text('Мой профиль'),
             ),
-            const SizedBox(
-              height: 300,
+            ListTile(
+              enabled: false,
+              leading: const Icon(Icons.notifications_none_outlined),
+              onTap: () => VmNavigator.push(context, const ProfilePage()),
+              title: const Text('Уведомления'),
             ),
-            VmButton(
-              onPressed: () => AuthenticationScope.signOut(context),
-              child: const Text('Выйти'),
+            ListTile(
+              enabled: false,
+              leading: const Icon(Icons.star_border_outlined),
+              onTap: () => VmNavigator.push(context, const ProfilePage()),
+              title: const Text('Отзывы'),
+            ),
+            // ListTile(
+            //   leading: const Icon(Icons.app_registration_outlined),
+            //   onTap: () => VmNavigator.push(context, const ProfilePage()),
+            //   title: const Text('Оформление'),
+            // ),
+            // ListTile(
+            //   leading: const Icon(Icons.language_outlined),
+            //   onTap: () => VmNavigator.push(context, const ProfilePage()),
+            //   title: const Text('Язык'),
+            // ),
+            ListTile(
+              leading: const Icon(Icons.info_outline_rounded),
+              onTap: () => VmNavigator.push(context, const ProfilePage()),
+              title: const Text('О приложении'),
             ),
           ],
         ),

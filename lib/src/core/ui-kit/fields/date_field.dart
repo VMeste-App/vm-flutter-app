@@ -58,10 +58,7 @@ class _DateFieldState extends State<DateField> {
         hintText: widget.hintText,
         helperText: widget.helperText,
         errorText: widget.errorText,
-        suffixIcon: const RotatedBox(
-          quarterTurns: 1,
-          child: Icon(Icons.chevron_right_outlined),
-        ),
+        suffixIcon: const Icon(Icons.date_range_outlined),
       ),
       onTap: _onTap,
     );
