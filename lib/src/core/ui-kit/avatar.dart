@@ -11,36 +11,61 @@ class VmAvatar extends StatelessWidget {
   const VmAvatar({
     super.key,
     required this.size,
+    this.photoUrl,
+    this.label,
   });
 
   const VmAvatar.small({
     super.key,
+    this.photoUrl,
+    this.label,
   }) : size = .small;
 
   const VmAvatar.medium({
     super.key,
+    this.photoUrl,
+    this.label,
   }) : size = .medium;
 
   const VmAvatar.large({
     super.key,
+    this.photoUrl,
+    this.label,
   }) : size = .large;
 
   final AvatarSize size;
+  final String? photoUrl;
+  final String? label;
 
   @override
   Widget build(BuildContext context) {
+    final sizeValue = _buildSize(size);
+    final url = photoUrl;
+
     return SizedBox.fromSize(
-      size: _buildSize(size),
-      child: DecoratedBox(
-        decoration: const BoxDecoration(
-          color: AppColors.neutral4,
-          shape: BoxShape.circle,
-        ),
-        child: Center(
-          child: Text(
-            'А',
-            style: TextStyle(fontSize: _buildTextSize(size)),
-          ),
+      size: sizeValue,
+      child: ClipOval(
+        child: DecoratedBox(
+          decoration: const BoxDecoration(color: AppColors.neutral4),
+          child: url == null || url.isEmpty
+              ? Center(
+                  child: Text(
+                    label?.characters.firstOrNull ?? 'А',
+                    style: TextStyle(fontSize: _buildTextSize(size)),
+                  ),
+                )
+              : Image.network(
+                  url,
+                  width: sizeValue.width,
+                  height: sizeValue.height,
+                  fit: BoxFit.cover,
+                  errorBuilder: (context, error, stackTrace) => Center(
+                    child: Text(
+                      label?.characters.firstOrNull ?? 'А',
+                      style: TextStyle(fontSize: _buildTextSize(size)),
+                    ),
+                  ),
+                ),
         ),
       ),
     );

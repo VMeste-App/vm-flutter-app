@@ -29,7 +29,15 @@ class _SexField2State extends State<SexField2> {
   late final _textController = TextEditingController(text: widget.controller.value?.name);
 
   @override
+  void initState() {
+    super.initState();
+    widget.controller.addListener(_syncText);
+    _syncText();
+  }
+
+  @override
   void dispose() {
+    widget.controller.removeListener(_syncText);
     _textController.dispose();
     super.dispose();
   }
@@ -64,6 +72,10 @@ class _SexField2State extends State<SexField2> {
         },
       ),
     );
+  }
+
+  void _syncText() {
+    _textController.text = widget.controller.value?.name ?? '';
   }
 }
 

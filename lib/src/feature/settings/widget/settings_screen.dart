@@ -4,6 +4,7 @@ import 'package:vm_app/src/core/navigator/pages.dart';
 import 'package:vm_app/src/core/ui-kit/scaffold.dart';
 import 'package:vm_app/src/core/utils/extensions/context_extension.dart';
 import 'package:vm_app/src/core/utils/extensions/locale_extension.dart';
+import 'package:vm_app/src/feature/settings/widget/about_app_screen.dart';
 import 'package:vm_app/src/feature/settings/widget/locale_screen.dart';
 import 'package:vm_app/src/feature/settings/widget/settings_scope.dart';
 import 'package:vm_app/src/feature/settings/widget/theme_mode_screen.dart';
@@ -20,8 +21,22 @@ class SettingsScreen extends StatelessWidget {
         children: [
           _ThemeModeTile(),
           _LocaleTile(),
+          _AboutAppTile(),
         ],
       ),
+    );
+  }
+}
+
+class _AboutAppTile extends StatelessWidget {
+  const _AboutAppTile();
+
+  @override
+  Widget build(BuildContext context) {
+    return ListTile(
+      title: const Text('О приложении'),
+      trailing: const Icon(Icons.chevron_right_outlined),
+      onTap: () => VmNavigator.push(context, const VmPage(child: AboutAppScreen())),
     );
   }
 }

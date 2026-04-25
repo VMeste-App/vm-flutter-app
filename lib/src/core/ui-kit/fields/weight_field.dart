@@ -8,11 +8,13 @@ class WeightField extends StatelessWidget {
     this.initial,
     this.controller,
     this.focusNode,
+    this.errorText,
   });
 
   final int? initial;
   final TextEditingController? controller;
   final FocusNode? focusNode;
+  final String? errorText;
 
   @override
   Widget build(BuildContext context) {
@@ -26,9 +28,10 @@ class WeightField extends StatelessWidget {
       autocorrect: false,
       enableSuggestions: false,
       showCounter: false,
-      decoration: const InputDecoration(
+      decoration: InputDecoration(
         suffixText: 'кг',
         hintText: '80',
+        errorText: errorText,
       ),
     );
   }

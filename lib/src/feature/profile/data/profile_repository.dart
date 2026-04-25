@@ -1,6 +1,5 @@
 import 'dart:io';
 
-import 'package:vm_app/src/core/model/typedefs.dart';
 import 'package:vm_app/src/core/network/vm_http_client.dart';
 import 'package:vm_app/src/feature/profile/model/profile.dart';
 import 'package:vm_app/src/feature/profile/model/sex.dart';
@@ -58,7 +57,10 @@ class ProfileRepository implements IProfileRepository {
 
   @override
   Future<Profile> update(Profile profile) async {
-    final response = await _client.put('/profile', body: {});
+    final response = await _client.put(
+      '/profile',
+      body: profile.toJson(),
+    );
     return _parseProfile(response);
   }
 
@@ -72,33 +74,5 @@ class ProfileRepository implements IProfileRepository {
     return _parseProfile(response);
   }
 
-  Profile _parseProfile(Json json) {
-    if (json case {
-      'id': final ProfileId id,
-      'first_name': final String firstName,
-      'last_name': final String lastName,
-      'birth_date': final String birthDate,
-      'sex': final SexId sexId,
-      'email': final String email,
-      'weight': final int? weight,
-      'height': final int? height,
-      'photo_url': final String? photoUrl,
-      'blurhash': final String? blurhash,
-    }) {
-      return Profile(
-        id: id,
-        firstName: firstName,
-        lastName: lastName,
-        birthDate: DateTime.parse(birthDate),
-        sex: Sex.byId(sexId),
-        email: email,
-        weight: weight,
-        height: height,
-        photoUrl: photoUrl,
-        blurhash: blurhash,
-      );
-    }
-
-    throw Exception('Failed to parse profile');
-  }
+  Profile _parseProfile(Map<String, Object?> json) => Profile.fromJson(json);
 }

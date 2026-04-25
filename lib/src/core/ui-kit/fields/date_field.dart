@@ -36,13 +36,13 @@ class _DateFieldState extends State<DateField> {
   @override
   void initState() {
     super.initState();
-    if (widget.controller.value case final date?) {
-      _textController.text = DateFormat.yMMMMd().format(date);
-    }
+    widget.controller.addListener(_syncText);
+    _syncText();
   }
 
   @override
   void dispose() {
+    widget.controller.removeListener(_syncText);
     _textController.dispose();
     super.dispose();
   }
@@ -80,6 +80,10 @@ class _DateFieldState extends State<DateField> {
         },
       ),
     );
+  }
+
+  void _syncText() {
+    _textController.text = widget.controller.value == null ? '' : DateFormat.yMMMMd().format(widget.controller.value!);
   }
 }
 

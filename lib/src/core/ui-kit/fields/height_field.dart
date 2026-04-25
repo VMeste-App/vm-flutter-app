@@ -8,11 +8,13 @@ class HeightField extends StatelessWidget {
     this.initial,
     this.controller,
     this.focusNode,
+    this.errorText,
   });
 
   final int? initial;
   final TextEditingController? controller;
   final FocusNode? focusNode;
+  final String? errorText;
 
   @override
   Widget build(BuildContext context) {
@@ -29,7 +31,7 @@ class HeightField extends StatelessWidget {
       decoration: const InputDecoration(
         suffixText: 'см',
         hintText: '175',
-      ),
+      ).copyWith(errorText: errorText),
     );
   }
 }
