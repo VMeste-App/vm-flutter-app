@@ -37,6 +37,8 @@ dependencies:
   # Logger
   l: ^5.0.1
 
+  flutter_skill: ^0.9.36
+
 dev_dependencies:
   flutter_test:
     sdk: flutter

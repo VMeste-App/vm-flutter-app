@@ -1,0 +1,12 @@
+sandbox_mode = "workspace-write"
+web_search = "live"
+
+[mcp_servers.flutter-skill]
+command = "flutter-skill"
+args = ["server"]
+
+[sandbox_workspace_write]
+network_access = true
+writable_roots = []
+exclude_slash_tmp = true
+exclude_tmpdir_env_var = true

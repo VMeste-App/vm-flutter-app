@@ -12,10 +12,10 @@ init:
 
 .PHONY: analyze
 analyze:
-	@fvm flutter analyze ./packages
-	@fvm dart format --set-exit-if-changed -o none -l 120 ./packages
+	@fvm flutter analyze ./lib
+	@fvm dart format --set-exit-if-changed -o none -l 120 ./lib
 
 .PHONY: fix
 fix:
-	@fvm dart format -l 120 ./packages
+	@fvm dart format -l 120 ./lib
 	@fvm dart fix --apply

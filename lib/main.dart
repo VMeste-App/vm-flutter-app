@@ -1,4 +1,6 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_skill/flutter_skill.dart';
 import 'package:l/l.dart';
 import 'package:stack_trace/stack_trace.dart';
 import 'package:vm_app/src/core/app/app.dart';
@@ -10,6 +12,7 @@ import 'package:vm_app/src/core/utils/log_util.dart';
 
 void main() async => l.capture<void>(
   () => Chain.capture(() {
+    if (kDebugMode) FlutterSkillBinding.ensureInitialized();
     runApp(const InitializationScreen());
 
     AppInitializer.run(
