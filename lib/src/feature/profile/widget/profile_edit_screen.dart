@@ -363,7 +363,7 @@ class _AvatarEditor extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final photoUrl = 'https://avatars.githubusercontent.com/u/62852417?v=4' ?? profile.photoUrl;
+    final photoUrl = profile.photoUrl;
     final heroTag = avatarHeroTag(profile.id);
 
     if (photoUrl == null || photoUrl.isEmpty) {
