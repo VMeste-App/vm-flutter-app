@@ -32,7 +32,7 @@ class SearchTab extends StatelessWidget {
       ),
       body: LazyScrollView(
         onRefresh: () async {
-          await Future.delayed(const Duration(seconds: 5));
+          await Future<void>.delayed(const Duration(seconds: 5));
         },
         child: ListView.separated(
           padding: const EdgeInsets.symmetric(horizontal: 12.0),

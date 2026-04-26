@@ -49,7 +49,7 @@ class _ActivityFieldState extends State<ActivityField> {
       context,
     ).push(MaterialPageRoute<ActivityId>(builder: (context) => ActivitiesScreen(selected: id)));
 
-    if (activityID == null) return;
+    if (!mounted || activityID == null) return;
 
     widget.onChanged?.call(activityID);
     final activity = ActivityScope.activityOf(context, activityID);

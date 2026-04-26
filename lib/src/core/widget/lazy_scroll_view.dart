@@ -117,27 +117,9 @@ class _LazyScrollViewState extends State<LazyScrollView> {
     }
 
     if (notification is ScrollUpdateNotification) {
-      // final pixels = notification.metrics.pixels;
-      // final scrollOffset = widget.endOffset;
-      // // final extentBefore = notification.metrics.extentBefore;
-      // // final extentAfter = notification.metrics.extentAfter;
-      // final scrollingDown = _scrollPosition < pixels;
-      // _scrollPosition = pixels;
-
-      // if (pixels < -widget.refreshOffset) {
-      //   _onRefresh();
-      // }
-
-      // if (scrollingDown) {
-      //   if (extentAfter <= scrollOffset) {
-      //     _onLoadMore();
-      //   }
-      // } else {
-      //   if (extentBefore <= scrollOffset) {
-      //     debugPrint('refresh');
-      //     _onRefresh();
-      //   }
-      // }
+      if (notification.metrics.extentAfter <= widget.endOffset && pixels >= 0.0) {
+        _onLoadMore();
+      }
 
       return false;
     }
@@ -195,7 +177,6 @@ class _LazyScrollViewLayoutDelegate extends MultiChildLayoutDelegate {
       BoxConstraints.loose(Size(rect.width, max(scroll, 16.0))),
     );
 
-    print(scroll);
     final refreshIndicatorBoxHeight = max(scroll, _state.value.isProcessing ? 100.0 : 0.0);
 
     positionChild(

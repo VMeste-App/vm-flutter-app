@@ -2,7 +2,6 @@ import 'dart:io';
 
 import 'package:vm_app/src/core/network/vm_http_client.dart';
 import 'package:vm_app/src/feature/profile/model/profile.dart';
-import 'package:vm_app/src/feature/profile/model/sex.dart';
 
 abstract interface class IProfileRepository {
   /// {@template profile.byId}
@@ -33,18 +32,6 @@ class ProfileRepository implements IProfileRepository {
 
   @override
   Future<Profile> getProfileById(ProfileId id) async {
-    return Profile(
-      id: id,
-      firstName: 'Иван',
-      lastName: 'Иванов',
-      birthDate: DateTime(1988),
-      sex: Sex.male,
-      email: 'test2@gmail.com',
-      weight: 80,
-      height: 190,
-      aboutMe: 'about me',
-    );
-
     final response = await _client.get('/profile/{$id}');
     return _parseProfile(response);
   }

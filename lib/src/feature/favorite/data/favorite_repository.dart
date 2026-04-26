@@ -88,19 +88,19 @@ class FavoriteRepository$Profile implements IFavoriteRepository$Profile {
 
   @override
   Future<Set<ProfileId>> getIds() async {
-    return {};
+    return _localDs.getIds();
   }
 
   @override
-  Future<Set<ProfileId>> add(VmEventId id) async {
+  Future<Set<ProfileId>> add(ProfileId id) async {
     await _httpClient.post('/profiles/favorite/add/$id');
-    return {};
+    return _localDs.add(id);
   }
 
   @override
-  Future<Set<ProfileId>> remove(VmEventId id) async {
+  Future<Set<ProfileId>> remove(ProfileId id) async {
     await _httpClient.post('/profiles/favorite/remove/$id');
-    return {};
+    return _localDs.remove(id);
   }
 }
 
@@ -125,18 +125,18 @@ class FavoriteRepository$Place implements IFavoriteRepository$Place {
 
   @override
   Future<Set<PlaceId>> getIds() async {
-    return {};
+    return _localDs.getIds();
   }
 
   @override
-  Future<Set<PlaceId>> add(VmEventId id) async {
+  Future<Set<PlaceId>> add(PlaceId id) async {
     await _httpClient.post('/profiles/favorite/add/$id');
-    return {};
+    return _localDs.add(id);
   }
 
   @override
-  Future<Set<PlaceId>> remove(VmEventId id) async {
+  Future<Set<PlaceId>> remove(PlaceId id) async {
     await _httpClient.post('/profiles/favorite/remove/$id');
-    return {};
+    return _localDs.remove(id);
   }
 }

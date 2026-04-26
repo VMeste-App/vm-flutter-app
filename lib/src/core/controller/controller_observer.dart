@@ -17,11 +17,10 @@ final class ControllerObserver implements IControllerObserver {
 
   @override
   void onStateChanged<S extends Object>(StateController<S> controller, S prevState, S nextState) {
-    final buffer =
-        StringBuffer()
-          ..writeln('Controller | ${controller.runtimeType} | ${prevState.runtimeType} -> ${nextState.runtimeType}')
-          ..writeln('Previous State: $prevState')
-          ..writeln('New State: $nextState');
+    final buffer = StringBuffer()
+      ..writeln('Controller | ${controller.runtimeType} | ${prevState.runtimeType} -> ${nextState.runtimeType}')
+      ..writeln('Previous State: $prevState')
+      ..writeln('New State: $nextState');
 
     l.i(buffer.toString());
   }

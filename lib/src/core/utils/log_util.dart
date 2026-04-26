@@ -36,25 +36,23 @@ abstract base class LogUtils {
   static String formatError(String message, Object error, StackTrace? stackTrace) {
     final trace = stackTrace ?? StackTrace.current;
 
-    final buffer =
-        StringBuffer(message)
-          ..write(' error: ')
-          ..writeln(error)
-          ..writeln('Stack trace:')
-          ..write(Trace.from(trace).terse);
+    final buffer = StringBuffer(message)
+      ..write(' error: ')
+      ..writeln(error)
+      ..writeln('Stack trace:')
+      ..write(Trace.from(trace).terse);
 
     return buffer.toString();
   }
 
   // TODO: Use this.
   static String formatLogMessage(LogMessage log) {
-    final buffer =
-        StringBuffer()
-          ..write(log.level.emoji)
-          ..write(' ')
-          ..write(log.timestamp.formatTime())
-          ..write(' | ')
-          ..write(log.message);
+    final buffer = StringBuffer()
+      ..write(log.level.emoji)
+      ..write(' ')
+      ..write(log.timestamp.formatTime())
+      ..write(' | ')
+      ..write(log.message);
 
     return buffer.toString();
   }

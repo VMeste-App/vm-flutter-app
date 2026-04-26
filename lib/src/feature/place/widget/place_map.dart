@@ -79,7 +79,7 @@ class _PlaceMapScreenState extends State<PlaceMapScreen> {
 }
 
 class _ZoomControl extends StatelessWidget {
-  const _ZoomControl({super.key});
+  const _ZoomControl();
 
   @override
   Widget build(BuildContext context) {

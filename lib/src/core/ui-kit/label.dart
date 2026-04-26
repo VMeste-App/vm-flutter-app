@@ -42,9 +42,15 @@ class VmLabel extends StatelessWidget {
             ),
           Padding(padding: EdgeInsets.zero, child: child),
           if (hint != null)
-            Padding(padding: EdgeInsets.zero, child: DefaultTextStyle(style: const TextStyle(), child: hint!)),
+            Padding(
+              padding: EdgeInsets.zero,
+              child: DefaultTextStyle(style: const TextStyle(), child: hint!),
+            ),
           if (error != null)
-            Padding(padding: EdgeInsets.zero, child: DefaultTextStyle(style: const TextStyle(), child: error!)),
+            Padding(
+              padding: EdgeInsets.zero,
+              child: DefaultTextStyle(style: const TextStyle(), child: error!),
+            ),
         ],
       ),
     );

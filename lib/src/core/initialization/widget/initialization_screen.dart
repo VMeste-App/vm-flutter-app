@@ -6,6 +6,8 @@ class InitializationScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // TODO: implement initialization screen.
-    return const Material(child: Directionality(textDirection: TextDirection.ltr, child: Scaffold()));
+    return const Material(
+      child: Directionality(textDirection: TextDirection.ltr, child: Scaffold()),
+    );
   }
 }

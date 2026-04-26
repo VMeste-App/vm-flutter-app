@@ -257,8 +257,6 @@ Before finishing code changes, run the relevant checks for the touched surface.
 
 ### Analyzer Baseline
 
-As of `2026-04-25`, `fvm flutter analyze` already reports 9 existing issues in the repository.
-
 - Do not add new warnings or errors beyond the current baseline.
 - If touching a file that already has diagnostics, avoid making the signal worse.
 - Do not mix unrelated warning cleanup into feature work unless it is required for the task.

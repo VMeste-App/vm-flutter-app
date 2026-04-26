@@ -35,7 +35,7 @@ final class VmEventCreateController extends VmController<VmEventCreateState> {
   void create(VmEvent$Create event) => handle(
     () async {
       setState(state.processing());
-      await Future.delayed(const Duration(seconds: 5));
+      await Future<void>.delayed(const Duration(seconds: 5));
       // await _repository.create(event);
       setState(state.success());
     },
