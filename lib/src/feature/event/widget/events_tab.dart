@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:vm_app/src/core/initialization/fake/data/fake_data.dart';
 import 'package:vm_app/src/core/navigator/navigator.dart';
 import 'package:vm_app/src/core/navigator/pages.dart';
 import 'package:vm_app/src/core/ui-kit/scaffold.dart';
-import 'package:vm_app/src/feature/event/model/event.dart';
 import 'package:vm_app/src/feature/event/widget/event_card.dart';
 
 class EventsTab extends StatefulWidget {
@@ -48,12 +48,12 @@ class _EventsTabState extends State<EventsTab> with SingleTickerProviderStateMix
             itemCount: 10,
             separatorBuilder: (context, index) => const SizedBox(height: 12.0),
             itemBuilder: (context, index) {
-              final event = fakeEvent;
+              final event = FakeData.events[index % FakeData.events.length];
 
               return VmEventCard(
                 key: ValueKey(event.id),
                 onPressed: () => VmNavigator.push(context, VmEventPage(id: event.id)),
-                event: fakeEvent,
+                event: event,
               );
             },
           ),
@@ -62,12 +62,12 @@ class _EventsTabState extends State<EventsTab> with SingleTickerProviderStateMix
             itemCount: 10,
             separatorBuilder: (context, index) => const SizedBox(height: 12.0),
             itemBuilder: (context, index) {
-              final event = fakeEvent;
+              final event = FakeData.events[index % FakeData.events.length];
 
               return VmEventCard(
                 key: ValueKey(event.id),
                 onPressed: () => VmNavigator.push(context, VmEventPage(id: event.id)),
-                event: fakeEvent,
+                event: event,
               );
             },
           ),

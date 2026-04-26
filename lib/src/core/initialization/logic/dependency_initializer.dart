@@ -3,16 +3,11 @@ import 'dart:async';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:vm_app/src/core/config/config.dart';
 import 'package:vm_app/src/core/di/dependencies.dart';
+import 'package:vm_app/src/core/initialization/logic/dependency_factory.dart';
 import 'package:vm_app/src/core/network/vm_http_client_factory.dart';
 import 'package:vm_app/src/core/network/vm_http_client_options.dart';
 import 'package:vm_app/src/feature/auth/controller/auth_controller.dart';
-import 'package:vm_app/src/feature/auth/data/auth_repository.dart';
-import 'package:vm_app/src/feature/event/data/vm_event_repository.dart';
 import 'package:vm_app/src/feature/favorite/controller/favorite_controller.dart';
-import 'package:vm_app/src/feature/favorite/data/favorite_local_data_source.dart';
-import 'package:vm_app/src/feature/favorite/data/favorite_repository.dart';
-import 'package:vm_app/src/feature/place/data/place_repository.dart';
-import 'package:vm_app/src/feature/profile/data/profile_repository.dart';
 import 'package:vm_app/src/feature/settings/controller/settings_controller.dart';
 import 'package:vm_app/src/feature/settings/data/locale_data_provider.dart';
 import 'package:vm_app/src/feature/settings/data/locale_repository.dart';
@@ -30,10 +25,14 @@ abstract base class DependencyInitializer {
     );
 
     final sharedPreferences = SharedPreferencesAsync();
+    final dependencyFactory = DependencyFactory(
+      environment: AppConfig.environment,
+      client: client,
+      sharedPreferences: sharedPreferences,
+    );
 
     /// --- Authentication ---
-    final authRepository = FakeAuthRepository();
-    // AuthRepository(client: client, storage: sharedPreferences);
+    final authRepository = dependencyFactory.createAuthRepository();
     final user = await authRepository.restore();
     final authController = AuthController(authRepository: authRepository, user: user);
 
@@ -51,28 +50,19 @@ abstract base class DependencyInitializer {
       initialSettings: settings,
     );
 
-    // Events
-    final eventRepository = VmEventRepository(client: client, sp: sharedPreferences);
-    final eventFavoriteRepo = FavoriteRepository$Event(
-      httpClient: client,
-      localDs: FavoriteLocalDataSource('event', sp: sharedPreferences),
-    );
+    /// --- Events ---
+    final eventRepository = dependencyFactory.createEventRepository();
+    final eventFavoriteRepo = dependencyFactory.createEventFavoriteRepository();
     final eventFavoriteController = FavoriteController$Event(repository: eventFavoriteRepo);
 
-    // Profile
-    final profileRepository = ProfileRepository(client: client);
-    final profileFavoriteRepo = FavoriteRepository$Profile(
-      httpClient: client,
-      localDs: FavoriteLocalDataSource('profile', sp: sharedPreferences),
-    );
+    /// --- Profile ---
+    final profileRepository = dependencyFactory.createProfileRepository();
+    final profileFavoriteRepo = dependencyFactory.createProfileFavoriteRepository();
     final profileFavoriteController = FavoriteController$Profile(repository: profileFavoriteRepo);
 
-    // Places
-    final placeRepository = PlaceRepository(client: client);
-    final placeFavoriteRepo = FavoriteRepository$Place(
-      httpClient: client,
-      localDs: FavoriteLocalDataSource('place', sp: sharedPreferences),
-    );
+    /// --- Places ---
+    final placeRepository = dependencyFactory.createPlaceRepository();
+    final placeFavoriteRepo = dependencyFactory.createPlaceFavoriteRepository();
     final placeFavoriteController = FavoriteController$Place(repository: placeFavoriteRepo);
 
     return Dependencies(

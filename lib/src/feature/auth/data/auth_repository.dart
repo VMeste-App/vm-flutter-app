@@ -113,22 +113,3 @@ final class AuthRepository implements IAuthRepository {
     await userEntry.remove();
   }
 }
-
-final class FakeAuthRepository implements IAuthRepository {
-  @override
-  Future<User?> restore() => _fakeUser;
-
-  @override
-  Future<User> signUp(SignUpRequest request) => _fakeUser;
-
-  @override
-  Future<User> signIn(SignInRequest request) => _fakeUser;
-
-  @override
-  Future<void> signOut() => Future.value();
-
-  Future<User> get _fakeUser => Future.value(const User(id: 1, email: 'fake@example.com'));
-
-  @override
-  Future<void> deleteAccount() => Future.value();
-}

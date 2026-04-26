@@ -4,9 +4,8 @@
     // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
     "version": "0.2.0",
     "configurations": [
-    
         {
-            "name": "vm-flutter-client",
+            "name": "vm-flutter-client (test)",
             "request": "launch",
             "type": "dart",
             "args": [
@@ -14,16 +13,30 @@
             ]
         },
         {
+            "name": "vm-flutter-client (fake)",
+            "request": "launch",
+            "type": "dart",
+            "args": [
+                "--dart-define-from-file=environment/fake.env"
+            ]
+        },
+        {
             "name": "vm-flutter-client (profile mode)",
             "request": "launch",
             "type": "dart",
-            "flutterMode": "profile"
+            "flutterMode": "profile",
+            "args": [
+                "--dart-define-from-file=environment/fake.env"
+            ]
         },
         {
             "name": "vm-flutter-client (release mode)",
             "request": "launch",
             "type": "dart",
-            "flutterMode": "release"
+            "flutterMode": "release",
+            "args": [
+                "--dart-define-from-file=environment/fake.env"
+            ]
         }
     ]
 }

@@ -188,19 +188,3 @@ class VmEvent$Draft {
     'description': description,
   };
 }
-
-// TODO: Удалить
-final fakeEvent = VmEvent(
-  id: 1,
-  title: 'Футбольный матч в парке Горького',
-  activityId: 2,
-  level: SkillLevel.beginner,
-  membersQtyUp: 10,
-  membersQtyTo: 20,
-  participantCategory: EventMembersType.male,
-  membersAgeUp: 18,
-  membersAgeTo: 60,
-  dt: DateTime.now(),
-  duration: const Duration(hours: 2),
-  cost: 1000,
-);
