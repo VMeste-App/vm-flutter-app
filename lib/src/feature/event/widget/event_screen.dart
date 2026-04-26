@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:vm_app/src/core/ui-kit/scaffold.dart';
+import 'package:ui_kit/ui_kit.dart';
 import 'package:vm_app/src/feature/event/model/event.dart';
 
 class VmEventScreen extends StatelessWidget {

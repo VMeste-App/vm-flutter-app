@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:ui_kit/ui_kit.dart';
 import 'package:vm_app/src/core/l10n/app_localization.dart';
 import 'package:vm_app/src/core/navigator/navigator.dart';
 import 'package:vm_app/src/core/navigator/observer.dart';
 import 'package:vm_app/src/core/navigator/pages.dart';
-import 'package:vm_app/src/core/theme/theme.dart';
 import 'package:vm_app/src/feature/auth/widget/auth_guard.dart';
 import 'package:vm_app/src/feature/auth/widget/authentication_scope.dart';
 import 'package:vm_app/src/feature/favorite/widget/scope/favorite_scope.dart';
@@ -36,8 +36,8 @@ class _VmAppState extends State<VmApp> {
             supportedLocales: AppLocalization.supportedLocales,
             locale: locale,
             themeMode: themeMode,
-            theme: AppTheme().lightTheme,
-            darkTheme: AppTheme().darkTheme,
+            theme: VmTheme().lightTheme,
+            darkTheme: VmTheme().darkTheme,
             builder: (context, child) => MediaQuery.withNoTextScaling(
               child: HeroControllerScope(
                 controller: HeroController(),

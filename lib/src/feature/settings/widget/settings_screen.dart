@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:ui_kit/ui_kit.dart';
 import 'package:vm_app/src/core/navigator/navigator.dart';
 import 'package:vm_app/src/core/navigator/pages.dart';
-import 'package:vm_app/src/core/ui-kit/scaffold.dart';
 import 'package:vm_app/src/core/utils/extensions/context_extension.dart';
 import 'package:vm_app/src/core/utils/extensions/locale_extension.dart';
 import 'package:vm_app/src/feature/settings/widget/about_app_screen.dart';

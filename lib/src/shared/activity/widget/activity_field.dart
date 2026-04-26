@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:vm_app/src/core/ui-kit/text_field.dart';
+import 'package:ui_kit/ui_kit.dart';
 import 'package:vm_app/src/shared/activity/model/activity.dart';
 import 'package:vm_app/src/shared/activity/widget/activities_screen.dart';
 import 'package:vm_app/src/shared/activity/widget/activity_scope.dart';

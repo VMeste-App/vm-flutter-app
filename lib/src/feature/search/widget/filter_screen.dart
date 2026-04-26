@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:vm_app/src/core/ui-kit/button.dart';
-import 'package:vm_app/src/core/ui-kit/scaffold.dart';
+import 'package:ui_kit/ui_kit.dart';
 
 class FilterScreen extends StatefulWidget {
   const FilterScreen({super.key});

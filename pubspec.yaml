@@ -1,5 +1,5 @@
 name: vm_app
-description: "VMeste App Flutter client"
+description: "VM App Flutter client"
 publish_to: 'none'
 version: 0.1.0
 
@@ -10,6 +10,8 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  ui_kit:
+    path: packages/ui_kit
 
   # Core
   async: any
@@ -44,22 +46,11 @@ dependencies:
 dev_dependencies:
   flutter_test:
     sdk: flutter
-  flutter_lints: ^6.0.0
+  vm_lints:
+    path: packages/vm_lints
 
 flutter:
   uses-material-design: true
 
   # Enable generation of localized Strings from arb files
   generate: true
-
-  fonts:
-    - family: Inter
-      fonts:
-        - asset: assets/fonts/Inter-VariableFont_opsz,wght.ttf
-          weight: 400
-        - asset: assets/fonts/Inter-Italic-VariableFont_opsz,wght.ttf
-          weight: 400
-          style: italic
-
-  shaders:
-    - lib/src/core/ui-kit/shimmer/shimmer.frag

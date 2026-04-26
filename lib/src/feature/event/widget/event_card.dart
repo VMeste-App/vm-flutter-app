@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:vm_app/src/core/theme/colors.dart';
-import 'package:vm_app/src/core/ui-kit/avatar.dart';
-import 'package:vm_app/src/core/ui-kit/fields/duration_field.dart';
+import 'package:ui_kit/ui_kit.dart';
 import 'package:vm_app/src/feature/event/model/event.dart';
 import 'package:vm_app/src/feature/favorite/widget/scope/favorite_event_scope.dart';
 
@@ -18,11 +16,13 @@ class VmEventCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final colors = VmThemeColors.of(context);
+
     return InkWell(
       onTap: onPressed,
       child: Card.outlined(
         shape: RoundedRectangleBorder(
-          side: const BorderSide(color: AppColors.neutral4, width: 2),
+          side: BorderSide(color: colors.border, width: 2),
           borderRadius: BorderRadius.circular(16),
         ),
         child: Padding(
@@ -179,10 +179,12 @@ class _Chip extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final colors = VmThemeColors.of(context);
+
     return DecoratedBox(
-      decoration: const BoxDecoration(
-        borderRadius: BorderRadius.all(Radius.circular(10.0)),
-        color: AppColors.neutral3,
+      decoration: BoxDecoration(
+        borderRadius: const BorderRadius.all(Radius.circular(10.0)),
+        color: colors.surfaceHigh,
       ),
       child: Padding(
         padding: const EdgeInsets.symmetric(vertical: 4.0, horizontal: 10.0),
@@ -197,37 +199,39 @@ class _Members extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Column(
+    final colors = VmThemeColors.of(context);
+
+    return Column(
       children: [
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Text(
+            const Text(
               '8 из 10 участников',
               style: TextStyle(color: Colors.grey),
             ),
-            Text('Осталось 2', style: TextStyle(color: AppColors.orange1)),
+            Text('Осталось 2', style: TextStyle(color: colors.warning)),
           ],
         ),
-        SizedBox(height: 8.0),
+        const SizedBox(height: 8.0),
         Stack(
           children: [
             DecoratedBox(
               decoration: BoxDecoration(
-                borderRadius: BorderRadius.all(Radius.circular(16.0)),
-                color: AppColors.neutral3,
+                borderRadius: const BorderRadius.all(Radius.circular(16.0)),
+                color: colors.surfaceHigh,
               ),
-              child: SizedBox(
+              child: const SizedBox(
                 width: double.infinity,
                 height: 8.0,
               ),
             ),
             DecoratedBox(
               decoration: BoxDecoration(
-                borderRadius: BorderRadius.all(Radius.circular(16.0)),
-                color: AppColors.orange1,
+                borderRadius: const BorderRadius.all(Radius.circular(16.0)),
+                color: colors.warning,
               ),
-              child: SizedBox(
+              child: const SizedBox(
                 width: 200,
                 height: 8.0,
               ),

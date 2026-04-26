@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:ui_kit/ui_kit.dart';
 import 'package:vm_app/src/core/constants/regexp.dart';
-import 'package:vm_app/src/core/ui-kit/button.dart';
-import 'package:vm_app/src/core/ui-kit/scaffold.dart';
 import 'package:vm_app/src/feature/auth/widget/authentication_scope.dart';
 import 'package:vm_app/src/feature/auth/widget/components/email_field.dart';
 import 'package:vm_app/src/feature/auth/widget/components/password_field.dart';

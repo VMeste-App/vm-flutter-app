@@ -1,0 +1,39 @@
+import 'package:flutter/material.dart';
+
+/// {@template safe_scaffold}
+/// SafeScaffold widget.
+/// {@endtemplate}
+class VmScaffold extends StatelessWidget {
+  /// {@macro safe_scaffold}
+  const VmScaffold({
+    super.key,
+    this.appBar,
+    this.backgroundColor,
+    required this.body,
+    this.persistentFooterButtons,
+    this.bottomNavigationBar,
+    this.floatingActionButton,
+    this.floatingActionButtonLocation,
+  });
+
+  final PreferredSizeWidget? appBar;
+  final Color? backgroundColor;
+  final Widget body;
+  final List<Widget>? persistentFooterButtons;
+  final Widget? bottomNavigationBar;
+  final Widget? floatingActionButton;
+  final FloatingActionButtonLocation? floatingActionButtonLocation;
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: backgroundColor ?? Theme.of(context).scaffoldBackgroundColor,
+      appBar: appBar,
+      body: SafeArea(child: body),
+      persistentFooterButtons: (persistentFooterButtons?.isEmpty ?? true) ? null : persistentFooterButtons,
+      bottomNavigationBar: bottomNavigationBar,
+      floatingActionButton: floatingActionButton,
+      floatingActionButtonLocation: floatingActionButtonLocation,
+    );
+  }
+}

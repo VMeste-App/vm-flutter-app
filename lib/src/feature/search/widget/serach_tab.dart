@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:ui_kit/ui_kit.dart';
 import 'package:vm_app/src/core/initialization/fake/data/fake_data.dart';
 import 'package:vm_app/src/core/navigator/navigator.dart';
 import 'package:vm_app/src/core/navigator/pages.dart';
-import 'package:vm_app/src/core/ui-kit/scaffold.dart';
 import 'package:vm_app/src/core/widget/lazy_scroll_view.dart';
 import 'package:vm_app/src/feature/event/widget/event_card.dart';
 

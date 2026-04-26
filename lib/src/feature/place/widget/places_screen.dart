@@ -1,13 +1,9 @@
 import 'package:control/control.dart';
 import 'package:flutter/material.dart';
+import 'package:ui_kit/ui_kit.dart';
 import 'package:vm_app/src/core/di/dependencies.dart';
 import 'package:vm_app/src/core/navigator/navigator.dart';
 import 'package:vm_app/src/core/navigator/pages.dart';
-import 'package:vm_app/src/core/theme/colors.dart';
-import 'package:vm_app/src/core/ui-kit/avatar.dart';
-import 'package:vm_app/src/core/ui-kit/button.dart';
-import 'package:vm_app/src/core/ui-kit/fields/search_field.dart';
-import 'package:vm_app/src/core/ui-kit/scaffold.dart';
 import 'package:vm_app/src/feature/place/controller/list/place_list_controller.dart';
 import 'package:vm_app/src/feature/place/model/place_filter.dart';
 import 'package:vm_app/src/shared/activity/model/activity.dart';
@@ -58,6 +54,7 @@ class _PlacesScreenState extends State<PlacesScreen> {
                   itemCount: state.locations.length,
                   itemBuilder: (context, index) {
                     final location = state.locations[index];
+                    final colors = VmThemeColors.of(context);
 
                     return ListTile(
                       key: ValueKey(location.id),
@@ -71,14 +68,14 @@ class _PlacesScreenState extends State<PlacesScreen> {
                       subtitle: Text(location.address),
                       trailing: GestureDetector(
                         onTap: () => VmNavigator.push(context, VmPlacePage(id: 1)),
-                        child: const SizedBox.square(
+                        child: SizedBox.square(
                           dimension: 40.0,
                           child: DecoratedBox(
                             decoration: BoxDecoration(
-                              color: AppColors.neutral3,
+                              color: colors.surfaceHigh,
                               shape: BoxShape.circle,
                             ),
-                            child: Center(child: Icon(Icons.info_outline_rounded)),
+                            child: const Center(child: Icon(Icons.info_outline_rounded)),
                           ),
                         ),
                       ),

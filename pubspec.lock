@@ -167,7 +167,7 @@ packages:
     source: sdk
     version: "0.0.0"
   flutter_lints:
-    dependency: "direct dev"
+    dependency: transitive
     description:
       name: flutter_lints
       sha256: "3105dc8492f6183fb076ccf1f351ac3d60564bff92e20bfc4af9cc1651f4e7e1"
@@ -610,6 +610,13 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.4.0"
+  ui_kit:
+    dependency: "direct main"
+    description:
+      path: "packages/ui_kit"
+      relative: true
+    source: path
+    version: "0.0.1"
   uuid:
     dependency: transitive
     description:
@@ -626,6 +633,13 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.2.0"
+  vm_lints:
+    dependency: "direct dev"
+    description:
+      path: "packages/vm_lints"
+      relative: true
+    source: path
+    version: "0.0.1"
   vm_service:
     dependency: transitive
     description:
@@ -675,5 +689,5 @@ packages:
     source: hosted
     version: "4.30.0-beta"
 sdks:
-  dart: ">=3.11.0 <4.0.0"
+  dart: ">=3.11.3 <4.0.0"
   flutter: ">=3.41.0 <4.0.0"

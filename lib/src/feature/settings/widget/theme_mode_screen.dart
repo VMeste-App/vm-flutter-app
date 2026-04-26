@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:vm_app/src/core/ui-kit/picker_group.dart';
-import 'package:vm_app/src/core/ui-kit/scaffold.dart';
+import 'package:ui_kit/ui_kit.dart';
 import 'package:vm_app/src/core/utils/extensions/context_extension.dart';
 import 'package:vm_app/src/feature/settings/widget/settings_scope.dart';
 

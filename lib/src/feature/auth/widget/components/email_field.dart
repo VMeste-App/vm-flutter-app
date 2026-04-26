@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:vm_app/src/core/ui-kit/label.dart';
-import 'package:vm_app/src/core/ui-kit/text_field.dart';
+import 'package:ui_kit/ui_kit.dart';
 
 class EmailField extends StatelessWidget {
   const EmailField({

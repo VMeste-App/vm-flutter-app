@@ -3,21 +3,13 @@ import 'dart:io';
 import 'package:control/control.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:ui_kit/ui_kit.dart';
 import 'package:vm_app/src/core/di/dependencies.dart';
 import 'package:vm_app/src/core/navigator/navigator.dart';
-import 'package:vm_app/src/core/ui-kit/avatar.dart';
-import 'package:vm_app/src/core/ui-kit/button.dart';
-import 'package:vm_app/src/core/ui-kit/fields/date_field.dart';
-import 'package:vm_app/src/core/ui-kit/fields/height_field.dart';
-import 'package:vm_app/src/core/ui-kit/fields/sex_field.dart';
-import 'package:vm_app/src/core/ui-kit/fields/weight_field.dart';
-import 'package:vm_app/src/core/ui-kit/label.dart';
-import 'package:vm_app/src/core/ui-kit/loader.dart';
-import 'package:vm_app/src/core/ui-kit/scaffold.dart';
-import 'package:vm_app/src/core/ui-kit/text_field.dart';
 import 'package:vm_app/src/feature/profile/controller/profile_controller.dart';
 import 'package:vm_app/src/feature/profile/controller/profile_state.dart';
 import 'package:vm_app/src/feature/profile/model/profile.dart';
+import 'package:vm_app/src/feature/profile/model/sex.dart';
 import 'package:vm_app/src/feature/profile/widget/avatar_preview_screen.dart';
 
 class ProfileEditScreen extends StatefulWidget {
@@ -43,7 +35,7 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
   final _lastName = TextEditingController();
   final _email = TextEditingController();
   final _birthDate = DateController();
-  final _sex = SexController();
+  final _sex = SexController<Sex>();
   final _height = TextEditingController();
   final _weight = TextEditingController();
   final _aboutMe = TextEditingController();
@@ -215,6 +207,8 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
             title: const Text('Пол'),
             child: SexField2(
               controller: _sex,
+              items: Sex.values,
+              labelBuilder: _sexLabel,
               errorText: _sexError,
             ),
           ),
@@ -348,6 +342,11 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
       aboutMe: _aboutMe.text.trim().isEmpty ? null : _aboutMe.text.trim(),
     );
   }
+
+  String _sexLabel(Sex sex) => switch (sex) {
+    Sex.male => 'Мужской',
+    Sex.female => 'Женский',
+  };
 }
 
 class _AvatarEditor extends StatelessWidget {

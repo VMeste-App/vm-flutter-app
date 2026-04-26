@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:ui_kit/ui_kit.dart';
 import 'package:vm_app/src/core/navigator/navigator.dart';
-import 'package:vm_app/src/core/ui-kit/button.dart';
 import 'package:yandex_maps_mapkit_lite/mapkit.dart' hide Icon;
 import 'package:yandex_maps_mapkit_lite/mapkit_factory.dart';
 import 'package:yandex_maps_mapkit_lite/yandex_map.dart';

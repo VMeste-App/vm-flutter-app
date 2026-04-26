@@ -1,12 +1,9 @@
 import 'package:control/control.dart';
 import 'package:flutter/material.dart';
+import 'package:ui_kit/ui_kit.dart';
 import 'package:vm_app/src/core/di/dependencies.dart';
 import 'package:vm_app/src/core/navigator/navigator.dart';
 import 'package:vm_app/src/core/navigator/pages.dart';
-import 'package:vm_app/src/core/ui-kit/avatar.dart';
-import 'package:vm_app/src/core/ui-kit/button.dart';
-import 'package:vm_app/src/core/ui-kit/loader.dart';
-import 'package:vm_app/src/core/ui-kit/scaffold.dart';
 import 'package:vm_app/src/feature/auth/widget/authentication_scope.dart';
 import 'package:vm_app/src/feature/profile/controller/profile_controller.dart';
 import 'package:vm_app/src/feature/profile/controller/profile_state.dart';

@@ -1,0 +1,10 @@
+name: vm_lints
+description: Shared analyzer and lint rules for VMeste Flutter packages.
+version: 0.0.1
+publish_to: 'none'
+
+environment:
+  sdk: ^3.11.3
+
+dependencies:
+  flutter_lints: ^6.0.0

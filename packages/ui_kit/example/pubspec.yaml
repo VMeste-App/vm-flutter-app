@@ -1,0 +1,25 @@
+name: ui_kit_example
+description: UI kit component showcase.
+publish_to: 'none'
+version: 0.0.1
+
+environment:
+  sdk: ^3.11.3
+  flutter: ^3.41.0
+
+dependencies:
+  cupertino_icons: ^1.0.8
+  flutter:
+    sdk: flutter
+  ui_kit:
+    path: ..
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^6.0.0
+  vm_lints:
+    path: ../../vm_lints
+
+flutter:
+  uses-material-design: true
